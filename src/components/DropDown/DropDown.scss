@@ -1,0 +1,46 @@
+.dropDown {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  font-size: 0;
+  position: relative;
+
+  & > * {
+    align-self: flex-start;
+  }
+
+  span {
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px 10px;
+    flex: 0 1 auto;
+  }
+
+  select {
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px 10px;
+    flex: 1 1 auto;
+    margin-left: -1px;
+    font-family: inherit;
+    font-weight: normal;
+    cursor: pointer;
+  }
+
+  svg {
+    width: 12px;
+    position: absolute;
+    pointer-events: none;
+    right: 8px;
+    top: 8px;
+  }
+}

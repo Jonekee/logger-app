@@ -2,6 +2,7 @@ const LOAD = 'redux-example/groups/LOAD';
 const LOAD_SUCCESS = 'redux-example/groups/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/groups/LOAD_FAIL';
 const TOGGLE_NAV_GROUP_OPEN = 'redux-example/groups/TOGGLE_NAV_GROUP_OPEN';
+const TOGGLE_LOG_EXTRA_ACTIONS_OPEN = 'redux-example/groups/TOGGLE_LOG_EXTRA_ACTIONS_OPEN';
 
 const initialState = {
   loaded: false
@@ -33,9 +34,28 @@ export default function reducer(state = initialState, action = {}) {
     case TOGGLE_NAV_GROUP_OPEN:
       return {
         ...state,
-        data: state.data.map(group =>
-          group.name === action.groupName
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
             ? { ...group, navOpen: !group.navOpen }
+            : group
+        )
+      };
+    case TOGGLE_LOG_EXTRA_ACTIONS_OPEN:
+      return {
+        ...state,
+        data: state.data.map((group, groupId) =>
+          groupId === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              logs: group.logs.map((log, logId) =>
+                logId === parseInt(action.logId, 10)
+                  ? {
+                    ...log,
+                    extraActionsOpen: !log.extraActionsOpen
+                  }
+                  : log
+              )
+            }
             : group
         )
       };
@@ -55,9 +75,17 @@ export function load() {
   };
 }
 
-export function toggleNavGroupOpen(groupName) {
+export function toggleNavGroupOpen(groupId) {
   return {
     type: TOGGLE_NAV_GROUP_OPEN,
-    groupName
+    groupId
+  };
+}
+
+export function toggleLogExtraActionsOpen(groupId, logId) {
+  return {
+    type: TOGGLE_LOG_EXTRA_ACTIONS_OPEN,
+    groupId,
+    logId
   };
 }

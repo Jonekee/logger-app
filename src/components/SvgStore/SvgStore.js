@@ -38,6 +38,10 @@ export default class SvgStore extends Component {
               <title>stop</title>
               <path className="path1" d="M1194.501 1023.999h-1024v-1024h1024v1024z"></path>
             </symbol>
+            <symbol id="icon-menu-down" viewBox="0 0 1365 1024">
+              <title>menu-down</title>
+              <path className="path1" d="M-0.165 170.667l682.666 682.666 682.666-682.666h-1365.333z"></path>
+            </symbol>
           </defs>
         </svg>
       </div>

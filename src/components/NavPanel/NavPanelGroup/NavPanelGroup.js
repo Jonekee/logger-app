@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import { toggleNavGroupOpen } from 'redux/modules/groups';
 
 @connect(
-  state => ({count: state.count}),
+  null,
   {toggleNavGroupOpen})
 export default class NavPanelGroup extends Component {
   static propTypes = {
@@ -34,7 +34,7 @@ export default class NavPanelGroup extends Component {
   updateListHeight = () => {
     // Only run this on the client WHEN the CSS has loaded, having to detect the padding to know this :(
     if (__CLIENT__) {
-      if (window.getComputedStyle(this.refs.list.firstElementChild.firstElementChild).padding !== '0px') {
+      if (!!this.refs.list && (window.getComputedStyle(this.refs.list.firstElementChild.firstElementChild).padding !== '0px')) {
         // Have to convert list.children from HTMLCollection to a normal Array so that we can .reduce it
         const listContentsHeight = [].slice.call(this.refs.list.children).reduce((sum, listItem) => (sum + listItem.offsetHeight), 0);
         if (this.state.listHeight !== listContentsHeight) {
@@ -63,7 +63,7 @@ export default class NavPanelGroup extends Component {
               <h3>{group.name}</h3>
             </Link>
           </div>
-          <button onClick={toggleNavGroupOpen.bind(null, group.name)} className={group.navOpen ? '' : styles.closed}>
+          <button onClick={toggleNavGroupOpen.bind(null, groupId)} className={group.navOpen ? '' : styles.closed}>
             <Icon iconName="chevron-down"/>
           </button>
         </header>

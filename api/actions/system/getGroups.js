@@ -7,6 +7,7 @@ export default function getGroups() {
       navOpen: true,
       logs: group.logs.map(log => ({
         ...log,
+        extraActionsOpen: false,
         active: 'INACTIVE'
       }))
     })));

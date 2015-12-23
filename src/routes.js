@@ -76,7 +76,11 @@ export default (store) => {
       <Route path="dashboard" component={Dashboard} onEnter={requireLoggedInOrNoAuth}>
         <IndexRoute component={DashboardHome}/>
         <Route path="group/:groupId" component={Group}/>
-        <Route path="group/:groupId/log/:logId" component={Log}/>
+        <Route path="group/:groupId/log/:logId" component={Log}>
+          <IndexRoute component={Widgets}/>
+          <Route path="output" component={Widgets}/>
+          <Route path="analysis" component={Widgets}/>
+        </Route>
         <Route path="admin" component={Group}/>
         <Route path="settings" component={Group}/>
         <Route path="logout" component={Group}/>

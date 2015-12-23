@@ -28,7 +28,7 @@ export default class Log extends Component {
     const { groupId, groups, logId } = this.props;
     const log = groups[groupId].logs[logId];
     return (
-      <LogPage logId={logId} log={log}/>
+      <LogPage groupId={groupId} logId={logId} log={log}/>
     );
   }
 }
