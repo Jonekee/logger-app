@@ -1,0 +1,78 @@
+.loadingSpinner {
+	width: 100px;
+	height: 100px;
+	zoom: 1;
+
+	svg {
+		-webkit-animation: rotate 2s linear infinite;
+		animation: rotate 2s linear infinite;
+		height: 100px;
+		position: relative;
+		width: 100px;
+	}
+
+	circle {
+		stroke-width: 2;
+		stroke-miterlimit: 10;
+		stroke-dasharray: 1,200;
+		stroke-dashoffset: 0;
+		stroke: #000;
+		-webkit-animation: dash 1.5s ease-in-out infinite;
+		animation: dash 1.5s ease-in-out infinite;
+		stroke-linecap: round;
+	}
+}
+
+
+@-webkit-keyframes hide {
+	100% {
+		zoom: 0.1;
+	}
+}
+@keyframes hide {
+	100% {
+		zoom: 0.1;
+	}
+}
+
+@-webkit-keyframes rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+				transform: rotate(360deg);
+	}
+}
+@keyframes rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+				transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes dash {
+	0% {
+		stroke-dasharray: 1,200;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 89,200;
+		stroke-dashoffset: -35;
+	}
+	100% {
+		stroke-dasharray: 89,200;
+		stroke-dashoffset: -124;
+	}
+}
+@keyframes dash {
+	0% {
+		stroke-dasharray: 1,200;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 89,200;
+		stroke-dashoffset: -35;
+	}
+	100% {
+		stroke-dasharray: 89,200;
+		stroke-dashoffset: -124;
+	}
+}

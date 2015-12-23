@@ -1,0 +1,47 @@
+.controlButton {
+  transition: all .28s cubic-bezier(0.4,0,.2,1);
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  font-size: 0;
+  padding: 5px 8px;
+  margin-right: 8px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  svg {
+    width: 14px;
+    margin-right: 4px;
+  }
+
+  span {
+    font-size: 14px;
+    line-height: 1em;
+  }
+
+  &:hover {
+    border-color: #999;
+  }
+
+  &.positive:hover {
+    background: #81C784;
+  }
+
+  &.warning:hover {
+    background: #FFB74D;
+  }
+
+  &.negative:hover {
+    background: #E57373;
+  }
+
+  &.neutral:hover {
+    background: #90A4AE;
+  }
+}

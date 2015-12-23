@@ -5,6 +5,10 @@ import {
     App,
     Chat,
     Home,
+    Dashboard,
+    DashboardHome,
+    Group,
+    Log,
     Widgets,
     About,
     Login,
@@ -14,12 +18,28 @@ import {
   } from 'containers';
 
 export default (store) => {
-  const requireLogin = (nextState, replaceState, cb) => {
+  const requireLoggedInOrNoAuth = (nextState, replaceState, cb) => {
     function checkAuth() {
-      const { auth: { user }} = store.getState();
-      if (!user) {
+      const { auth: { enabled, user }} = store.getState();
+      if (enabled && !user) {
         // oops, not logged in, so can't be here!
-        replaceState(null, '/');
+        replaceState(null, '/login');
+      }
+      cb();
+    }
+
+    if (!isAuthLoaded(store.getState())) {
+      store.dispatch(loadAuth()).then(checkAuth);
+    } else {
+      checkAuth();
+    }
+  };
+
+  const requireLoggedOutAndAuth = (nextState, replaceState, cb) => {
+    function checkAuth() {
+      const { auth: { enabled, user }} = store.getState();
+      if (!enabled || !!user) {
+        replaceState(null, '/dashboard');
       }
       cb();
     }
@@ -37,19 +57,31 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       { /* Home (main) route */ }
-      <IndexRoute component={Home}/>
 
       { /* Routes requiring login */ }
-      <Route onEnter={requireLogin}>
+      <Route onEnter={requireLoggedInOrNoAuth}>
+        <IndexRoute component={Home}/>
         <Route path="chat" component={Chat}/>
         <Route path="loginSuccess" component={LoginSuccess}/>
       </Route>
 
       { /* Routes */ }
       <Route path="about" component={About}/>
-      <Route path="login" component={Login}/>
+      <Route onEnter={requireLoggedOutAndAuth}>
+        <Route path="login" component={Login}/>
+      </Route>
       <Route path="survey" component={Survey}/>
       <Route path="widgets" component={Widgets}/>
+
+      <Route path="dashboard" component={Dashboard} onEnter={requireLoggedInOrNoAuth}>
+        <IndexRoute component={DashboardHome}/>
+        <Route path="group/:groupId" component={Group}/>
+        <Route path="group/:groupId/log/:logId" component={Log}/>
+        <Route path="admin" component={Group}/>
+        <Route path="settings" component={Group}/>
+        <Route path="logout" component={Group}/>
+      </Route>
+
 
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />

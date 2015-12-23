@@ -1,7 +1,38 @@
+import SystemHelper from '../utils/system';
+
 export default function login(req) {
-  const user = {
-    name: req.body.name
-  };
-  req.session.user = user;
-  return Promise.resolve(user);
+  return new Promise((resolve, reject) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    setTimeout(() => {
+      if (!SystemHelper.checkForUser(username)) {
+        reject({
+          status: 401,
+          errorField: 'username',
+          errorReason: 'Username inccorect'
+        });
+      } else {
+        SystemHelper.checkUserPassword(username, password)
+        .then((matches) => {
+          if (matches) {
+            const user = {
+              username: username
+            };
+            req.session.user = user;
+            resolve(user);
+          } else {
+            reject({
+              status: 401,
+              errorField: 'password',
+              errorReason: 'Password inccorect'
+            });
+          }
+        }, (error) => {
+          console.log('ERROR: Password comparison failed :(');
+          console.log(error);
+        });
+      }
+    }, 2000);
+  });
 }

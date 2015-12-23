@@ -1,0 +1,29 @@
+.logPage {
+  header {
+    padding: 25px 20px 6px;
+    border-bottom: 1px solid #ddd;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 100;
+      flex: 1 1 auto;
+    }
+
+    div.rhs {
+      font-size: 0;
+      flex: 0 0 auto;
+      position: relative;
+    }
+  }
+
+  section {
+    padding: 24px;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+}

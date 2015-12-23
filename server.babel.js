@@ -1,5 +1,7 @@
 //  enable runtime transpilation to use ES6/7 in node
 
+/* eslint no-var:0 */
+
 var fs = require('fs');
 
 var babelrc = fs.readFileSync('./.babelrc');

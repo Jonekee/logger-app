@@ -1,0 +1,11 @@
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  main {
+    flex: 1 1 auto;
+    height: 100vh;
+    overflow: scroll;
+  }
+}

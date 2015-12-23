@@ -1,0 +1,57 @@
+aside {
+  background: #272727;
+  overflow: hidden;
+  width: 200px;
+  color: #fff;
+  flex: 0 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  nav {
+    flex: 1 1 auto;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+
+    & > div {
+      flex: 1 1 auto;
+
+      &:last-of-type {
+        flex: 0 0 auto;
+
+        li {
+          display: block;
+
+          a {
+            padding: 2px 5px;
+
+            & > * {
+              vertical-align: middle;
+            }
+          }
+        }
+
+        span {
+          font-size: 14px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  svg {
+    fill: #fff;
+    width: 16px;
+  }
+
+  a {
+  	transition: all .28s cubic-bezier(0.4,0,.2,1);
+    padding: 5px;
+
+    &:hover {
+      background: #474747;
+    }
+  }
+}

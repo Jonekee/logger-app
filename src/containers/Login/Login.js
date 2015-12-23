@@ -3,53 +3,56 @@ import {connect} from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import * as authActions from 'redux/modules/auth';
 import config from '../../config';
+import styles from './Login.scss';
+import { LoadingSpinner } from 'components';
 
 @connect(
-  state => ({user: state.auth.user}),
+  state => ({
+    user: state.auth.user,
+    loggingIn: state.auth.loggingIn,
+    loginError: state.auth.loginError
+  }),
   authActions)
 export default class Login extends Component {
   static propTypes = {
-    user: PropTypes.object,
     login: PropTypes.func,
-    logout: PropTypes.func
+    loggingIn: PropTypes.bool,
+    loginError: PropTypes.object
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const input = this.refs.username;
-    this.props.login(input.value);
-    input.value = '';
+    const username = this.refs.username.value;
+    const password = this.refs.password.value;
+    this.props.login(username, password);
   }
 
   render() {
-    const {user, logout} = this.props;
-    const styles = require('./Login.scss');
+    const { loggingIn, loginError } = this.props;
+    const usernameError = loginError && (loginError.errorField === 'username');
+    const passwordError = loginError && (loginError.errorField === 'password');
+    const errorMessage = (usernameError || passwordError) ? loginError.errorReason : '.';
     return (
-      <div className={styles.loginPage + ' container'}>
-        <DocumentMeta title={config.app.title + ': Login'}/>
-        <h1>Login</h1>
-        {!user &&
-        <div>
-          <form className="login-form form-inline" onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <input type="text" ref="username" placeholder="Enter a username" className="form-control"/>
-            </div>
-            <button className="btn btn-success" onClick={this.handleSubmit}><i className="fa fa-sign-in"/>{' '}Log In
-            </button>
+      <main className={styles.loginPage}>
+        <DocumentMeta title={config.app.title + ' - Login'}/>
+        <section className={loggingIn ? styles.hiddenAbove : ''}>
+          <form onSubmit={this.handleSubmit}>
+            <h1>Sign in</h1>
+            <input type="text" ref="username" placeholder="Username" className={usernameError ? styles.inputError : ''}/>
+            <p className={(usernameError || passwordError) ? styles.showError : ''}>{errorMessage}</p>
+            <input type="password" ref="password" placeholder="Password" className={passwordError ? styles.inputError : ''}/>
+            <input type="checkbox" ref="rememberme" id="rememberme"/>
+            <label htmlFor="rememberme">Remember me</label>
+            <button onClick={this.handleSubmit}>Submit</button>
           </form>
-          <p>This will "log you in" as this user, storing the username in the session of the API server.</p>
-        </div>
-        }
-        {user &&
-        <div>
-          <p>You are currently logged in as {user.name}.</p>
-
+        </section>
+        <section className={loggingIn ? styles.hiddenBellow : ''}>
           <div>
-            <button className="btn btn-danger" onClick={logout}><i className="fa fa-sign-out"/>{' '}Log Out</button>
+            <LoadingSpinner />
+            <span>Signing in</span>
           </div>
-        </div>
-        }
-      </div>
+        </section>
+      </main>
     );
   }
 }

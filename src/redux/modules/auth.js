@@ -9,6 +9,7 @@ const LOGOUT_SUCCESS = 'redux-example/auth/LOGOUT_SUCCESS';
 const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
 
 const initialState = {
+  enabled: true,
   loaded: false
 };
 
@@ -42,7 +43,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingIn: false,
-        user: action.result
+        user: action.result,
+        loginError: null
       };
     case LOGIN_FAIL:
       return {
@@ -84,12 +86,13 @@ export function load() {
   };
 }
 
-export function login(name) {
+export function login(username, password) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
     promise: (client) => client.post('/login', {
       data: {
-        name: name
+        username,
+        password
       }
     })
   };

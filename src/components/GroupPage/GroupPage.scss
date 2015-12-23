@@ -1,0 +1,43 @@
+.groupPage {
+  header {
+    padding: 25px 20px 6px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: row;
+
+    h2 {
+      font-size: 22px;
+      font-weight: 100;
+      flex: 1 1 auto;
+    }
+
+    div {
+      flex: 0 0 auto;
+      position: relative;
+    }
+
+    input {
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      font-size: 14px;
+      padding: 4px 8px;
+      width: 230px;
+      box-sizing: border-box;
+    }
+
+    svg {
+      width: 15px;
+      fill: #aaa;
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      pointer-events: none;
+    }
+  }
+
+  section {
+    padding: 24px;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+}

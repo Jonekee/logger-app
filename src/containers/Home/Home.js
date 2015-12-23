@@ -1,15 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { CounterButton, GithubButton } from 'components';
+import { NavPanel, CounterButton, GithubButton } from 'components';
 import config from '../../config';
+import {isLoaded, load as loadWidgets} from 'redux/modules/widgets';
+import connectData from 'helpers/connectData';
+import {connect} from 'react-redux';
 
+function fetchDataDeferred(getState, dispatch) {
+  if (!isLoaded(getState())) {
+    return dispatch(loadWidgets());
+  }
+}
+
+@connectData(null, fetchDataDeferred)
+@connect(
+  state => ({
+    widgets: state.widgets.data
+  }))
 export default class Home extends Component {
+  static propTypes = {
+    widgets: PropTypes.array
+  };
+
   render() {
     const styles = require('./Home.scss');
     // require the logo image both from client and server
     const logoImage = require('./logo.png');
     return (
       <div className={styles.home}>
+        <NavPanel/>
+        <h1>{this.props.widgets && this.props.widgets.length}</h1>
         <div className={styles.masthead}>
           <div className="container">
             <div className={styles.logo}>

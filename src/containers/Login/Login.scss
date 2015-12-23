@@ -1,13 +1,94 @@
 .loginPage {
-  input {
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  form {
-    margin: 30px 0;
-    :global(.btn) {
-      margin-left: 10px;
+  height: 100vh;
+  overflow: hidden;
+
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all .28s cubic-bezier(0.4,0,.2,1);
+    height: 100vh;
+
+    &.hiddenAbove {
+      margin-top: -100vh;
+    }
+
+    & > * {
+      height: 50vh;
+      text-align: center;
     }
   }
+
+  form {
+    font-size: 0;
+  }
+
+  h1 {
+		margin-bottom: 15px;
+	}
+
+  input[type="text"] {
+		border-radius: 2px 2px 0 0;
+		border: 1px solid #ddd;
+    border-bottom: none;
+		padding: 0.5em;
+		display: block;
+	}
+
+	input[type="password"] {
+		border-radius: 0 0 2px 2px;
+		border: 1px solid #ddd;
+    border-top: none;
+		padding: 0.5em;
+		display: block;
+	}
+
+  input.inputError {
+    border-color: #F44336;
+  }
+
+  label {
+    font-weight: 100;
+		margin: 15px 0;
+    padding-left: 5px;
+		display: inline-block;
+		font-size: 13px;
+	}
+
+  p {
+    transition: all .28s cubic-bezier(0.4,0,.2,1);
+		max-height: 1px;
+		padding: 0px 8px;
+		text-align: left;
+    background: #ddd;
+		color: #fff;
+		font-size: 13px;
+		overflow: hidden;
+
+    &.showError {
+      padding: 4px 8px;
+      max-height: 2em;
+  		background: #F44336;
+    }
+  }
+
+	button {
+    transition: all .28s cubic-bezier(0.4,0,.2,1);
+		padding: 0.5em 1em;
+    font-weight: 100;
+		font-size: 14px;
+		display: block;
+    margin: 0 auto;
+		background: #2196F3;
+		color: #fff;
+
+		&:hover {
+			transform: scale(1.05);
+		}
+
+		&:active {
+			transform: scale(.95);
+		}
+	}
 }

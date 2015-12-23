@@ -1,22 +1,38 @@
-.app {
-  .brand {
-    position: absolute;
-    $size: 40px;
-    top: 5px;
-    left: 5px;
-    display: inline-block;
-    background: #2d2d2d url('../Home/logo.png') no-repeat center center;
-    width: $size;
-    height: $size;
-    background-size: 80%;
-    margin: 0 10px 0 0;
-    border-radius: $size / 2;
-  }
-  nav :global(.fa) {
-    font-size: 2em;
-    line-height: 20px;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,700);
+
+body {
+  font-family: 'Open sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
   }
 }
-.appContent {
-  margin: 50px 0; // for fixed navbar
+
+button {
+   background: inherit;
+   border: none;
+   cursor: pointer;
+}
+
+input {
+  font-family: 'Open sans', sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 100;
 }

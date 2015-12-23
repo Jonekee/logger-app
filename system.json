@@ -1,0 +1,58 @@
+{
+  "users" : {
+    "admin" : {
+      "passhash" : "$2a$10$j9Ro05bHE.Oda0GhUlj98OqunZsI03FhiCoK99XzVu0gqX9eWfj7a",
+      "passhint" : "its admin"
+    },
+    "ross" : {
+      "passhash" : "$2a$10$lTmESg2DKCunI5FdTnYmR.8sGIcNvQR6rbWo2x/OxNo07J8k1pFYu",
+      "passhint" : "its pass"
+    },
+    "steve" : {
+      "passhash" : "$2a$10$hqhxMluzr52MShF9pxjFKugvmfwsq7fsSWbAXUpOyZFVreDLXizua",
+      "passhint" : "its abc"
+    }
+  },
+  "groups" : [
+    {
+      "name" : "Apache Logs",
+      "logs" : [
+        {
+          "name" : "Apache Access",
+          "fname" : "access.log",
+			    "fpath" : "/var/log/apache/logs/"
+        },
+        {
+          "name" : "Apache Error",
+          "fname" : "error.log",
+			    "fpath" : "/var/log/apache/logs/"
+        }
+      ]
+    },
+    {
+      "name" : "WebLogic Logs",
+      "logs" : [
+        {
+          "name" : "ManagedServer.log",
+          "fname" : "ManagedServer.log",
+			    "fpath" : "/opt/projects/server/ms/logs/"
+        },
+        {
+          "name" : "ContentServer.log",
+          "fname" : "ContentServer.log",
+			    "fpath" : "/opt/projects/server/cs/logs/"
+        }
+      ]
+    },
+    {
+      "name" : "Tomcat",
+      "logs" : [
+        {
+          "name" : "App Log",
+          "fname" : "tomcat.out",
+			    "fpath" : "/opt/projects/server/appserver/logs/"
+        }
+      ]
+    }
+  ]
+}
