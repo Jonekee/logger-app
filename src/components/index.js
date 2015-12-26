@@ -17,6 +17,7 @@ export Icon from './Icon/Icon';
 export LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 export GroupPage from './GroupPage/GroupPage';
 export LogPage from './LogPage/LogPage';
+export LogOutputPage from './LogOutputPage/LogOutputPage';
 export DashboardPage from './DashboardPage/DashboardPage';
 export LogGroupList from './LogGroupList/LogGroupList';
 export DropDown from './DropDown/DropDown';

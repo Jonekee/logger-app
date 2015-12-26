@@ -11,10 +11,22 @@ export default class LogGroupListItem extends Component {
 
   render() {
     const { groupId, logId, log } = this.props;
+    let colorClass;
+    switch (log.activeState) {
+      case 'ACTIVE':
+        colorClass = log.hasNew ? styles.active : styles.idle;
+        break;
+      case 'PAUSED':
+        colorClass = styles.paused;
+        break;
+      default:
+        colorClass = '';
+        break;
+    }
     return (
       <li className={styles.logGroupListItem}>
         <Link to={'/dashboard/group/' + groupId + '/log/' + logId}>
-          <i></i>
+          <i className={colorClass}></i>
           <div>
             <p>{log.name}</p>
             <p>{log.fpath + log.fname}</p>

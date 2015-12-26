@@ -7,6 +7,7 @@ import {mapUrl} from 'utils/url.js';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import SocketIo from 'socket.io';
+import TailHelper from 'utils/tail.js';
 
 const pretty = new PrettyError();
 const app = express();
@@ -83,6 +84,16 @@ if (config.apiPort) {
       messageBuffer[messageIndex % bufferSize] = data;
       messageIndex++;
       io.emit('msg', data);
+    });
+
+    socket.on('attachLogListener', data => {
+      console.log('SOCKET attachLogListener: ' + JSON.stringify(data));
+      TailHelper.attachListener(io, socket, data.groupId, data.logId);
+    });
+
+    socket.on('detachLogListener', data => {
+      console.log('SOCKET attachLogListener: ' + JSON.stringify(data));
+      TailHelper.detachListener(socket, data.groupId, data.logId);
     });
   });
   io.listen(runnable);

@@ -1,16 +1,36 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 import NavPanelGroup from './NavPanelGroup/NavPanelGroup';
+import NavPanelActiveGroup from './NavPanelGroup/NavPanelActiveGroup';
 import Icon from '../Icon/Icon';
 import './NavPanel.scss';
 
 export default class NavPanel extends Component {
   static propTypes = {
+    authEnabled: PropTypes.bool,
     groups: PropTypes.array
   }
 
   render() {
-    const { groups } = this.props;
+    const { authEnabled, groups } = this.props;
+    const activeLogs = [];
+    groups.forEach((group, groupId) => {
+      group.logs.forEach((log, logId) => {
+        if (log.activeState !== 'INACTIVE') {
+          activeLogs.push({
+            groupId,
+            logId
+          });
+        }
+      });
+    });
+
+    activeLogs.sort((first, second) => {
+      const firstName = groups[first.groupId].logs[first.logId].name;
+      const secondName = groups[second.groupId].logs[second.logId].name;
+      return firstName > secondName;
+    });
+
     return (
       <aside>
         <div>
@@ -20,6 +40,7 @@ export default class NavPanel extends Component {
         </div>
         <nav>
           <div>
+            <NavPanelActiveGroup activeLogs={activeLogs} groups={groups}/>
             {groups && groups.map((group, index) => <NavPanelGroup key={index} groupId={index} group={group}/>)}
           </div>
           <div>
@@ -27,21 +48,27 @@ export default class NavPanel extends Component {
               <li>
                 <Link to="widgets">
                   <Icon iconName="key-variant"/>
-                  <span>Admin Controls</span>
+                  <span>Admin Settings</span>
                 </Link>
               </li>
-              <li>
-                <Link to="about">
-                  <Icon iconName="settings"/>
-                  <span>User Settings</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="wdigets">
-                  <Icon iconName="account"/>
-                  <span>Sign Out</span>
-                </Link>
-              </li>
+              {
+                authEnabled
+                ? [
+                  <li>
+                    <Link to="about">
+                      <Icon iconName="settings"/>
+                      <span>User Settings</span>
+                    </Link>
+                  </li>,
+                  <li>
+                    <Link to="wdigets">
+                      <Icon iconName="account"/>
+                      <span>Sign Out</span>
+                    </Link>
+                  </li>
+                ]
+                : null
+              }
             </ul>
           </div>
         </nav>

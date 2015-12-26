@@ -16,6 +16,18 @@
     height: 10px;
     width: 10px;
     background: #9B9B9B;
+
+    &.active {
+      background: #4CAF50;
+    }
+
+    &.idle {
+      background: #FFC107;
+    }
+
+    &.paused {
+      background: #F44336;
+    }
   }
 
   span {

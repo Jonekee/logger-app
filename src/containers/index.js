@@ -5,6 +5,7 @@ export Dashboard from './Dashboard/Dashboard';
 export DashboardHome from './DashboardHome/DashboardHome';
 export Group from './Group/Group';
 export Log from './Log/Log';
+export LogOutput from './LogOutput/LogOutput';
 export Widgets from './Widgets/Widgets';
 export About from './About/About';
 export Login from './Login/Login';

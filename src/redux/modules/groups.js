@@ -2,10 +2,17 @@ const LOAD = 'redux-example/groups/LOAD';
 const LOAD_SUCCESS = 'redux-example/groups/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/groups/LOAD_FAIL';
 const TOGGLE_NAV_GROUP_OPEN = 'redux-example/groups/TOGGLE_NAV_GROUP_OPEN';
+const TOGGLE_ACTIVE_NAV_GROUP_OPEN = 'redux-example/groups/TOGGLE_ACTIVE_NAV_GROUP_OPEN';
 const TOGGLE_LOG_EXTRA_ACTIONS_OPEN = 'redux-example/groups/TOGGLE_LOG_EXTRA_ACTIONS_OPEN';
+const ACTIVATE_LOG = 'redux-example/groups/ACTIVATE_LOG';
+const PAUSE_LOG = 'redux-example/groups/PAUSE_LOG';
+const DEACTIVATE_LOG = 'redux-example/groups/DEACTIVATE_LOG';
+const ADD_LINE_TO_LOG = 'redux-example/groups/ADD_LINE_TO_LOG';
+const SET_LOG_READ = 'redux-example/groups/SET_LOG_READ';
 
 const initialState = {
-  loaded: false
+  loaded: false,
+  activeGroupOpen: true
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -40,6 +47,11 @@ export default function reducer(state = initialState, action = {}) {
             : group
         )
       };
+    case TOGGLE_ACTIVE_NAV_GROUP_OPEN:
+      return {
+        ...state,
+        activeGroupOpen: !state.activeGroupOpen
+      };
     case TOGGLE_LOG_EXTRA_ACTIONS_OPEN:
       return {
         ...state,
@@ -52,6 +64,102 @@ export default function reducer(state = initialState, action = {}) {
                   ? {
                     ...log,
                     extraActionsOpen: !log.extraActionsOpen
+                  }
+                  : log
+              )
+            }
+            : group
+        )
+      };
+    case ACTIVATE_LOG:
+      return {
+        ...state,
+        data: state.data.map((group, groupId) =>
+          groupId === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              logs: group.logs.map((log, logId) =>
+                logId === parseInt(action.logId, 10)
+                  ? {
+                    ...log,
+                    activeState: 'ACTIVE'
+                  }
+                  : log
+              )
+            }
+            : group
+        )
+      };
+    case PAUSE_LOG:
+      return {
+        ...state,
+        data: state.data.map((group, groupId) =>
+          groupId === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              logs: group.logs.map((log, logId) =>
+                logId === parseInt(action.logId, 10)
+                  ? {
+                    ...log,
+                    activeState: 'PAUSED'
+                  }
+                  : log
+              )
+            }
+            : group
+        )
+      };
+    case DEACTIVATE_LOG:
+      return {
+        ...state,
+        data: state.data.map((group, groupId) =>
+          groupId === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              logs: group.logs.map((log, logId) =>
+                logId === parseInt(action.logId, 10)
+                  ? {
+                    ...log,
+                    activeState: 'INACTIVE'
+                  }
+                  : log
+              )
+            }
+            : group
+        )
+      };
+    case ADD_LINE_TO_LOG:
+      return {
+        ...state,
+        data: state.data.map((group, groupId) =>
+          groupId === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              logs: group.logs.map((log, logId) =>
+                logId === parseInt(action.logId, 10)
+                  ? {
+                    ...log,
+                    logData: log.logData.concat(action.newLine),
+                    hasNew: true
+                  }
+                  : log
+              )
+            }
+            : group
+        )
+      };
+    case SET_LOG_READ:
+      return {
+        ...state,
+        data: state.data.map((group, groupId) =>
+          groupId === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              logs: group.logs.map((log, logId) =>
+                logId === parseInt(action.logId, 10)
+                  ? {
+                    ...log,
+                    hasNew: false
                   }
                   : log
               )
@@ -82,9 +190,56 @@ export function toggleNavGroupOpen(groupId) {
   };
 }
 
+export function toggleActiveNavGroupOpen() {
+  return {
+    type: TOGGLE_ACTIVE_NAV_GROUP_OPEN
+  };
+}
+
 export function toggleLogExtraActionsOpen(groupId, logId) {
   return {
     type: TOGGLE_LOG_EXTRA_ACTIONS_OPEN,
+    groupId,
+    logId
+  };
+}
+
+export function activateLog(groupId, logId) {
+  return {
+    type: ACTIVATE_LOG,
+    groupId,
+    logId
+  };
+}
+
+export function pauseLog(groupId, logId) {
+  return {
+    type: PAUSE_LOG,
+    groupId,
+    logId
+  };
+}
+
+export function deactivateLog(groupId, logId) {
+  return {
+    type: DEACTIVATE_LOG,
+    groupId,
+    logId
+  };
+}
+
+export function addLineToLog(groupId, logId, newLine) {
+  return {
+    type: ADD_LINE_TO_LOG,
+    groupId,
+    logId,
+    newLine
+  };
+}
+
+export function setLogRead(groupId, logId) {
+  return {
+    type: SET_LOG_READ,
     groupId,
     logId
   };

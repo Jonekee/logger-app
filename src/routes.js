@@ -9,6 +9,7 @@ import {
     DashboardHome,
     Group,
     Log,
+    LogOutput,
     Widgets,
     About,
     Login,
@@ -77,9 +78,9 @@ export default (store) => {
         <IndexRoute component={DashboardHome}/>
         <Route path="group/:groupId" component={Group}/>
         <Route path="group/:groupId/log/:logId" component={Log}>
-          <IndexRoute component={Widgets}/>
-          <Route path="output" component={Widgets}/>
-          <Route path="analysis" component={Widgets}/>
+          <IndexRoute component={LogOutput}/>
+          <Route path="output" component={LogOutput}/>
+          <Route path="analysis" component={LogOutput}/>
         </Route>
         <Route path="admin" component={Group}/>
         <Route path="settings" component={Group}/>

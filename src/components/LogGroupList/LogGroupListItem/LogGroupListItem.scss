@@ -22,6 +22,18 @@
     display: block;
     flex: 0 0 auto;
     background: #9B9B9B;
+    
+    &.active {
+      background: #4CAF50;
+    }
+
+    &.idle {
+      background: #FFC107;
+    }
+
+    &.paused {
+      background: #F44336;
+    }
   }
 
   div {

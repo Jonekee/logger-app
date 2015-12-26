@@ -47,6 +47,11 @@ class SystemHelper {
       });
     });
   }
+
+  getLogFile = (groupId, logId) => {
+    const log = this.system.groups[groupId].logs[logId];
+    return log.fpath + log.fname;
+  }
 }
 
 const instance = new SystemHelper();

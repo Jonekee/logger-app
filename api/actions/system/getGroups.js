@@ -7,8 +7,10 @@ export default function getGroups() {
       navOpen: true,
       logs: group.logs.map(log => ({
         ...log,
+        logData: [],
         extraActionsOpen: false,
-        active: 'INACTIVE'
+        activeState: 'INACTIVE',
+        hasNew: false
       }))
     })));
   });

@@ -3,42 +3,63 @@ import styles from './LogPage.scss';
 import { Icon, DropDown } from 'components';
 import ControlButton from './ControlButton/ControlButton';
 import { connect } from 'react-redux';
-import { toggleLogExtraActionsOpen } from 'redux/modules/groups';
+import { toggleLogExtraActionsOpen, activateLog, pauseLog, deactivateLog } from 'redux/modules/groups';
 import { Link } from 'react-router';
 
 @connect(
   state => ({ route: state.router.routes }),
-  { toggleLogExtraActionsOpen })
+  { toggleLogExtraActionsOpen, activateLog, pauseLog, deactivateLog })
 export default class LogPage extends Component {
   static propTypes = {
     groupId: PropTypes.string,
     logId: PropTypes.string,
     log: PropTypes.object,
     toggleLogExtraActionsOpen: PropTypes.func,
-    children: PropTypes.object,
+    activateLog: PropTypes.func,
+    pauseLog: PropTypes.func,
+    deactivateLog: PropTypes.func,
+    children: PropTypes.object.isRequired,
     route: PropTypes.array
   }
 
+  triggerActivateLog = () => {
+    const { groupId, logId, activateLog } = this.props; // eslint-disable-line no-shadow
+    activateLog(groupId, logId);
+    socket.emit('attachLogListener', { groupId, logId });
+  }
+
+  triggerDeactivateLog = () => {
+    const { groupId, logId, deactivateLog } = this.props; // eslint-disable-line no-shadow
+    deactivateLog(groupId, logId);
+    socket.emit('detachLogListener', { groupId, logId });
+  }
+
   render() {
-    const { groupId, logId, log, toggleLogExtraActionsOpen, route } = this.props; // eslint-disable-line no-shadow
+    const { groupId, logId, log, toggleLogExtraActionsOpen, activateLog, pauseLog, route } = this.props; // eslint-disable-line no-shadow
 
     // Detect which route is active
     const isOuputRoute = route[route.length - 1].path !== 'analysis';
 
     // Control buttons depending on log active state
     let headerActions;
-    switch (log.active) {
+    switch (log.activeState) {
       case 'ACTIVE' :
         headerActions = [
-          <ControlButton iconName="pause" text="Pause watching" color="warning"/>,
-          <ControlButton iconName="stop" text="Stop watching" color="negative"/>
+          <ControlButton key={0} iconName="pause" text="Pause watching" color="warning" onClick={pauseLog.bind(null, groupId, logId)}/>,
+          <ControlButton key={1} iconName="stop" text="Stop watching" color="negative" onClick={this.triggerDeactivateLog}/>
+        ];
+        break;
+      case 'PAUSED' :
+        headerActions = [
+          <ControlButton key={0} iconName="play" text="Resume watching" color="positive" onClick={activateLog.bind(null, groupId, logId)}/>,
+          <ControlButton key={1} iconName="stop" text="Stop watching" color="negative" onClick={this.triggerDeactivateLog}/>
         ];
         break;
       case 'INACTIVE' :
         // Use default
       default:
         headerActions = (
-          <ControlButton iconName="play" text="Start watching" color="positive"/>
+          <ControlButton iconName="play" text="Start watching" color="positive" onClick={this.triggerActivateLog}/>
         );
         break;
     }
@@ -78,9 +99,7 @@ export default class LogPage extends Component {
             </nav>
           </div>
         </header>
-        <section>
-          {this.props.children}
-        </section>
+        {this.props.children}
       </section>
     );
   }

@@ -9,7 +9,7 @@ const LOGOUT_SUCCESS = 'redux-example/auth/LOGOUT_SUCCESS';
 const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
 
 const initialState = {
-  enabled: true,
+  enabled: false,
   loaded: false
 };
 
