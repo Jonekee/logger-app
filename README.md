@@ -19,16 +19,55 @@ Another browser was watching the slower log throughout this test and its perform
 
 ## To Do
 
-Nav section overflow scroll management.
 
-Removal of console output on client-side code or a Log Level management tool
+### Release 0
 
-No logs matching filter indicator
+No logs matching search filter indicator on group pages and dashboard page.
+
+### Release 1
+
+Management of groups and logs through UI
+
+### Release 2
+
+Addition of optional user auth
+
+Management of users through UI
+
+Show member users on group page (if admin)
+
+### Release 3
+
+Addition of remote log groups
+ - With SSH key or password access?
+ - Maybe split SSH keys into later release
+
+### Release 4
+
+Log level matching, analysis view and output filtering
+
+Syntax highlighting
+
+Management through UI
+
+### Release 5
+
+Admin status per group, users can add people/logs to a group if they are a admin of it
+
+### Potential Features
+
+Download log file
+
+Backtrack X amount of line when starting to tail log
+
+### Essential Improvements
+
+Removal of console output on client-side code or a Log Level management tool.
 
 COMPONENTDIDUPDATE tracker on everythinggggggg
 
 
-## Done
+### Done
 
 Active Logs nav section doesn't shrink after has had logs closed from it.
 
@@ -47,3 +86,5 @@ Add new indicator state for when log is inactive but is holding log output
 Potential bug where output sits in paused log buffer, then the user stops watching, starts again, then paused and then starts again. The stale output from earlier will be added to the main output in the wrong position.
 
 Dashboard list filtering.
+
+Nav section overflow scroll management.
