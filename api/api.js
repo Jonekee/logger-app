@@ -7,8 +7,9 @@ import {mapUrl} from 'utils/url.js';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import SocketIo from 'socket.io';
-import TailHelper from 'utils/tail.js';
+import TailHelper from 'utils/tailhelper.js';
 
+// const tailHelper = new TailHelper();
 const pretty = new PrettyError();
 const app = express();
 
@@ -57,6 +58,8 @@ const bufferSize = 100;
 const messageBuffer = new Array(bufferSize);
 let messageIndex = 0;
 
+const socketSessions = {};
+
 if (config.apiPort) {
   const runnable = app.listen(config.apiPort, (err) => {
     if (err) {
@@ -86,14 +89,37 @@ if (config.apiPort) {
       io.emit('msg', data);
     });
 
+    socketSessions[socket.id] = [];
+
     socket.on('attachLogListener', data => {
       console.log('SOCKET attachLogListener: ' + JSON.stringify(data));
       TailHelper.attachListener(io, socket, data.groupId, data.logId);
+      socketSessions[socket.id].push({
+        groupId: data.groupId,
+        logId: data.logId
+      });
     });
 
     socket.on('detachLogListener', data => {
       console.log('SOCKET attachLogListener: ' + JSON.stringify(data));
       TailHelper.detachListener(socket, data.groupId, data.logId);
+      let toRemove;
+      socketSessions[socket.id].forEach((item, index) => {
+        if ((item.groupId === data.groupId) && (item.logId === data.logId)) {
+          toRemove = index;
+        }
+      });
+      if (toRemove) {
+        socketSessions[socket.id].splice(toRemove, 1);
+      }
+    });
+
+    socket.on('disconnect', () => {
+      console.log('SOCKET disconnected');
+      socketSessions[socket.id].forEach((item) => {
+        TailHelper.detachListener(socket, item.groupId, item.logId);
+      });
+      delete(socketSessions[socket.id]);
     });
   });
   io.listen(runnable);

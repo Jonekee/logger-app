@@ -45,6 +45,10 @@
       ]
     },
     {
+      "name" : "Empty Lists",
+      "logs" : []
+    },
+    {
       "name" : "WebLogic Logs",
       "logs" : [
         {

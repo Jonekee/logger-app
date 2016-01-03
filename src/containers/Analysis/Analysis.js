@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {isLoaded, load as loadGroups} from 'redux/modules/groups';
 import connectData from 'helpers/connectData';
 import {connect} from 'react-redux';
-import { LogOutputPage } from 'components';
+import { AnalysisPage } from 'components';
 
 function fetchDataDeferred(getState, dispatch) {
   if (!isLoaded(getState())) {
@@ -17,7 +17,7 @@ function fetchDataDeferred(getState, dispatch) {
     groups: state.groups.data,
     logId: state.router.params.logId
   }))
-export default class LogOutput extends Component {
+export default class Analysis extends Component {
   static propTypes = {
     groupId: PropTypes.string.isRequired,
     logId: PropTypes.string.isRequired,
@@ -27,9 +27,9 @@ export default class LogOutput extends Component {
   render() {
     const { groupId, groups, logId } = this.props;
     const logData = groups[groupId].logs[logId].logData;
-    const scrollLocked = groups[groupId].logs[logId].scrollLocked;
+    const logLevelMapping = groups[groupId].logs[logId].logLevelMapping;
     return (
-      <LogOutputPage groupId={groupId} logId={logId} logData={logData} scrollLocked={scrollLocked}/>
+      <AnalysisPage groupId={groupId} logId={logId} logData={logData} logLevelMapping={logLevelMapping}/>
     );
   }
 }

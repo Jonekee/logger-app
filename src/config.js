@@ -14,6 +14,8 @@ module.exports = Object.assign({
   port: process.env.PORT,
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
+  authEnabled: false,
+  releaseStage: 0,
   app: {
     title: 'Logger',
     description: 'All the modern best practices in one example.',

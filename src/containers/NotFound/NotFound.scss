@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'distant_galaxyregular';
+    src: url('./fonts/distantgalaxy.woff2') format('woff2'),
+         url('./fonts/distantgalaxy.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.notFound {
+  height: 100vh;
+
+  .bg {
+    background: url('./stars.jpg');
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .container {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    perspective: 400px;
+    transform-origin: 200px 200px;
+  }
+
+  .transform {
+    transform-origin: 200px 200px 0;
+    transform: rotate3d(1,0,0, 35deg) scale3d(1, 2.83, 1);
+    text-align: center;
+    color: #ffff00;
+    font-family: 'distant_galaxyregular', Arial, sans-serif;
+    background: none; /* Fix for FF */
+  }
+
+  h1 {
+    font-size: 128px;
+  }
+
+  p {
+    font-size: 32px;
+  }
+
+  svg {
+    fill: #ffff00;
+    width: 15px;
+    margin-right: 10px;
+  }
+
+  a {
+    margin-bottom: 20px;
+    font-size: 20px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    & > * {
+      vertical-align: middle;
+    }
+  }
+}

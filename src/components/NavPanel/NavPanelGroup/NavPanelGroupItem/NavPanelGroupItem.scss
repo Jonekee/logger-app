@@ -28,6 +28,10 @@
     &.paused {
       background: #F44336;
     }
+
+    &.hasOutput {
+      background: #2196F3;
+    }
   }
 
   span {

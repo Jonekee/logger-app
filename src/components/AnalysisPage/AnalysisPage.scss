@@ -1,0 +1,31 @@
+.analysisPage {
+  height: 100%;
+  overflow: scroll;
+}
+
+.fullPageError {
+  margin: 30px auto;
+  box-sizing: border-box;
+  width: 500px;
+  background: #F44336;
+  color: #fff;
+  padding: 30px;
+  display: flex;
+  align-items: flex-start;
+
+  svg {
+    margin-right: 15px;
+    flex-shrink: 0;
+    width: 40px;
+    fill: #fff;
+  }
+
+  h3 {
+    font-weight: 400;
+    padding-bottom: 5px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}

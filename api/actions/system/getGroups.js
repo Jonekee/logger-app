@@ -5,12 +5,16 @@ export default function getGroups() {
     resolve(SystemHelper.getGroups().map(group => ({
       ...group,
       navOpen: true,
+      listFilter: '',
       logs: group.logs.map(log => ({
         ...log,
         logData: [],
+        pausedLogData: [],
         extraActionsOpen: false,
         activeState: 'INACTIVE',
-        hasNew: false
+        hasNew: false,
+        scrollLocked: true,
+        logLevelMapping: null
       }))
     })));
   });

@@ -1,4 +1,4 @@
-.groupPage {
+.activeGroupPage {
   header {
     padding: 25px 20px 6px;
     border-bottom: 1px solid #ddd;
@@ -39,5 +39,17 @@
     padding: 20px;
     max-width: 1500px;
     margin: 0 auto;
+  }
+
+  .noLogsLine {
+    background: #eee;
+    display: block;
+    padding: 20px 12px;
+    color: #777;
+
+    p {
+      font-size: 14px;
+      line-height: 18px;
+    }
   }
 }

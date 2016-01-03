@@ -4,6 +4,7 @@ import NavPanelGroup from './NavPanelGroup/NavPanelGroup';
 import NavPanelActiveGroup from './NavPanelGroup/NavPanelActiveGroup';
 import Icon from '../Icon/Icon';
 import './NavPanel.scss';
+import { releaseStage } from '../../config';
 
 export default class NavPanel extends Component {
   static propTypes = {
@@ -14,16 +15,18 @@ export default class NavPanel extends Component {
   render() {
     const { authEnabled, groups } = this.props;
     const activeLogs = [];
-    groups.forEach((group, groupId) => {
-      group.logs.forEach((log, logId) => {
-        if (log.activeState !== 'INACTIVE') {
-          activeLogs.push({
-            groupId,
-            logId
-          });
-        }
+    if (groups) {
+      groups.forEach((group, groupId) => {
+        group.logs.forEach((log, logId) => {
+          if (log.activeState !== 'INACTIVE') {
+            activeLogs.push({
+              groupId,
+              logId
+            });
+          }
+        });
       });
-    });
+    }
 
     activeLogs.sort((first, second) => {
       const firstName = groups[first.groupId].logs[first.logId].name;
@@ -34,7 +37,7 @@ export default class NavPanel extends Component {
     return (
       <aside>
         <div>
-          <Link to="dashboard">
+          <Link to="/dashboard">
             <h1>Logger</h1>
           </Link>
         </div>
@@ -43,34 +46,39 @@ export default class NavPanel extends Component {
             <NavPanelActiveGroup activeLogs={activeLogs} groups={groups}/>
             {groups && groups.map((group, index) => <NavPanelGroup key={index} groupId={index} group={group}/>)}
           </div>
-          <div>
-            <ul>
-              <li>
-                <Link to="widgets">
-                  <Icon iconName="key-variant"/>
-                  <span>Admin Settings</span>
-                </Link>
-              </li>
-              {
-                authEnabled
-                ? [
+          {releaseStage > 0
+            ? (
+              <div>
+                <ul>
                   <li>
-                    <Link to="about">
-                      <Icon iconName="settings"/>
-                      <span>User Settings</span>
-                    </Link>
-                  </li>,
-                  <li>
-                    <Link to="wdigets">
-                      <Icon iconName="account"/>
-                      <span>Sign Out</span>
+                    <Link to="/dashboard/admin">
+                      <Icon iconName="key-variant"/>
+                      <span>Admin Settings</span>
                     </Link>
                   </li>
-                ]
-                : null
-              }
-            </ul>
-          </div>
+                  {
+                    authEnabled
+                    ? [
+                      <li>
+                        <Link to="about">
+                          <Icon iconName="settings"/>
+                          <span>User Settings</span>
+                        </Link>
+                      </li>,
+                      <li>
+                        <Link to="wdigets">
+                          <Icon iconName="account"/>
+                          <span>Sign Out</span>
+                        </Link>
+                      </li>
+                    ]
+                    : null
+                  }
+                </ul>
+              </div>
+            )
+            : null
+          }
         </nav>
       </aside>
     );

@@ -16,45 +16,10 @@ export default class NavPanelGroup extends Component {
     toggleNavGroupOpen: PropTypes.func.isRequired
   }
 
-  constructor() {
-    super();
-    this.state = {
-      listHeight: -1
-    };
-  }
-
-  componentDidMount() {
-    this.updateListHeight();
-  }
-
-  componentDidUpdate() {
-    this.updateListHeight();
-  }
-
-  updateListHeight = () => {
-    // Only run this on the client WHEN the CSS has loaded, having to detect the padding to know this :(
-    if (__CLIENT__) {
-      if (!!this.refs.list && (window.getComputedStyle(this.refs.list.firstElementChild.firstElementChild).padding !== '0px')) {
-        // Have to convert list.children from HTMLCollection to a normal Array so that we can .reduce it
-        const listContentsHeight = [].slice.call(this.refs.list.children).reduce((sum, listItem) => (sum + listItem.offsetHeight), 0);
-        if (this.state.listHeight !== listContentsHeight) {
-          this.setState({
-            listHeight: listContentsHeight
-          });
-        }
-      } else {
-        // Delay measurement
-        setTimeout(this.updateListHeight, 100);
-      }
-    }
-  }
-
   render() {
     const { groupId, group, toggleNavGroupOpen } = this.props; // eslint-disable-line no-shadow
-    // const toggle = group.navOpen ? toggleNavGroupOpen.bind(null, groupName) : toggleNavGroupOpen.bind(null, groupName);
-    const useAutoHeight = (this.state.listHeight === -1);
-    const dynHeight = (group.navOpen ? this.state.listHeight : '0') + 'px';
-    const currHeight = useAutoHeight ? 'auto' : dynHeight;
+    const listContentsHeight = group.logs.length * 26 || 19; // ##BADCODE Hard coded styling related value
+    const currHeight = (group.navOpen ? listContentsHeight : '0') + 'px';
     return (
       <section className={styles.navPanelGroup}>
         <header>
@@ -68,7 +33,12 @@ export default class NavPanelGroup extends Component {
           </button>
         </header>
         <ul ref="list" style={{ height: currHeight }}>
-          { group.logs.map((log, index) => <NavPanelGroupItem key={index} groupId={groupId} logId={index} log={log}/>) }
+          {group.logs.length > 0
+            ? group.logs.map((log, index) => <NavPanelGroupItem key={index} groupId={groupId} logId={index} log={log}/>)
+            : (
+              <li className={styles.noLogsLine}>No logs</li>
+            )
+          }
         </ul>
       </section>
     );

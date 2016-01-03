@@ -1,20 +1,18 @@
 import React from 'react';
-import {IndexRoute, Route} from 'react-router';
+import { IndexRoute, IndexRedirect, Route } from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
 import {
+    ActiveGroup,
+    Admin,
+    Analysis,
     App,
-    Chat,
-    Home,
     Dashboard,
     DashboardHome,
     Group,
+    GroupManagement,
     Log,
-    LogOutput,
-    Widgets,
-    About,
     Login,
-    LoginSuccess,
-    Survey,
+    LogOutput,
     NotFound,
   } from 'containers';
 
@@ -58,33 +56,33 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       { /* Home (main) route */ }
+      <IndexRedirect to="dashboard"/>
 
-      { /* Routes requiring login */ }
-      <Route onEnter={requireLoggedInOrNoAuth}>
-        <IndexRoute component={Home}/>
-        <Route path="chat" component={Chat}/>
-        <Route path="loginSuccess" component={LoginSuccess}/>
-      </Route>
-
-      { /* Routes */ }
-      <Route path="about" component={About}/>
       <Route onEnter={requireLoggedOutAndAuth}>
         <Route path="login" component={Login}/>
       </Route>
-      <Route path="survey" component={Survey}/>
-      <Route path="widgets" component={Widgets}/>
 
       <Route path="dashboard" component={Dashboard} onEnter={requireLoggedInOrNoAuth}>
         <IndexRoute component={DashboardHome}/>
+
+        { /* Group and Log pages */ }
+        <Route path="active" component={ActiveGroup}/>
         <Route path="group/:groupId" component={Group}/>
         <Route path="group/:groupId/log/:logId" component={Log}>
           <IndexRoute component={LogOutput}/>
           <Route path="output" component={LogOutput}/>
-          <Route path="analysis" component={LogOutput}/>
+          <Route path="analysis" component={Analysis}/>
         </Route>
-        <Route path="admin" component={Group}/>
-        <Route path="settings" component={Group}/>
-        <Route path="logout" component={Group}/>
+
+        { /* Admin control pages */ }
+        <Route path="admin" component={Admin}>
+          <IndexRoute component={GroupManagement}/>
+          <Route path="app" component={GroupManagement}/>
+          <Route path="groups" component={GroupManagement}/>
+          <Route path="logs" component={GroupManagement}/>
+          <Route path="users" component={GroupManagement}/>
+          <Route path="syntax" component={GroupManagement}/>
+        </Route>
       </Route>
 
 

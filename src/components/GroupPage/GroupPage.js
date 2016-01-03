@@ -5,7 +5,13 @@ import styles from './GroupPage.scss';
 export default class GroupPage extends Component {
   static propTypes = {
     groupId: PropTypes.string,
-    group: PropTypes.object
+    group: PropTypes.object,
+    setGroupListFilter: PropTypes.func
+  }
+
+  setGroupListFilter = (event) => {
+    const { groupId, setGroupListFilter } = this.props;
+    setGroupListFilter(groupId, event.target.value);
   }
 
   render() {
@@ -15,12 +21,12 @@ export default class GroupPage extends Component {
         <header>
           <h2>{group.name}</h2>
           <div>
-            <input ref="filter" type="text" placeholder="Filter list..."/>
+            <input ref="filter" type="text" placeholder="Filter list..." value={group.listFilter} onChange={this.setGroupListFilter}/>
             <Icon iconName="magnify"/>
           </div>
         </header>
         <section>
-          <LogGroupList groupId={groupId} group={group}/>
+          <LogGroupList groupId={groupId} group={group} listFilter={group.listFilter}/>
         </section>
       </section>
     );

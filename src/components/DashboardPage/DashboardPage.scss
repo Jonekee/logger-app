@@ -34,4 +34,30 @@
       pointer-events: none;
     }
   }
+
+  section {
+    padding: 20px;
+    max-width: 1500px;
+    margin: 0 auto;
+
+    h3 {
+      margin-bottom: 5px;
+    }
+
+    article:not(:first-of-type) {
+      margin-top: 20px;
+    }
+  }
+
+  .noLogsLine {
+    background: #eee;
+    display: block;
+    padding: 20px 12px;
+    color: #777;
+
+    p {
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
 }

@@ -1,21 +1,21 @@
 import React, {Component, PropTypes} from 'react';
-import { Icon, LogGroupList, LogGroupListItem } from 'components';
-import styles from './DashboardPage.scss';
+import { Icon, LogGroupListItem } from 'components';
+import styles from './ActiveGroupPage.scss';
 
-export default class DashboardPage extends Component {
+export default class ActiveGroupPage extends Component {
   static propTypes = {
-    dashboardListFilter: PropTypes.string,
+    activeGroupListFilter: PropTypes.string,
     groups: PropTypes.array,
-    setDashboardListFilter: PropTypes.func
+    setActiveGroupListFilter: PropTypes.func
   }
 
-  setDashboardListFilter = (event) => {
-    const { setDashboardListFilter } = this.props;
-    setDashboardListFilter(event.target.value);
+  setActiveGroupListFilter = (event) => {
+    const { setActiveGroupListFilter } = this.props;
+    setActiveGroupListFilter(event.target.value);
   }
 
   render() {
-    const { dashboardListFilter, groups } = this.props;
+    const { activeGroupListFilter, groups } = this.props;
 
     const activeLogs = [];
     if (groups) {
@@ -38,41 +38,34 @@ export default class DashboardPage extends Component {
     });
 
     return (
-      <section className={styles.dashboardPage}>
+      <section className={styles.activeGroupPage}>
         <header>
-          <h2>Dashboard</h2>
+          <h2>Active Logs</h2>
           <div>
-            <input ref="filter" type="text" placeholder="Filter list..." value={dashboardListFilter} onChange={this.setDashboardListFilter}/>
+            <input ref="filter" type="text" placeholder="Filter list..." value={activeGroupListFilter} onChange={this.setActiveGroupListFilter}/>
             <Icon iconName="magnify"/>
           </div>
         </header>
         <section>
           <article>
-            <h3>Active Logs</h3>
             <ul>
               {activeLogs.length > 0
                 ? activeLogs.map((activeLog, index) => {
                   let output = null;
                   const log = groups[activeLog.groupId].logs[activeLog.logId];
-                  if (!dashboardListFilter || log.name.toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1) {
-                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
+                  if (!activeGroupListFilter || log.name.toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1) {
+                    output = <LogGroupListItem key={index} groupId={activeLog.groupId} logId={activeLog.logId} log={log}/>;
                   }
                   return output;
                 })
                 : (
                   <li className={styles.noLogsLine}>
-                    <p>There are no logs in this group</p>
+                    <p>No logs in this group</p>
                   </li>
                 )
               }
             </ul>
           </article>
-          {groups.map((group, index) => (
-            <article key={index}>
-              <h3>{group.name}</h3>
-              <LogGroupList groupId={'' + index} group={group} listFilter={dashboardListFilter}/>
-            </article>
-          ))}
         </section>
       </section>
     );

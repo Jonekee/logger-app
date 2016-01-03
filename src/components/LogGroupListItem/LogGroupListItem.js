@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
-import styles from './NavPanelGroupItem.scss';
+import styles from './LogGroupListItem.scss';
 
-export default class NavPanelGroupItem extends Component {
+export default class LogGroupListItem extends Component {
   static propTypes = {
-    groupId: PropTypes.number.isRequired,
+    groupId: PropTypes.string.isRequired,
     logId: PropTypes.number.isRequired,
     log: PropTypes.object.isRequired
   }
@@ -26,12 +26,14 @@ export default class NavPanelGroupItem extends Component {
         colorClass = '';
         break;
     }
-
     return (
-      <li className={styles.navPanelGroupItem}>
+      <li className={styles.logGroupListItem}>
         <Link to={'/dashboard/group/' + groupId + '/log/' + logId}>
           <i className={colorClass}></i>
-          <span>{log.name}</span>
+          <div>
+            <p>{log.name}</p>
+            <p>{log.fpath + log.fname}</p>
+          </div>
         </Link>
       </li>
     );

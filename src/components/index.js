@@ -1,23 +1,14 @@
-/**
- *  Point of contact for component modules
- *
- *  ie: import { CounterButton, InfoBar } from 'components';
- *
- */
-
-export CounterButton from './CounterButton/CounterButton';
-export GithubButton from './GithubButton/GithubButton';
-export InfoBar from './InfoBar/InfoBar';
-export MiniInfoBar from './MiniInfoBar/MiniInfoBar';
-export NavPanel from './NavPanel/NavPanel';
-export SurveyForm from './SurveyForm/SurveyForm';
-export WidgetForm from './WidgetForm/WidgetForm';
-export SvgStore from './SvgStore/SvgStore';
+export ActiveGroupPage from './ActiveGroupPage/ActiveGroupPage';
+export AdminPage from './AdminPage/AdminPage';
+export AnalysisPage from './AnalysisPage/AnalysisPage';
+export DashboardPage from './DashboardPage/DashboardPage';
+export DropDown from './DropDown/DropDown';
+export GroupPage from './GroupPage/GroupPage';
 export Icon from './Icon/Icon';
 export LoadingSpinner from './LoadingSpinner/LoadingSpinner';
-export GroupPage from './GroupPage/GroupPage';
-export LogPage from './LogPage/LogPage';
-export LogOutputPage from './LogOutputPage/LogOutputPage';
-export DashboardPage from './DashboardPage/DashboardPage';
 export LogGroupList from './LogGroupList/LogGroupList';
-export DropDown from './DropDown/DropDown';
+export LogGroupListItem from './LogGroupListItem/LogGroupListItem';
+export LogOutputPage from './LogOutputPage/LogOutputPage';
+export LogPage from './LogPage/LogPage';
+export NavPanel from './NavPanel/NavPanel';
+export SvgStore from './SvgStore/SvgStore';

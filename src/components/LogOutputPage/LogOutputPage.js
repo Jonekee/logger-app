@@ -11,12 +11,21 @@ export default class LogOutputPage extends Component {
     groupId: PropTypes.string,
     logId: PropTypes.string,
     logData: PropTypes.array,
-    setLogRead: PropTypes.func
+    setLogRead: PropTypes.func,
+    scrollLocked: PropTypes.bool
+  }
+
+  componentDidMount() {
+    const { groupId, logId, setLogRead } = this.props; // eslint-disable-line no-shadow
+    setLogRead(groupId, logId);
   }
 
   componentDidUpdate = () => {
-    const { groupId, logId, setLogRead } = this.props; // eslint-disable-line no-shadow
-    this.refs.scrollArea.scrollTop = this.refs.scrollArea.scrollHeight;
+    console.log('LogOutputPage:cDU');
+    const { groupId, logId, setLogRead, scrollLocked } = this.props; // eslint-disable-line no-shadow
+    if (scrollLocked) {
+      this.refs.scrollArea.scrollTop = this.refs.scrollArea.scrollHeight;
+    }
     setLogRead(groupId, logId);
   }
 
