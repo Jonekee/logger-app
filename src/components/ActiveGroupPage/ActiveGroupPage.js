@@ -37,6 +37,8 @@ export default class ActiveGroupPage extends Component {
       return firstName > secondName;
     });
 
+    let allActiveLogsFiltered = activeLogs.length > 0;
+
     return (
       <section className={styles.activeGroupPage}>
         <header>
@@ -54,7 +56,8 @@ export default class ActiveGroupPage extends Component {
                   let output = null;
                   const log = groups[activeLog.groupId].logs[activeLog.logId];
                   if (!activeGroupListFilter || log.name.toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1) {
-                    output = <LogGroupListItem key={index} groupId={activeLog.groupId} logId={activeLog.logId} log={log}/>;
+                    allActiveLogsFiltered = false;
+                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
                   }
                   return output;
                 })
@@ -63,6 +66,14 @@ export default class ActiveGroupPage extends Component {
                     <p>No logs in this group</p>
                   </li>
                 )
+              }
+              {allActiveLogsFiltered
+                ? (
+                  <li className={styles.noLogsLine}>
+                    <p>No logs matching the filter &ldquo;{activeGroupListFilter}&rdquo;</p>
+                  </li>
+                )
+                : null
               }
             </ul>
           </article>

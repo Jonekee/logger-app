@@ -11,6 +11,7 @@ export default class LogGroupList extends Component {
 
   render() {
     const { groupId, group, listFilter } = this.props;
+    let allLogsFiltered = group.logs.length > 0;
     return (
       <article className={styles.logGroupList}>
         <ul>
@@ -18,6 +19,7 @@ export default class LogGroupList extends Component {
             ? group.logs.map((log, index) => {
               let output = null;
               if (!listFilter || log.name.toLowerCase().indexOf(listFilter.toLowerCase()) > -1) {
+                allLogsFiltered = false;
                 output = <LogGroupListItem key={index} groupId={groupId} logId={index} log={log}/>;
               }
               return output;
@@ -27,6 +29,14 @@ export default class LogGroupList extends Component {
                 <p>There are no logs in this group</p>
               </li>
             )
+          }
+          {allLogsFiltered
+            ? (
+              <li className={styles.noLogsLine}>
+                <p>No logs matching the filter &ldquo;{listFilter}&rdquo;</p>
+              </li>
+            )
+            : null
           }
         </ul>
       </article>

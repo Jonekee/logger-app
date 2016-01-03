@@ -22,7 +22,7 @@ Another browser was watching the slower log throughout this test and its perform
 
 ### Release 0
 
-No logs matching search filter indicator on group pages and dashboard page.
+Extend search filter to log file path.
 
 ### Release 1
 
@@ -56,6 +56,8 @@ Admin status per group, users can add people/logs to a group if they are a admin
 
 ### Potential Features
 
+Regex based search boxes
+
 Download log file
 
 Backtrack X amount of line when starting to tail log
@@ -88,3 +90,5 @@ Potential bug where output sits in paused log buffer, then the user stops watchi
 Dashboard list filtering.
 
 Nav section overflow scroll management.
+
+No logs matching search filter indicator on group pages and dashboard page.

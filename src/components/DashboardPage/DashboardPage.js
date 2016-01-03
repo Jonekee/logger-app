@@ -37,6 +37,8 @@ export default class DashboardPage extends Component {
       return firstName > secondName;
     });
 
+    let allActiveLogsFiltered = activeLogs.length > 0;
+
     return (
       <section className={styles.dashboardPage}>
         <header>
@@ -55,6 +57,7 @@ export default class DashboardPage extends Component {
                   let output = null;
                   const log = groups[activeLog.groupId].logs[activeLog.logId];
                   if (!dashboardListFilter || log.name.toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1) {
+                    allActiveLogsFiltered = false;
                     output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
                   }
                   return output;
@@ -64,6 +67,14 @@ export default class DashboardPage extends Component {
                     <p>There are no logs in this group</p>
                   </li>
                 )
+              }
+              {allActiveLogsFiltered
+                ? (
+                  <li className={styles.noLogsLine}>
+                    <p>No logs matching the filter &ldquo;{dashboardListFilter}&rdquo;</p>
+                  </li>
+                )
+                : null
               }
             </ul>
           </article>
