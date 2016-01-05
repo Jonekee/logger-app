@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Icon, LogGroupListItem } from 'components';
 import styles from './ActiveGroupPage.scss';
+import DocumentMeta from 'react-document-meta';
 
 export default class ActiveGroupPage extends Component {
   static propTypes = {
@@ -41,6 +42,7 @@ export default class ActiveGroupPage extends Component {
 
     return (
       <section className={styles.activeGroupPage}>
+        <DocumentMeta title="Logger - Active Logs"/>
         <header>
           <h2>Active Logs</h2>
           <div>

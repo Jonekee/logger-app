@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Icon, LogGroupList } from 'components';
 import styles from './GroupPage.scss';
+import DocumentMeta from 'react-document-meta';
 
 export default class GroupPage extends Component {
   static propTypes = {
@@ -18,6 +19,7 @@ export default class GroupPage extends Component {
     const { groupId, group } = this.props;
     return (
       <section className={styles.groupPage}>
+        <DocumentMeta title={'Logger - ' + group.name}/>
         <header>
           <h2>{group.name}</h2>
           <div>

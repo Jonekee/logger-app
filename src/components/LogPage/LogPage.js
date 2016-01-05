@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock } from 'redux/modules/groups';
 import { Link } from 'react-router';
 import { releaseStage } from '../../config';
+import DocumentMeta from 'react-document-meta';
 
 @connect(
   state => ({ route: state.router.routes }),
@@ -88,6 +89,7 @@ export default class LogPage extends Component {
 
     return (
       <section className={styles.logPage}>
+        <DocumentMeta title={'Logger - ' + log.name}/>
         <header>
           <div className={styles.row}>
             <h2>{log.name}</h2>
