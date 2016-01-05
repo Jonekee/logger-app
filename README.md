@@ -24,6 +24,10 @@ Another browser was watching the slower log throughout this test and its perform
 
 Extend search filter to log file path.
 
+Sticky header on group pages when they overflow.
+
+Add dynamic title tag based on current page.
+
 ### Release 1
 
 Management of groups and logs through UI
@@ -57,6 +61,10 @@ Admin status per group, users can add people/logs to a group if they are a admin
 ### Potential Features
 
 Regex based search boxes
+
+Parallax effect on 404 page
+
+Disconnect all button on Dashboard page.
 
 Download log file
 
