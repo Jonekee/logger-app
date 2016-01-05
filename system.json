@@ -34,13 +34,13 @@
       "logs" : [
         {
           "name" : "Apache Access",
-          "fname" : "access.log",
-			    "fpath" : "/var/log/apache/logs/"
+          "fname" : "access_log",
+			    "fpath" : "/var/log/apache2/"
         },
         {
           "name" : "Apache Error",
-          "fname" : "error.log",
-			    "fpath" : "/var/log/apache/logs/"
+          "fname" : "error_log",
+			    "fpath" : "/var/log/apache2/"
         }
       ]
     },
