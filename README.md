@@ -27,6 +27,35 @@ COMPONENTDIDUPDATE tracker on everythinggggggg.
 
 Normalize state structure for more efficient updates.
 
+### Unassigned Features
+
+Regex based search boxes
+
+Highlight matched text on searched pages
+
+Parallax effect on 404 page
+
+Disconnect all button on Dashboard page.
+
+Download log file
+
+Download current log output (generate on client-side using base64 encoding
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+)
+
+Backtrack X amount of line when starting to tail log
+
 
 ### Release 0
 
@@ -61,20 +90,6 @@ Management through UI
 ### Release 5
 
 Admin status per group, users can add people/logs to a group if they are a admin of it
-
-### Potential Features
-
-Regex based search boxes
-
-Highlight matched text on searched pages
-
-Parallax effect on 404 page
-
-Disconnect all button on Dashboard page.
-
-Download log file
-
-Backtrack X amount of line when starting to tail log
 
 
 ### Done
