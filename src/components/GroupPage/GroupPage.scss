@@ -1,5 +1,10 @@
 .groupPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   header {
+    flex: 0 0 auto;
     padding: 25px 20px 6px;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -37,7 +42,15 @@
 
   section {
     padding: 20px;
-    max-width: 1500px;
     margin: 0 auto;
+    flex: 0 1 auto;
+    width: 100%;
+    overflow: scroll;
+    box-sizing: border-box;
+
+    article {
+      margin: 0 auto;
+      max-width: 1500px;
+    }
   }
 }
