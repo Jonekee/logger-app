@@ -19,7 +19,7 @@ export default class NavPanelActiveGroup extends Component {
 
   render() {
     const { activeGroupOpen, activeLogs, groups, toggleActiveNavGroupOpen } = this.props; // eslint-disable-line no-shadow
-    const listContentsHeight = activeLogs.length * 26 || 19; // ##BADCODE Hard coded styling related value, the OR is for when the log list is empty
+    const listContentsHeight = activeLogs.length * 28 || 19; // ##BADCODE Hard coded styling related value, the OR is for when the log list is empty and 'No logs' is shown
     const currHeight = (activeGroupOpen ? listContentsHeight : '0') + 'px';
     return (
       <section className={styles.navPanelGroup}>

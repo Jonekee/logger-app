@@ -24,9 +24,7 @@ Another browser was watching the slower log throughout this test and its perform
 
 Extend search filter to log file path.
 
-Sticky header on group pages when they overflow.
-
-Add dynamic title tag based on current page.
+Add focus highlights to buttons and anchors for keyboard based nav.
 
 ### Release 1
 
@@ -61,6 +59,8 @@ Admin status per group, users can add people/logs to a group if they are a admin
 ### Potential Features
 
 Regex based search boxes
+
+Highlight matched text on searched pages
 
 Parallax effect on 404 page
 
@@ -100,3 +100,9 @@ Dashboard list filtering.
 Nav section overflow scroll management.
 
 No logs matching search filter indicator on group pages and dashboard page.
+
+Add dynamic title tag based on current page.
+
+Sticky header on group pages when they overflow.
+
+Nav group list is cut off at large list lengths.
