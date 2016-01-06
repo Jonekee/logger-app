@@ -30,7 +30,7 @@ Normalize state structure for more efficient updates.
 
 ### Release 0
 
-Extend search filter to log file path.
+Done?
 
 ### Release 1
 
@@ -111,3 +111,5 @@ Add focus highlights to buttons and anchors for keyboard based nav.
   - Includes: Nav a and button tags, search inputs, group logs list items, log page buttons
 
 Skip over closed nav groups when navigating using keyboard.
+
+Extend search filter to log file path.

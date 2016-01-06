@@ -57,7 +57,9 @@ export default class ActiveGroupPage extends Component {
                 ? activeLogs.map((activeLog, index) => {
                   let output = null;
                   const log = groups[activeLog.groupId].logs[activeLog.logId];
-                  if (!activeGroupListFilter || log.name.toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1) {
+                  if (!activeGroupListFilter
+                      || log.name.toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1
+                      || (log.fpath + log.fname).toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1) {
                     allActiveLogsFiltered = false;
                     output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
                   }

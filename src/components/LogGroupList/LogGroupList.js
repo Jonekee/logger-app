@@ -18,7 +18,9 @@ export default class LogGroupList extends Component {
           {group.logs.length > 0
             ? group.logs.map((log, index) => {
               let output = null;
-              if (!listFilter || log.name.toLowerCase().indexOf(listFilter.toLowerCase()) > -1) {
+              if (!listFilter
+                  || log.name.toLowerCase().indexOf(listFilter.toLowerCase()) > -1
+                  || (log.fpath + log.fname).toLowerCase().indexOf(listFilter.toLowerCase()) > -1) {
                 allLogsFiltered = false;
                 output = <LogGroupListItem key={index} groupId={groupId} logId={index} log={log}/>;
               }

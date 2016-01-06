@@ -58,7 +58,9 @@ export default class DashboardPage extends Component {
                 ? activeLogs.map((activeLog, index) => {
                   let output = null;
                   const log = groups[activeLog.groupId].logs[activeLog.logId];
-                  if (!dashboardListFilter || log.name.toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1) {
+                  if (!dashboardListFilter
+                      || log.name.toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1
+                      || (log.fpath + log.fname).toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1) {
                     allActiveLogsFiltered = false;
                     output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
                   }
