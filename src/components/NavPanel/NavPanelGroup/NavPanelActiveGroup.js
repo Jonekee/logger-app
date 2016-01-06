@@ -35,7 +35,7 @@ export default class NavPanelActiveGroup extends Component {
         </header>
         <ul ref="list" style={{ height: currHeight }}>
           {activeLogs && activeLogs.length > 0
-            ? activeLogs.map((log, index) => <NavPanelGroupItem key={index} groupId={log.groupId} logId={log.logId} log={groups[log.groupId].logs[log.logId]}/>)
+            ? activeLogs.map((log, index) => <NavPanelGroupItem key={index} groupId={log.groupId} logId={log.logId} log={groups[log.groupId].logs[log.logId]} isVisible={activeGroupOpen}/>)
             : (
               <li className={styles.noLogsLine}>No logs</li>
             )

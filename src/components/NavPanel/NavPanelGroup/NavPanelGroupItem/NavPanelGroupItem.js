@@ -6,11 +6,12 @@ export default class NavPanelGroupItem extends Component {
   static propTypes = {
     groupId: PropTypes.number.isRequired,
     logId: PropTypes.number.isRequired,
-    log: PropTypes.object.isRequired
+    log: PropTypes.object.isRequired,
+    isVisible: PropTypes.boolean
   }
 
   render() {
-    const { groupId, logId, log } = this.props;
+    const { groupId, logId, log, isVisible } = this.props;
     let colorClass;
     switch (log.activeState) {
       case 'ACTIVE':
@@ -29,7 +30,7 @@ export default class NavPanelGroupItem extends Component {
 
     return (
       <li className={styles.navPanelGroupItem}>
-        <Link to={'/dashboard/group/' + groupId + '/log/' + logId}>
+        <Link to={'/dashboard/group/' + groupId + '/log/' + logId} tabIndex={isVisible ? '0' : '-1'}>
           <i className={colorClass}></i>
           <span>{log.name}</span>
         </Link>

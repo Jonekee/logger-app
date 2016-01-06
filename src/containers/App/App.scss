@@ -24,12 +24,20 @@ a {
   &:hover {
     color: inherit;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 button {
    background: inherit;
    border: none;
    cursor: pointer;
+
+   &:focus {
+     outline: none;
+   }
 }
 
 input {

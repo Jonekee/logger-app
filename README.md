@@ -19,12 +19,18 @@ Another browser was watching the slower log throughout this test and its perform
 
 ## To Do
 
+### Essential Improvements
+
+Removal of console output on client-side code or a Log Level management tool.
+
+COMPONENTDIDUPDATE tracker on everythinggggggg.
+
+Normalize state structure for more efficient updates.
+
 
 ### Release 0
 
 Extend search filter to log file path.
-
-Add focus highlights to buttons and anchors for keyboard based nav.
 
 ### Release 1
 
@@ -70,12 +76,6 @@ Download log file
 
 Backtrack X amount of line when starting to tail log
 
-### Essential Improvements
-
-Removal of console output on client-side code or a Log Level management tool.
-
-COMPONENTDIDUPDATE tracker on everythinggggggg
-
 
 ### Done
 
@@ -106,3 +106,8 @@ Add dynamic title tag based on current page.
 Sticky header on group pages when they overflow.
 
 Nav group list is cut off at large list lengths.
+
+Add focus highlights to buttons and anchors for keyboard based nav.
+  - Includes: Nav a and button tags, search inputs, group logs list items, log page buttons
+
+Skip over closed nav groups when navigating using keyboard.

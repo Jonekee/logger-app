@@ -34,7 +34,7 @@ export default class NavPanelGroup extends Component {
         </header>
         <ul ref="list" style={{ height: currHeight }}>
           {group.logs.length > 0
-            ? group.logs.map((log, index) => <NavPanelGroupItem key={index} groupId={groupId} logId={index} log={log}/>)
+            ? group.logs.map((log, index) => <NavPanelGroupItem key={index} groupId={groupId} logId={index} log={log} isVisible={group.navOpen}/>)
             : (
               <li className={styles.noLogsLine}>No logs</li>
             )
