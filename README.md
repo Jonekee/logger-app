@@ -58,6 +58,8 @@ Download current log output (generate on client-side using base64 encoding
 
 Backtrack X amount of lines when starting to tail log
 
+Reconnect socket connections automatically, toast errors
+
 ### Release 0
 
 Make everything required, and defer rendering of Page components until state has been loaded
