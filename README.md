@@ -27,6 +27,7 @@ COMPONENTDIDUPDATE tracker on everythinggggggg.
 
 Normalize state structure for more efficient updates.
 
+Reconnect socket, toast errors
 
 ### Release 0
 
