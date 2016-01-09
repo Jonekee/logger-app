@@ -27,6 +27,8 @@ COMPONENTDIDUPDATE tracker on everythinggggggg.
 
 Normalize state structure for more efficient updates.
 
+Compute derived data such as active logs using Reselect.
+
 ### Unassigned Features
 
 Regex based search boxes
@@ -54,12 +56,11 @@ Download current log output (generate on client-side using base64 encoding
   }
 )
 
-Backtrack X amount of line when starting to tail log
-
+Backtrack X amount of lines when starting to tail log
 
 ### Release 0
 
-Done?
+Make everything required, and defer rendering of Page components until state has been loaded
 
 ### Release 1
 

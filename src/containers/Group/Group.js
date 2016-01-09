@@ -19,16 +19,14 @@ function fetchDataDeferred(getState, dispatch) {
   { setGroupListFilter })
 export default class Group extends Component {
   static propTypes = {
-    groupId: PropTypes.string.isRequired,
-    groups: PropTypes.array,
-    setGroupListFilter: PropTypes.func
+    groupId: PropTypes.string,
+    groups: PropTypes.array.isRequired,
+    setGroupListFilter: PropTypes.func.isRequired
   };
 
   render() {
     const { groupId, groups, setGroupListFilter } = this.props; // eslint-disable-line no-shadow
     const group = groups[groupId];
-    return (
-      <GroupPage groupId={groupId} group={group} setGroupListFilter={setGroupListFilter}/>
-    );
+    return !!groupId ? <GroupPage groupId={groupId} group={group} setGroupListFilter={setGroupListFilter}/> : null;
   }
 }

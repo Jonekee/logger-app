@@ -5,9 +5,24 @@ import DocumentMeta from 'react-document-meta';
 
 export default class GroupPage extends Component {
   static propTypes = {
-    groupId: PropTypes.string,
-    group: PropTypes.object,
-    setGroupListFilter: PropTypes.func
+    groupId: PropTypes.string.isRequired,
+    group: PropTypes.object.isRequired,
+    setGroupListFilter: PropTypes.func.isRequired
+  }
+
+  shouldComponentUpdate(nextProps) {
+    /*  GroupPage should only update if it is being passed a new groupId
+     *  or if the group list filter has changed. You can update the Logs
+     *  or anything like that while viewing this page so no need to check
+     *  them for any change.
+     */
+    const { groupId: currId, group: currGroup } = this.props;
+    const { groupId: nextId, group: nextGroup } = nextProps;
+    return (currId !== nextId) || (currGroup.listFilter !== nextGroup.listFilter);
+  }
+
+  componentDidUpdate() {
+    console.log('GroupPage:cDU');
   }
 
   setGroupListFilter = (event) => {

@@ -5,9 +5,13 @@ import DocumentMeta from 'react-document-meta';
 
 export default class DashboardPage extends Component {
   static propTypes = {
-    dashboardListFilter: PropTypes.string,
-    groups: PropTypes.array,
-    setDashboardListFilter: PropTypes.func
+    dashboardListFilter: PropTypes.string.isRequired,
+    groups: PropTypes.array.isRequired,
+    setDashboardListFilter: PropTypes.func.isRequired
+  }
+
+  componentDidUpdate() {
+    console.log('DashboardPage:cDU');
   }
 
   setDashboardListFilter = (event) => {

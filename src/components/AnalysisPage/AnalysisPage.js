@@ -10,6 +10,10 @@ export default class AnalysisPage extends Component {
     logLevelMapping: PropTypes.object
   }
 
+  componentDidUpdate() {
+    console.log('AnalysisPage:cDU');
+  }
+
   render() {
     const { logData, logLevelMapping } = this.props;
     let contents;

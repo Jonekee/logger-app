@@ -7,7 +7,7 @@ export default class NavPanelGroupItem extends Component {
     groupId: PropTypes.number.isRequired,
     logId: PropTypes.number.isRequired,
     log: PropTypes.object.isRequired,
-    isVisible: PropTypes.boolean
+    isVisible: PropTypes.bool
   }
 
   render() {

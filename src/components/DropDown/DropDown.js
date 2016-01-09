@@ -9,6 +9,10 @@ export default class DropDown extends Component {
     onChange: PropTypes.func.isRequired
   }
 
+  componentDidUpdate() {
+    console.log('DropDown:cDU');
+  }
+
   render() {
     const { title, options, onChange } = this.props;
     return (

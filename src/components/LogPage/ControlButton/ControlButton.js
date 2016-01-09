@@ -10,6 +10,10 @@ export default class ControlButton extends Component {
     onClick: PropTypes.func // ##TODO Make this required
   }
 
+  componentDidUpdate() {
+    console.log('ControlButton:cDU');
+  }
+
   render() {
     const { iconName, text, color, onClick } = this.props;
     const colorClass = color ? styles[color] : styles.neutral;

@@ -9,6 +9,10 @@ export default class LogGroupListItem extends Component {
     log: PropTypes.object.isRequired
   }
 
+  componentDidUpdate() {
+    console.log('LogGroupListItem:cDU');
+  }
+
   render() {
     const { groupId, logId, log } = this.props;
     let colorClass;

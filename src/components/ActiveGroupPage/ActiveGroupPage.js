@@ -10,6 +10,10 @@ export default class ActiveGroupPage extends Component {
     setActiveGroupListFilter: PropTypes.func
   }
 
+  componentDidUpdate() {
+    console.log('ActiveGroupPage:cDU');
+  }
+
   setActiveGroupListFilter = (event) => {
     const { setActiveGroupListFilter } = this.props;
     setActiveGroupListFilter(event.target.value);

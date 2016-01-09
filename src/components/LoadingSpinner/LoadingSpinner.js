@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import styles from './LoadingSpinner.scss';
 
 export default class LoadingSpinner extends Component {
+  componentDidUpdate() {
+    console.log('LoadingSpinner:cDU');
+  }
+
   render() {
     return (
       <article className={styles.loadingSpinner}>

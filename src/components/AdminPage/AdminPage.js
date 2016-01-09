@@ -4,10 +4,14 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 @connect(state => ({ route: state.router.routes }))
-export default class LogPage extends Component {
+export default class AdminPage extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     route: PropTypes.array
+  }
+
+  componentDidUpdate() {
+    console.log('AdminPage:cDU');
   }
 
   render() {

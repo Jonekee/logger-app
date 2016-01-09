@@ -27,6 +27,10 @@ export default class LogPage extends Component {
     route: PropTypes.array
   }
 
+  componentDidUpdate() {
+    console.log('LogPage:cDU');
+  }
+
   triggerActivateLog = () => {
     const { groupId, logId, activateLog } = this.props; // eslint-disable-line no-shadow
     activateLog(groupId, logId);

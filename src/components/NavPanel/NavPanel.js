@@ -12,6 +12,10 @@ export default class NavPanel extends Component {
     groups: PropTypes.array
   }
 
+  componentDidUpdate() {
+    console.log('NavPanel:cDU');
+  }
+
   render() {
     const { authEnabled, groups } = this.props;
     const activeLogs = [];

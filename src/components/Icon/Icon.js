@@ -5,6 +5,10 @@ export default class Icon extends Component {
     iconName: PropTypes.string.isRequired
   };
 
+  componentDidUpdate() {
+    console.log('Icon:cDU - ' + this.props.iconName);
+  }
+
   render() {
     const iconId = '#icon-' + this.props.iconName;
     return (
