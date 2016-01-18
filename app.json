@@ -1,8 +1,8 @@
 {
-  "name": "react-redux-universal-hot-example",
-  "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
-  "repository": "https://github.com/erikras/react-redux-universal-hot-example",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "name": "logger-app",
+  "description": "A self-hosted application for remotely watching log files through a web UI.",
+  "repository": "https://github.com/rosscourt/logger-app",
+  "logo": "http://logger-app.github.io/node.svg",
   "keywords": [
     "react",
     "isomorphic",
@@ -12,8 +12,6 @@
     "hot reloading",
     "react-hot-reloader",
     "redux",
-    "starter",
-    "boilerplate",
     "babel"
   ]
 }

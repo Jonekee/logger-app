@@ -18,21 +18,21 @@ module.exports = Object.assign({
   releaseStage: 0,
   app: {
     title: 'Logger',
-    description: 'All the modern best practices in one example.',
+    description: 'A self-hosted application for remotely watching log files through a web UI.',
     meta: {
       charSet: 'utf-8',
       property: {
         'og:site_name': 'Logger',
-        'og:image': 'https://react-redux.herokuapp.com/logo.jpg',
+        'og:image': 'http://logger-app.github.io/logo.jpg',
         'og:locale': 'en_US',
         'og:title': 'Logger',
-        'og:description': 'All the modern best practices in one example.',
+        'og:description': 'A self-hosted application for remotely watching log files through a web UI.',
         'twitter:card': 'summary',
         'twitter:site': '@Ross_Court',
         'twitter:creator': '@Ross_Court',
         'twitter:title': 'Logger',
-        'twitter:description': 'All the modern best practices in one example.',
-        'twitter:image': 'https://react-redux.herokuapp.com/logo.jpg',
+        'twitter:description': 'A self-hosted application for remotely watching log files through a web UI.',
+        'twitter:image': 'http://logger-app.github.io/logo.jpg',
         'twitter:image:width': '200',
         'twitter:image:height': '200'
       }
