@@ -1,7 +1,7 @@
 {
   "name": "logger-app",
   "description": "A self-hosted application for remotely watching log files through a web UI.",
-  "repository": "https://github.com/rosscourt/logger-app",
+  "repository": "https://github.com/logger-app/logger-app",
   "logo": "http://logger-app.github.io/node.svg",
   "keywords": [
     "react",

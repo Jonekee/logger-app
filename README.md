@@ -2,7 +2,7 @@
 
 A self-hosted application for remotely watching log files through a web UI.
 
-**NOTE:** This application is currently in alpha stages of development. If you experience any bugs, please report them through the [GitHub repo](http://github.com/rosscourt/logger-app).
+**NOTE:** This application is currently in alpha stages of development. If you experience any bugs, please report them through the [GitHub repo](http://github.com/logger-app/logger-app).
 
 If you want to understand the planned progression of this application, releases are currently detailed in a [todo list within this repository](./docs/TODO.md).
 
