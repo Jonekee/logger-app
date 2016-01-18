@@ -18,11 +18,6 @@
       "name" : "Actual Logs",
       "logs" : [
         {
-          "name" : "Static Server",
-          "fname" : "log.txt",
-          "fpath" : "/Users/rosscourt/OneDrive/MB_SYNC/LAB/WEB/static-testbench/"
-        },
-        {
           "name" : "System Log",
           "fname" : "system.log",
           "fpath" : "/var/log/"
