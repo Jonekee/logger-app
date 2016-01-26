@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './AdminPage.scss';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { releaseStage } from '../../config';
 
 @connect(state => ({ route: state.router.routes }))
 export default class AdminPage extends Component {
@@ -36,12 +37,22 @@ export default class AdminPage extends Component {
                 <li>
                   <Link to="/dashboard/admin/logs" className={currentRoute === 'logs' ? styles.active : ''}>Logs</Link>
                 </li>
-                <li>
-                  <Link to="/dashboard/admin/users" className={currentRoute === 'users' ? styles.active : ''}>Users</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/admin/syntax" className={currentRoute === 'syntax' ? styles.active : ''}>Syntax</Link>
-                </li>
+                {releaseStage > 1
+                  ? (
+                    <li>
+                      <Link to="/dashboard/admin/users" className={currentRoute === 'users' ? styles.active : ''}>Users</Link>
+                    </li>
+                  )
+                  : null
+                }
+                {releaseStage > 3
+                  ? (
+                    <li>
+                      <Link to="/dashboard/admin/syntax" className={currentRoute === 'syntax' ? styles.active : ''}>Syntax</Link>
+                    </li>
+                  )
+                  : null
+                }
               </ul>
             </nav>
           </div>

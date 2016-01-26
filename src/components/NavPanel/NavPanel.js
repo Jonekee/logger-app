@@ -47,8 +47,10 @@ export default class NavPanel extends Component {
         </div>
         <nav>
           <div>
-            <NavPanelActiveGroup activeLogs={activeLogs} groups={groups}/>
-            {groups && groups.map((group, index) => <NavPanelGroup key={index} groupId={index} group={group}/>)}
+            <div>
+              <NavPanelActiveGroup activeLogs={activeLogs} groups={groups}/>
+              {groups && groups.map((group, index) => <NavPanelGroup key={index} groupId={index} group={group}/>)}
+            </div>
           </div>
           {releaseStage > 0
             ? (

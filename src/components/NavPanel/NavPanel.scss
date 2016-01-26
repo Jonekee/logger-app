@@ -12,14 +12,17 @@ aside {
 
   nav {
     flex: 1;
-    overflow: auto;
     margin-top: 35px;
     display: flex;
     flex-direction: column;
 
     & > div {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
 
-      &:first-of-type {
+      & > div {
         min-height: min-content;
       }
 
@@ -41,6 +44,20 @@ aside {
         span {
           font-size: 14px;
           margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .actions {
+    li {
+      display: block;
+
+      a {
+        padding: 2px 5px;
+
+        & > * {
+          vertical-align: middle;
         }
       }
     }

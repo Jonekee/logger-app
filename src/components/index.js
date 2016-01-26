@@ -4,6 +4,7 @@ export AnalysisPage from './AnalysisPage/AnalysisPage';
 export DashboardPage from './DashboardPage/DashboardPage';
 export DropDown from './DropDown/DropDown';
 export GroupPage from './GroupPage/GroupPage';
+export GroupManagementPage from './GroupManagementPage/GroupManagementPage';
 export Icon from './Icon/Icon';
 export LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 export LogGroupList from './LogGroupList/LogGroupList';

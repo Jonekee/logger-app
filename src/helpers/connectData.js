@@ -7,6 +7,12 @@ import hoistStatics from 'hoist-non-react-statics';
     Otherwise, we cannot find and call the fetchData and fetchDataDeffered methods.
 */
 
+/*
+  fetchData block a server-side request until the data is loaded/received
+  whereas fetchDataDeferred continues to render as the data is being fetched
+  and is usually loaded on the client side.
+*/
+
 export default function connectData(fetchData, fetchDataDeferred) {
   return function wrapWithFetchData(WrappedComponent) {
     class ConnectData extends Component {
