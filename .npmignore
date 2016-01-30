@@ -1,0 +1,9 @@
+.idea/
+docs/
+src/
+api/
+webpack/
+licenses/
+node_modules/
+*.iml
+npm-debug.log
