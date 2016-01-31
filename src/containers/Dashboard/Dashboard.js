@@ -25,7 +25,7 @@ export default class Dashboard extends Component {
     groups: PropTypes.array
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     socket.on('lineUpdate', data => {
       this.props.addLineToLog(data.groupId, data.logId, data.newLine);
     });
