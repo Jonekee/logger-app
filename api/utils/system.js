@@ -3,6 +3,8 @@ import Bcrypt from 'bcrypt-nodejs';
 
 /* eslint func-names:0 */
 
+const relativeSystemFileLocation = global.__LIB_VERSION__ ? '/../../../' : '/../../';
+
 function readFile(file) {
   return new Promise(function(resolve, reject) {
     fs.readFile(file, 'utf-8', function(err, data) {
@@ -15,7 +17,7 @@ function readFile(file) {
 class SystemHelper {
   constructor() {
     console.log('Initialising SystemHelper');
-    const systemFile = __dirname + '/../../system.json';
+    const systemFile = __dirname + relativeSystemFileLocation + 'system.json';
     readFile(systemFile)
       .then((data) => {
         console.log('Finished reading system file');

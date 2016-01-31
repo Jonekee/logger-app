@@ -29,10 +29,12 @@ const proxy = httpProxy.createProxyServer({
   ws: true
 });
 
-app.use(compression());
-app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
+const relativeStaticLocation = global.__LIB_VERSION__ ? '../..' : '..';
 
-app.use(Express.static(path.join(__dirname, '..', 'static')));
+app.use(compression());
+app.use(favicon(path.join(__dirname, relativeStaticLocation, 'static', 'favicon.ico')));
+
+app.use(Express.static(path.join(__dirname, relativeStaticLocation, 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
