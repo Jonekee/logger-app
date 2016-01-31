@@ -28,7 +28,8 @@
     "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
     "start-prod": "better-npm-run start-prod",
     "start-prod-api": "better-npm-run start-prod-api",
-    "build": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+    "build": "better-npm-run build",
+    "npm-build": "better-npm-run npm-build",
     "lint": "eslint -c .eslintrc src api",
     "start-dev": "better-npm-run start-dev",
     "start-dev-api": "better-npm-run start-dev-api",
@@ -38,7 +39,9 @@
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch",
     "clean-lib": "cp -r api/* lib/api/ && cp -r src/* lib/src/",
-    "populate-lib": "rm -fr lib && mkdir -p lib/{api,src} && find ./lib -name \"*.js\" -type f -delete"
+    "populate-lib": "rm -fr lib && mkdir -p lib/{api,src} && find ./libg -name \"*.js\" -type f -delete",
+    "populate-lib": "babel -d lib/src/ src/ && babel -d lib/api/ api/",
+    "prepublish": "npm run clean-lib && npm run populate-lib && npm run npm-build"
   },
   "betterScripts": {
     "start-prod": {
@@ -80,6 +83,18 @@
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./src"
+      }
+    },
+    "build": {
+      "command": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "npm-build": {
+      "command": "webpack --verbose --colors --display-error-details --config webpack/npm.config.js",
+      "env": {
+        "NODE_ENV": "production"
       }
     }
   },
