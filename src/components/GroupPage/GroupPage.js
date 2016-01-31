@@ -8,7 +8,7 @@ export default class GroupPage extends Component {
     groupId: PropTypes.string.isRequired,
     group: PropTypes.object.isRequired,
     setGroupListFilter: PropTypes.func.isRequired
-  }
+  };
 
   shouldComponentUpdate(nextProps) {
     /*  GroupPage should only update if it is being passed a new groupId
@@ -28,7 +28,7 @@ export default class GroupPage extends Component {
   setGroupListFilter = (event) => {
     const { groupId, setGroupListFilter } = this.props;
     setGroupListFilter(groupId, event.target.value);
-  }
+  };
 
   render() {
     const { groupId, group } = this.props;

@@ -5,7 +5,7 @@ import DocumentMeta from 'react-document-meta';
 export default class GroupManagementPage extends Component {
   static propTypes = {
     groups: PropTypes.array.isRequired
-  }
+  };
 
   shouldComponentUpdate(nextProps) {
     /*  GroupManagementPage should only update if it is being passed a groups

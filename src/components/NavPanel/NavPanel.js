@@ -10,7 +10,7 @@ export default class NavPanel extends Component {
   static propTypes = {
     authEnabled: PropTypes.bool,
     groups: PropTypes.array
-  }
+  };
 
   componentDidUpdate() {
     console.log('NavPanel:cDU');

@@ -8,7 +8,7 @@ export default class ControlButton extends Component {
     text: PropTypes.string.isRequired,
     color: PropTypes.string,
     onClick: PropTypes.func // ##TODO Make this required
-  }
+  };
 
   componentDidUpdate() {
     console.log('ControlButton:cDU');

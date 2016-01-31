@@ -7,7 +7,7 @@ export default class LogGroupList extends Component {
     groupId: PropTypes.string.isRequired,
     group: PropTypes.object.isRequired,
     listFilter: PropTypes.string.isRequired
-  }
+  };
 
   componentDidUpdate() {
     console.log('LogGroupList:cDU');

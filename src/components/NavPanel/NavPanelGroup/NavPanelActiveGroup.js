@@ -15,7 +15,7 @@ export default class NavPanelActiveGroup extends Component {
     activeLogs: PropTypes.array.isRequired,
     groups: PropTypes.array.isRequired,
     toggleActiveNavGroupOpen: PropTypes.func
-  }
+  };
 
   componentDidUpdate() {
     console.log('NavPanelActiveGroup:cDU');

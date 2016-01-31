@@ -7,7 +7,7 @@ export default class DropDown extends Component {
     title: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired
-  }
+  };
 
   componentDidUpdate() {
     console.log('DropDown:cDU');

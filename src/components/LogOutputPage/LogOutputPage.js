@@ -13,7 +13,7 @@ export default class LogOutputPage extends Component {
     logData: PropTypes.array,
     setLogRead: PropTypes.func,
     scrollLocked: PropTypes.bool
-  }
+  };
 
   componentDidMount() {
     const { groupId, logId, setLogRead } = this.props; // eslint-disable-line no-shadow
@@ -27,7 +27,7 @@ export default class LogOutputPage extends Component {
       this.refs.scrollArea.scrollTop = this.refs.scrollArea.scrollHeight;
     }
     setLogRead(groupId, logId);
-  }
+  };
 
   render() {
     const { logData } = this.props;

@@ -14,7 +14,7 @@ export default class NavPanelGroup extends Component {
     groupId: PropTypes.number.isRequired,
     group: PropTypes.object.isRequired,
     toggleNavGroupOpen: PropTypes.func.isRequired
-  }
+  };
 
   componentDidUpdate() {
     console.log('NavPanelGroup:cDU - ' + this.props.group.name);

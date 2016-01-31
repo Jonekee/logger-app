@@ -25,7 +25,7 @@ export default class LogPage extends Component {
     toggleScrollLock: PropTypes.func,
     children: PropTypes.object.isRequired,
     route: PropTypes.array
-  }
+  };
 
   componentDidUpdate() {
     console.log('LogPage:cDU');
@@ -35,28 +35,28 @@ export default class LogPage extends Component {
     const { groupId, logId, activateLog } = this.props; // eslint-disable-line no-shadow
     activateLog(groupId, logId);
     socket.emit('attachLogListener', { groupId, logId });
-  }
+  };
 
   triggerDeactivateLog = () => {
     const { groupId, logId, deactivateLog } = this.props; // eslint-disable-line no-shadow
     deactivateLog(groupId, logId);
     socket.emit('detachLogListener', { groupId, logId });
-  }
+  };
 
   triggerPauseLog = () => {
     const { groupId, logId, pauseLog } = this.props; // eslint-disable-line no-shadow
     pauseLog(groupId, logId);
-  }
+  };
 
   triggerResumeLog = () => {
     const { groupId, logId, resumeLog } = this.props; // eslint-disable-line no-shadow
     resumeLog(groupId, logId);
-  }
+  };
 
   clearLogOutput = () => {
     const { groupId, logId, clearLogOutput } = this.props; // eslint-disable-line no-shadow
     clearLogOutput(groupId, logId);
-  }
+  };
 
   render() {
     const { groupId, logId, log, toggleLogExtraActionsOpen, toggleScrollLock, route } = this.props; // eslint-disable-line no-shadow

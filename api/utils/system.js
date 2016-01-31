@@ -29,15 +29,15 @@ class SystemHelper {
 
   getGroupNames = () => {
     return Object.keys(this.system.groups);
-  }
+  };
 
   getGroups = () => {
     return this.system.groups;
-  }
+  };
 
   checkForUser = (username) => {
     return !!this.system.users[username];
-  }
+  };
 
   checkUserPassword = (username, password) => {
     return new Promise((resolve, reject) => {
@@ -46,12 +46,12 @@ class SystemHelper {
         else resolve(result);
       });
     });
-  }
+  };
 
   getLogFile = (groupId, logId) => {
     const log = this.system.groups[groupId].logs[logId];
     return log.fpath + log.fname;
-  }
+  };
 }
 
 const instance = new SystemHelper();

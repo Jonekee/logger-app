@@ -8,7 +8,7 @@ export default class DashboardPage extends Component {
     dashboardListFilter: PropTypes.string.isRequired,
     groups: PropTypes.array.isRequired,
     setDashboardListFilter: PropTypes.func.isRequired
-  }
+  };
 
   componentDidUpdate() {
     console.log('DashboardPage:cDU');
@@ -17,7 +17,7 @@ export default class DashboardPage extends Component {
   setDashboardListFilter = (event) => {
     const { setDashboardListFilter } = this.props;
     setDashboardListFilter(event.target.value);
-  }
+  };
 
   render() {
     const { dashboardListFilter, groups } = this.props;

@@ -8,7 +8,7 @@ export default class AnalysisPage extends Component {
     logId: PropTypes.string,
     logData: PropTypes.array,
     logLevelMapping: PropTypes.object
-  }
+  };
 
   componentDidUpdate() {
     console.log('AnalysisPage:cDU');

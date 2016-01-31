@@ -9,7 +9,7 @@ export default class AdminPage extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     route: PropTypes.array
-  }
+  };
 
   componentDidUpdate() {
     console.log('AdminPage:cDU');

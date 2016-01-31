@@ -18,14 +18,14 @@ export default class Login extends Component {
     login: PropTypes.func,
     loggingIn: PropTypes.bool,
     loginError: PropTypes.object
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
     const username = this.refs.username.value;
     const password = this.refs.password.value;
     this.props.login(username, password);
-  }
+  };
 
   render() {
     const { loggingIn, loginError } = this.props;
