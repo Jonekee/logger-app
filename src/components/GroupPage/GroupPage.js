@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Icon, LogGroupList } from 'components';
+import { Icon, LogGroupList } from '../../components';
 import styles from './GroupPage.scss';
 import DocumentMeta from 'react-document-meta';
 

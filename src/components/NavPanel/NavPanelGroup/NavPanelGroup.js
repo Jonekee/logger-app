@@ -4,7 +4,7 @@ import NavPanelGroupItem from './NavPanelGroupItem/NavPanelGroupItem';
 import Icon from '../../Icon/Icon';
 import styles from './NavPanelGroup.scss';
 import {connect} from 'react-redux';
-import { toggleNavGroupOpen } from 'redux/modules/groups';
+import { toggleNavGroupOpen } from '../../../redux/modules/groups';
 
 @connect(
   null,

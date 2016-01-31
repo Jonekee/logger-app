@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Icon, LogGroupList, LogGroupListItem } from 'components';
+import { Icon, LogGroupList, LogGroupListItem } from '../../components';
 import styles from './DashboardPage.scss';
 import DocumentMeta from 'react-document-meta';
 

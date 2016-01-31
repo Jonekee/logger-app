@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './DropDown.scss';
-import { Icon } from 'components';
+import { Icon } from '../../components';
 
 export default class DropDown extends Component {
   static propTypes = {

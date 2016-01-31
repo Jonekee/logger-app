@@ -1,6 +1,6 @@
 import React from 'react';
 import { IndexRoute, IndexRedirect, Route } from 'react-router';
-import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
+import { isLoaded as isAuthLoaded, load as loadAuth } from './redux/modules/auth';
 import {
     ActiveGroup,
     Admin,
@@ -14,7 +14,7 @@ import {
     Login,
     LogOutput,
     NotFound,
-  } from 'containers';
+  } from './containers';
 
 export default (store) => {
   const requireLoggedInOrNoAuth = (nextState, replaceState, cb) => {

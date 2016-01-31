@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, setActiveGroupListFilter, load as loadGroups } from 'redux/modules/groups';
-import connectData from 'helpers/connectData';
+import { isLoaded, setActiveGroupListFilter, load as loadGroups } from '../../redux/modules/groups';
+import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
-import { ActiveGroupPage } from 'components';
+import { ActiveGroupPage } from '../../components';
 
 function fetchDataDeferred(getState, dispatch) {
   if (!isLoaded(getState())) {

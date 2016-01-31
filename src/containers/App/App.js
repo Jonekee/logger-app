@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
+import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/info';
+import { isLoaded as isAuthLoaded, load as loadAuth, logout } from '../../redux/modules/auth';
 import { pushState } from 'redux-router';
-import connectData from 'helpers/connectData';
+import connectData from '../../helpers/connectData';
 import config from '../../config';
-import { SvgStore } from 'components';
+import { SvgStore } from '../../components';
 
 function fetchData(getState, dispatch) {
   const promises = [];

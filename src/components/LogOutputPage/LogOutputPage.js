@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './LogOutputPage.scss';
 import { connect } from 'react-redux';
-import { setLogRead } from 'redux/modules/groups';
+import { setLogRead } from '../../redux/modules/groups';
 
 @connect(
   null,

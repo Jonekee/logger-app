@@ -4,7 +4,7 @@ import NavPanelGroupItem from './NavPanelGroupItem/NavPanelGroupItem';
 import Icon from '../../Icon/Icon';
 import styles from './NavPanelGroup.scss';
 import {connect} from 'react-redux';
-import { toggleActiveNavGroupOpen } from 'redux/modules/groups';
+import { toggleActiveNavGroupOpen } from '../../../redux/modules/groups';
 
 @connect(
   state => ({ activeGroupOpen: state.groups.activeGroupOpen }),

@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { LogGroupListItem } from 'components';
+import { LogGroupListItem } from '../../components';
 import styles from './LogGroupList.scss';
 
 export default class LogGroupList extends Component {

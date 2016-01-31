@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { AdminPage } from 'components';
+import { AdminPage } from '../../components';
 
 export default class Admin extends Component {
   static propTypes = {

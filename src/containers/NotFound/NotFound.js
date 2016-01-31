@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './NotFound.scss';
-import { Icon } from 'components';
+import { Icon } from '../../components';
 
 export default function NotFound() {
   return (

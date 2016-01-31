@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './AnalysisPage.scss';
-import { Icon } from 'components';
+import { Icon } from '../../components';
 
 export default class AnalysisPage extends Component {
   static propTypes = {
