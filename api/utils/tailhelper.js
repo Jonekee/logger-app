@@ -37,10 +37,10 @@ export default {
     const file = SystemHelper.getLogFile(groupId, logId);
     console.log('[API][TailHelper:detachListener] Detaching listener for: ' + file);
 
-    if (activeSessions[file].listeners === 1) {
+    if (!!activeSessions[file] && activeSessions[file].listeners === 1) {
       console.log('[API][TailHelper:detachListener] Destroying watcher entry');
       activeSessions[file].tailer.unwatch();
-      activeSessions[file] = undefined;
+      delete(activeSessions[file]);
     } else {
       activeSessions[file].listeners -= 1;
     }

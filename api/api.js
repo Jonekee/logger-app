@@ -70,6 +70,7 @@ if (config.apiPort) {
   });
 
   io.on('connection', (socket) => {
+    console.log('[API] SOCKET connected');
     socket.emit('news', {msg: `'Hello World!' from server`});
 
     socket.on('history', () => {
@@ -109,7 +110,8 @@ if (config.apiPort) {
           toRemove = index;
         }
       });
-      if (toRemove) {
+      // Have to explictly check !== undefined here because toRemove === 0 is a valid result
+      if (toRemove !== undefined) {
         socketSessions[socket.id].splice(toRemove, 1);
       }
     });
