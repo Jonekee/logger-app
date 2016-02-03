@@ -1,12 +1,49 @@
 #!/usr/bin/env node
 /* eslint no-var:0, vars-on-top:0, func-names:0 */
+
+var program = require('commander');
+var fs = require('fs');
+
+program
+  .version('0.3.0')
+  .option('-p, --port [port]', 'Port to run webserver on.')
+  .option('-a, --apiport [apiport]', 'Port to run API server on.')
+  .option('-c, --config [config]', 'Config file for app and system.')
+  .parse(process.argv);
+
+var config;
+
+if (!!program.config) {
+  console.log('[STARTUP] Reading config file...');
+  try {
+    config = fs.readFileSync(program.config, { encoding: 'utf8' });
+  } catch (error) {
+    console.error('[STARTUP] ERROR: Failed to read config file: ' + program.config);
+    console.error(error);
+    process.exit(1);
+  }
+  try {
+    config = JSON.parse(config);
+  } catch (error) {
+    console.error('[STARTUP] ERROR: Config file is not valid JSON: ' + program.config);
+    console.error(error);
+    process.exit(1);
+  }
+  console.log('[STARTUP] Finished reading config file.');
+}
+
+
+process.env.PORT = program.port || (config && config.port) || 8080;
+process.env.APIPORT = program.apiport || (config && config.apiport) || 3030;
+
+console.log('[STARTUP] Starting app using webserver port: ' + process.env.PORT + ' and API port: ' + process.env.APIPORT);
+
+
 var path = require('path');
 var rootDir = path.resolve(__dirname, '..');
 
 process.env.NODE_ENV = 'production';
 process.env.NODE_PATH = __dirname.substring(0, __dirname.length - 4) + '/lib/src';
-process.env.APIPORT = 3030;
-process.env.PORT = 8080;
 
 
 global.__LIB_VERSION__ = true;
