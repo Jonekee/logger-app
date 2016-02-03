@@ -8,9 +8,11 @@ If you want to understand the planned progression of this application, releases 
 
 ## Configuration
 
-Currently details such as server port aren't configurable, these will be added soon after some performance improvements.
+By default the app will run the UI server on port 8080 and the API server on port 3030. You can override this by passing command line arguments, either `--port` and `--apiport` or `-p` and -`a`.
 
-The log files to be watched should be manageable through the web UI but is currently in development. The file that stores these details is [system.json](./system.json) in the base folder of this application, make the change manually there for now.
+Alternatively you can specify the properties `"port"` and `"apiport"` in a JSON config file which you provide using the command line argument `--config` or `-c`. Command line port arguments will override config port settings.
+
+The log files to be watched should be manageable through the web UI but is currently in development. The file that stores these details is [system.json](./system.json) in the base folder of this application, make changes manually there for now.
 
 ## How it works
 
