@@ -8,7 +8,7 @@ If you want to understand the planned progression of this application, releases 
 
 ## Configuration
 
-By default the app will run the UI server on port 8080 and the API server on port 3030. You can override this by passing command line arguments, either `--port` and `--apiport` or `-p` and -`a`.
+By default the app will run the UI server on port 8080 and the API server on port 3030. You can override this by passing command line arguments, either `--port` and `--apiport` or `-p` and `-a`.
 
 Alternatively you can specify the properties `"port"` and `"apiport"` in a JSON config file which you provide using the command line argument `--config` or `-c`. Command line port arguments will override config port settings.
 
