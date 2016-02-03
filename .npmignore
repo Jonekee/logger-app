@@ -5,4 +5,5 @@ api/
 licenses/
 node_modules/
 *.iml
+*.ai
 npm-debug.log
