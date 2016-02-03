@@ -2,13 +2,13 @@
 
 ### Essential Improvements
 
-Removal of console output on client-side code or a Log Level management tool.
+Log Level management tool.
 
 COMPONENTDIDUPDATE tracker on everythinggggggg.
 
-Normalize state structure for more efficient updates.
-
 Compute derived data such as active logs using Reselect.
+
+Standardise active group and normal group components.
 
 ### Unassigned Features
 
@@ -24,7 +24,7 @@ Disconnect all button on Dashboard page.
 
 Download log file
 
-Download current log output (generate on client-side using base64 encoding
+Download current log output. Generate on client-side using base64 encoding:
 ```javascript
   function download(filename, text) {
     var element = document.createElement('a');
@@ -39,15 +39,10 @@ Download current log output (generate on client-side using base64 encoding
     document.body.removeChild(element);
   }
 ```
-)
 
-Backtrack X amount of lines when starting to tail log
+Backtrack X amount of lines (if possible) when starting to tail log
 
 Reconnect socket connections automatically, toast errors
-
-### Release 0
-
-Make everything required, and defer rendering of Page components until state has been loaded
 
 ### Release 1
 
@@ -116,3 +111,9 @@ Add focus highlights to buttons and anchors for keyboard based nav.
 Skip over closed nav groups when navigating using keyboard.
 
 Extend search filter to log file path.
+
+Removal of console output on client-side code
+
+### Release 0
+
+Make everything required, and defer rendering of Page components until state has been loaded.
