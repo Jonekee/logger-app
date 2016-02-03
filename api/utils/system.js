@@ -16,16 +16,17 @@ function readFile(file) {
 
 class SystemHelper {
   constructor() {
-    console.log('Initialising SystemHelper');
+    console.log('[API] Initialising SystemHelper, reading config file...');
     const systemFile = __dirname + relativeSystemFileLocation + 'system.json';
     readFile(systemFile)
       .then((data) => {
-        console.log('Finished reading system file');
+        console.log('[API] Finished reading system file');
         this.system = data;
       })
       .catch((error) => {
-        console.log('Failed to read system file');
+        console.log('[API] Failed to read system file');
         console.log(error);
+        process.exit(1);
       });
   }
 

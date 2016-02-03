@@ -65,8 +65,8 @@ if (config.apiPort) {
     if (err) {
       console.error(err);
     }
-    console.info('----\n==> 🌎  API is running on port %s', config.apiPort);
-    console.info('==> 💻  Send requests to http://%s:%s', config.apiHost, config.apiPort);
+    console.info('[API] API is running on port %s', config.apiPort);
+    console.info('[API] Send requests to http://%s:%s', config.apiHost, config.apiPort);
   });
 
   io.on('connection', (socket) => {
@@ -92,7 +92,7 @@ if (config.apiPort) {
     socketSessions[socket.id] = [];
 
     socket.on('attachLogListener', data => {
-      console.log('SOCKET attachLogListener: ' + JSON.stringify(data));
+      console.log('[API] SOCKET attachLogListener: ' + JSON.stringify(data));
       TailHelper.attachListener(io, socket, data.groupId, data.logId);
       socketSessions[socket.id].push({
         groupId: data.groupId,
@@ -101,7 +101,7 @@ if (config.apiPort) {
     });
 
     socket.on('detachLogListener', data => {
-      console.log('SOCKET attachLogListener: ' + JSON.stringify(data));
+      console.log('[API] SOCKET detachLogListener: ' + JSON.stringify(data));
       TailHelper.detachListener(socket, data.groupId, data.logId);
       let toRemove;
       socketSessions[socket.id].forEach((item, index) => {
@@ -115,7 +115,7 @@ if (config.apiPort) {
     });
 
     socket.on('disconnect', () => {
-      console.log('SOCKET disconnected');
+      console.log('[API] SOCKET disconnected');
       socketSessions[socket.id].forEach((item) => {
         TailHelper.detachListener(socket, item.groupId, item.logId);
       });
@@ -124,5 +124,5 @@ if (config.apiPort) {
   });
   io.listen(runnable);
 } else {
-  console.error('==>     ERROR: No PORT environment variable has been specified');
+  console.error('[API] ERROR: No PORT environment variable has been specified');
 }

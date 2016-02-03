@@ -8,15 +8,15 @@ export default {
   attachListener(io, socket, groupId, logId) {
     const file = SystemHelper.getLogFile(groupId, logId);
     if (!activeSessions[file]) {
-      console.log('[TailHelper:attachListener] Creating new session for file: ' + file);
+      console.log('[API][TailHelper:attachListener] Creating new session for file: ' + file);
       const tailer = new Tail(file);
 
       tailer.on('error', error => {
-        console.log('[TailHelper:tailerOnError] For file: ' + file + ' - ' + error);
+        console.log('[API][TailHelper:tailerOnError] For file: ' + file + ' - ' + error);
       });
 
       tailer.on('line', data => {
-        console.log('[TailHelper:tailerOnLine] For file: ' + file + ' - ' + data);
+        console.log('[API][TailHelper:tailerOnLine] For file: ' + file + ' - ' + data);
         io.to('listenerFor_' + file).emit('lineUpdate', {
           groupId,
           logId,
@@ -35,10 +35,10 @@ export default {
   },
   detachListener(socket, groupId, logId) {
     const file = SystemHelper.getLogFile(groupId, logId);
-    console.log('[TailHelper:detachListener] Detaching listener for: ' + file);
+    console.log('[API][TailHelper:detachListener] Detaching listener for: ' + file);
 
     if (activeSessions[file].listeners === 1) {
-      console.log('[TailHelper:detachListener] Destroying watcher entry');
+      console.log('[API][TailHelper:detachListener] Destroying watcher entry');
       activeSessions[file].tailer.unwatch();
       activeSessions[file] = undefined;
     } else {
