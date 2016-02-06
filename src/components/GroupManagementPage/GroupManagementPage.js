@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './GroupManagementPage.scss';
-import DocumentMeta from 'react-document-meta';
+import Helmet from 'react-helmet';
 
 export default class GroupManagementPage extends Component {
   static propTypes = {
@@ -38,11 +38,12 @@ export default class GroupManagementPage extends Component {
     const { groups } = this.props;
     return (
       <section className={styles.groupManagementPage}>
-        <DocumentMeta title={'Logger - Admin - Groups'}/>
+        <Helmet title="Admin - Groups"/>
         <header>
           <h2>Groups Management</h2>
         </header>
         <section>
+          {/* This page should provide general CRUD functionality, create new group, see all groups, edit group name, delete group */}
           <ul>
             {groups.map((group, index) => <li key={index}>{group.name}</li>)}
           </ul>

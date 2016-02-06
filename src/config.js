@@ -19,23 +19,22 @@ module.exports = Object.assign({
   app: {
     title: 'Logger',
     description: 'A self-hosted application for remotely watching log files through a web UI.',
-    meta: {
-      charSet: 'utf-8',
-      property: {
-        'og:site_name': 'Logger',
-        'og:image': 'http://logger-app.github.io/logo.jpg',
-        'og:locale': 'en_US',
-        'og:title': 'Logger',
-        'og:description': 'A self-hosted application for remotely watching log files through a web UI.',
-        'twitter:card': 'summary',
-        'twitter:site': '@Ross_Court',
-        'twitter:creator': '@Ross_Court',
-        'twitter:title': 'Logger',
-        'twitter:description': 'A self-hosted application for remotely watching log files through a web UI.',
-        'twitter:image': 'http://logger-app.github.io/logo.jpg',
-        'twitter:image:width': '200',
-        'twitter:image:height': '200'
-      }
+    head: {
+      titleTemplate: 'Logger - %s',
+      meta: [
+        {name: 'description', content: 'A self-hosted application for remotely watching log files through a web UI.'},
+        {charset: 'utf-8'},
+        {property: 'og:site_name', content: 'Logger'},
+        {property: 'og:locale', content: 'en_US'},
+        {property: 'og:title', content: 'Logger'},
+        {property: 'og:description', content: 'A self-hosted application for remotely watching log files through a web UI.'},
+        {property: 'og:card', content: 'summary'},
+        {property: 'og:site', content: '@Ross_Court'},
+        {property: 'og:creator', content: '@Ross_Court'},
+        {property: 'og:image', content: 'http://logger-app.github.io/logo.jpg'},
+        {property: 'og:image:width', content: '200'},
+        {property: 'og:image:height', content: '200'}
+      ]
     }
   }
 }, environment);

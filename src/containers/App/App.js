@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import DocumentMeta from 'react-document-meta';
+import Helmet from 'react-helmet';
 import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/info';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from '../../redux/modules/auth';
 import { pushState } from 'redux-router';
@@ -57,7 +57,7 @@ export default class App extends Component {
     const styles = require('./App.scss');
     return (
       <div className={styles.app}>
-        <DocumentMeta {...config.app}/>
+        <Helmet {...config.app.head}/>
         <SvgStore/>
         {this.props.children}
       </div>

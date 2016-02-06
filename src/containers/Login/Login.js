@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import DocumentMeta from 'react-document-meta';
+import Helmet from 'react-helmet';
 import * as authActions from '../../redux/modules/auth';
-import config from '../../config';
 import styles from './Login.scss';
 import { LoadingSpinner } from '../../components';
 
@@ -34,7 +33,7 @@ export default class Login extends Component {
     const errorMessage = (usernameError || passwordError) ? loginError.errorReason : '.';
     return (
       <main className={styles.loginPage}>
-        <DocumentMeta title={config.app.title + ' - Login'}/>
+        <Helmet title="Login"/>
         <section className={loggingIn ? styles.hiddenAbove : ''}>
           <form onSubmit={this.handleSubmit}>
             <h1>Sign in</h1>

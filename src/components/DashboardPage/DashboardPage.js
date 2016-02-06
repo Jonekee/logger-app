@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Icon, LogGroupList, LogGroupListItem } from '../../components';
 import styles from './DashboardPage.scss';
-import DocumentMeta from 'react-document-meta';
+import Helmet from 'react-helmet';
 
 export default class DashboardPage extends Component {
   static propTypes = {
@@ -46,7 +46,7 @@ export default class DashboardPage extends Component {
 
     return (
       <section className={styles.dashboardPage}>
-        <DocumentMeta title="Logger - Dashboard"/>
+        <Helmet title="Dashboard"/>
         <header>
           <h2>Dashboard</h2>
           <div>
