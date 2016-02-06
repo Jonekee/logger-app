@@ -4,15 +4,23 @@
 
 Log Level management tool.
 
-COMPONENTDIDUPDATE tracker on everythinggggggg.
+`componentDidUpdate` tracker on everything.
+
+Ensure only essential `componentDidUpdate`'s are happening.
+
+Reconnect socket connections automatically, toast errors.
+
+### Improvements
 
 Compute derived data such as active logs using Reselect.
 
 Standardise active group and normal group components.
 
-### Unassigned Features
+Get consistency across use of `.isRequired` on props.
 
-Config option to use real or fake websockets (for internal proxies)
+Get consistency on use of `fetchData` vs `fetchDataDeferred`
+
+### Unassigned Features
 
 Regex based search boxes
 
@@ -42,9 +50,9 @@ Download current log output. Generate on client-side using base64 encoding:
 
 Backtrack X amount of lines (if possible) when starting to tail log
 
-Reconnect socket connections automatically, toast errors
-
 ### Release 1
+
+Config option to use real or fake websockets (for internal proxies)
 
 Management of groups and logs through UI
 
@@ -64,56 +72,11 @@ Addition of remote log groups
 
 ### Release 4
 
-Log level matching, analysis view and output filtering
+Log level matching, analysis view and output filtering (with management through UI)
 
-Syntax highlighting
-
-Management through UI
+Syntax highlighting (with management through UI)
 
 ### Release 5
 
 Admin status per group, users can add people/logs to a group if they are a admin of it
 
-
-### Done
-
-Active Logs nav section doesn't shrink after has had logs closed from it.
-
-Add active lists groups pages.
-
-Add no logs indicator to group pages and nav groups.
-
-Add full logs list groups to dashboard page.
-
-Clear hasNew when navigating to log output page, currently on happens if you are on log output page and a new line comes in.
-
-Add functionality to clear output button
-
-Add new indicator state for when log is inactive but is holding log output
-
-Potential bug where output sits in paused log buffer, then the user stops watching, starts again, then paused and then starts again. The stale output from earlier will be added to the main output in the wrong position.
-
-Dashboard list filtering.
-
-Nav section overflow scroll management.
-
-No logs matching search filter indicator on group pages and dashboard page.
-
-Add dynamic title tag based on current page.
-
-Sticky header on group pages when they overflow.
-
-Nav group list is cut off at large list lengths.
-
-Add focus highlights to buttons and anchors for keyboard based nav.
-  - Includes: Nav a and button tags, search inputs, group logs list items, log page buttons
-
-Skip over closed nav groups when navigating using keyboard.
-
-Extend search filter to log file path.
-
-Removal of console output on client-side code
-
-### Release 0
-
-Make everything required, and defer rendering of Page components until state has been loaded.
