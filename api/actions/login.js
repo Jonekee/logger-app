@@ -1,4 +1,5 @@
 import SystemHelper from '../utils/system';
+import { Instance as LoggingManager } from 'logging-manager';
 
 export default function login(req) {
   return new Promise((resolve, reject) => {
@@ -29,8 +30,8 @@ export default function login(req) {
             });
           }
         }, (error) => {
-          console.log('ERROR: Password comparison failed :(');
-          console.log(error);
+          LoggingManager.error('Login', 'login', 'Password comparison failed');
+          LoggingManager.error('Login', 'login', error);
         });
       }
     }, 2000);

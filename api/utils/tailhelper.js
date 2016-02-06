@@ -1,6 +1,6 @@
 import { Tail } from 'tail';
 import SystemHelper from './system.js';
-
+import { Instance as LoggingManager } from 'logging-manager';
 
 const activeSessions = {};
 
@@ -8,15 +8,15 @@ export default {
   attachListener(io, socket, groupId, logId) {
     const file = SystemHelper.getLogFile(groupId, logId);
     if (!activeSessions[file]) {
-      console.log('[API][TailHelper:attachListener] Creating new session for file: ' + file);
+      LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for file: ' + file);
       const tailer = new Tail(file);
 
       tailer.on('error', error => {
-        console.log('[API][TailHelper:tailerOnError] For file: ' + file + ' - ' + error);
+        LoggingManager.debug('TailHelper', 'tailerOnError', 'For file: ' + file + ' - ' + error);
       });
 
       tailer.on('line', data => {
-        console.log('[API][TailHelper:tailerOnLine] For file: ' + file + ' - ' + data);
+        LoggingManager.trace('TailHelper', 'tailerOnLine', 'For file: ' + file + ' - ' + data);
         io.to('listenerFor_' + file).emit('lineUpdate', {
           groupId,
           logId,
@@ -35,10 +35,10 @@ export default {
   },
   detachListener(socket, groupId, logId) {
     const file = SystemHelper.getLogFile(groupId, logId);
-    console.log('[API][TailHelper:detachListener] Detaching listener for: ' + file);
+    LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for: ' + file);
 
     if (!!activeSessions[file] && activeSessions[file].listeners === 1) {
-      console.log('[API][TailHelper:detachListener] Destroying watcher entry');
+      LoggingManager.debug('TailHelper', 'detachListener', 'Destroying watcher entry');
       activeSessions[file].tailer.unwatch();
       delete(activeSessions[file]);
     } else {

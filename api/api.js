@@ -8,6 +8,7 @@ import PrettyError from 'pretty-error';
 import http from 'http';
 import SocketIo from 'socket.io';
 import TailHelper from './utils/tailhelper.js';
+import { Instance as LoggingManager } from 'logging-manager';
 
 // const tailHelper = new TailHelper();
 const pretty = new PrettyError();
@@ -44,7 +45,8 @@ app.use((req, res) => {
         if (reason && reason.redirect) {
           res.redirect(reason.redirect);
         } else {
-          console.error('API ERROR:', pretty.render(reason));
+          LoggingManager.error('API', 'main', 'API error:');
+          LoggingManager.error('API', 'main', pretty.render(reason));
           res.status(reason.status || 500).json(reason);
         }
       });
@@ -63,14 +65,16 @@ const socketSessions = {};
 if (config.apiPort) {
   const runnable = app.listen(config.apiPort, (err) => {
     if (err) {
-      console.error(err);
+      LoggingManager.fatal('API', 'main', 'Error starting API server.');
+      LoggingManager.fatal('API', 'main', err);
+      process.exit(1);
     }
-    console.info('[API] API is running on port %s', config.apiPort);
-    console.info('[API] Send requests to http://%s:%s', config.apiHost, config.apiPort);
+    LoggingManager.system('API', 'main', 'API is running on port ' + config.apiPort);
+    LoggingManager.system('API', 'main', 'Send requests to http://' + config.apiHost + ':' + config.apiPort);
   });
 
   io.on('connection', (socket) => {
-    console.log('[API] SOCKET connected');
+    LoggingManager.trace('API', 'main', 'SOCKET connected');
     socket.emit('news', {msg: `'Hello World!' from server`});
 
     socket.on('history', () => {
@@ -93,7 +97,7 @@ if (config.apiPort) {
     socketSessions[socket.id] = [];
 
     socket.on('attachLogListener', data => {
-      console.log('[API] SOCKET attachLogListener: ' + JSON.stringify(data));
+      LoggingManager.trace('API', 'main', 'SOCKET attachLogListener: ' + JSON.stringify(data));
       TailHelper.attachListener(io, socket, data.groupId, data.logId);
       socketSessions[socket.id].push({
         groupId: data.groupId,
@@ -102,7 +106,7 @@ if (config.apiPort) {
     });
 
     socket.on('detachLogListener', data => {
-      console.log('[API] SOCKET detachLogListener: ' + JSON.stringify(data));
+      LoggingManager.trace('API', 'main', 'SOCKET detachLogListener: ' + JSON.stringify(data));
       TailHelper.detachListener(socket, data.groupId, data.logId);
       let toRemove;
       socketSessions[socket.id].forEach((item, index) => {
@@ -117,7 +121,7 @@ if (config.apiPort) {
     });
 
     socket.on('disconnect', () => {
-      console.log('[API] SOCKET disconnected');
+      LoggingManager.trace('API', 'main', 'SOCKET disconnected');
       socketSessions[socket.id].forEach((item) => {
         TailHelper.detachListener(socket, item.groupId, item.logId);
       });
@@ -126,5 +130,6 @@ if (config.apiPort) {
   });
   io.listen(runnable);
 } else {
-  console.error('[API] ERROR: No PORT environment variable has been specified');
+  LoggingManager.fatal('API', 'main', 'No PORT environment variable has been specified');
+  process.exit(1);
 }

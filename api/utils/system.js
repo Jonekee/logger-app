@@ -1,5 +1,6 @@
 import fs from 'fs';
 import Bcrypt from 'bcrypt-nodejs';
+import { Instance as LoggingManager } from 'logging-manager';
 
 /* eslint func-names:0 */
 
@@ -16,16 +17,16 @@ function readFile(file) {
 
 class SystemHelper {
   constructor() {
-    console.log('[API] Initialising SystemHelper, reading config file...');
+    LoggingManager.system('SystemHelper', 'constructor', 'Initialising SystemHelper, reading config file...');
     const systemFile = __dirname + relativeSystemFileLocation + 'system.json';
     readFile(systemFile)
       .then((data) => {
-        console.log('[API] Finished reading system file');
+        LoggingManager.system('SystemHelper', 'constructor', 'Finished reading system file');
         this.system = data;
       })
       .catch((error) => {
-        console.log('[API] Failed to read system file');
-        console.log(error);
+        LoggingManager.fatal('SystemHelper', 'constructor', 'Failed to read system file');
+        LoggingManager.fatal('SystemHelper', 'constructor', error);
         process.exit(1);
       });
   }

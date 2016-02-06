@@ -20,6 +20,7 @@ import {Provider} from 'react-redux';
 import qs from 'query-string';
 import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
+import { Instance as LoggingManager } from 'logging-manager';
 
 const pretty = new PrettyError();
 const app = new Express();
@@ -45,7 +46,8 @@ app.use('/api', (req, res) => {
 proxy.on('error', (error, req, res) => {
   let json;
   if (error.code !== 'ECONNRESET') {
-    console.error('proxy error', error);
+    LoggingManager.error('WEB', 'main', 'API proxy error');
+    LoggingManager.error('WEB', 'main', error);
   }
   if (!res.headersSent) {
     res.writeHead(500, {'content-type': 'application/json'});
@@ -79,7 +81,8 @@ app.use((req, res) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
-      console.error('ROUTER ERROR:', pretty.render(error));
+      LoggingManager.error('WEB', 'main', 'Router error:');
+      LoggingManager.error('WEB', 'main', pretty.render(error));
       res.status(500);
       hydrateOnClient();
     } else if (!routerState) {
@@ -106,7 +109,8 @@ app.use((req, res) => {
         res.send('<!doctype html>\n' +
           ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
       }).catch((err) => {
-        console.error('DATA FETCHING ERROR:', pretty.render(err));
+        LoggingManager.error('WEB', 'main', 'Data fetching error:');
+        LoggingManager.error('WEB', 'main', pretty.render(err));
         res.status(500);
         hydrateOnClient();
       });
@@ -122,11 +126,14 @@ if (config.port) {
 
   server.listen(config.port, (err) => {
     if (err) {
-      console.error(err);
+      LoggingManager.fatal('WEB', 'main', 'Error starting webserver.');
+      LoggingManager.fatal('WEB', 'main', err);
+      process.exit(1);
     }
-    console.info('[WEB] %s is running, talking to API server on %s.', config.app.title, config.apiPort);
-    console.info('[WEB] Open http://%s:%s in a browser to view the app.', config.host, config.port);
+    LoggingManager.system('WEB', 'main', config.app.title + ' is running, talking to API server on  port ' + config.apiPort);
+    LoggingManager.system('WEB', 'main', 'Open http://' + config.host + ':' + config.port + ' in a browser to view the app.');
   });
 } else {
-  console.error('[WEB] ERROR: No PORT environment variable has been specified');
+  LoggingManager.fatal('WEB', 'main', 'No PORT environment variable has been specified');
+  process.exit(1);
 }

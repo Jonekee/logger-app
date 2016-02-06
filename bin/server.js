@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+var LoggingManager = require('logging-manager').Instance;
+LoggingManager.setLogLevel(process.env.NODE_ENV === 'production' ? 'ERROR' : 'TRACE');
+
 require('../server.babel'); // babel registration (runtime transpilation for node)
 var path = require('path');
 var rootDir = path.resolve(__dirname, '..');

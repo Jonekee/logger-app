@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint no-var:0, vars-on-top:0, func-names:0 */
 
+var LoggingManager = require('logging-manager').Instance;
 var program = require('commander');
 var fs = require('fs');
 
@@ -14,29 +15,29 @@ program
 var config;
 
 if (!!program.config) {
-  console.log('[STARTUP] Reading config file...');
+  LoggingManager.system('APP', 'main', 'Reading config file...');
   try {
     config = fs.readFileSync(program.config, { encoding: 'utf8' });
   } catch (error) {
-    console.error('[STARTUP] ERROR: Failed to read config file: ' + program.config);
-    console.error(error);
+    LoggingManager.fatal('APP', 'main', 'Failed to read config file: ' + program.config);
+    LoggingManager.fatal('APP', 'main', error);
     process.exit(1);
   }
   try {
     config = JSON.parse(config);
   } catch (error) {
-    console.error('[STARTUP] ERROR: Config file is not valid JSON: ' + program.config);
-    console.error(error);
+    LoggingManager.fatal('APP', 'main', 'Config file is not valid JSON: ' + program.config);
+    LoggingManager.fatal('APP', 'main', error);
     process.exit(1);
   }
-  console.log('[STARTUP] Finished reading config file.');
+  LoggingManager.system('APP', 'main', 'Finished reading config file.');
 }
 
 
 process.env.PORT = program.port || (config && config.port) || 8080;
 process.env.APIPORT = program.apiport || (config && config.apiport) || 3030;
 
-console.log('[STARTUP] Starting app using webserver port: ' + process.env.PORT + ' and API port: ' + process.env.APIPORT);
+LoggingManager.system('APP', 'main', 'Starting app using webserver port: ' + process.env.PORT + ' and API port: ' + process.env.APIPORT);
 
 
 var path = require('path');
