@@ -66,7 +66,7 @@ export default class DashboardPage extends Component {
                       || log.name.toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1
                       || (log.fpath + log.fname).toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1) {
                     allActiveLogsFiltered = false;
-                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
+                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log} listFilter={dashboardListFilter}/>;
                   }
                   return output;
                 })

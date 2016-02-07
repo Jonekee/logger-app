@@ -65,7 +65,7 @@ export default class ActiveGroupPage extends Component {
                       || log.name.toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1
                       || (log.fpath + log.fname).toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1) {
                     allActiveLogsFiltered = false;
-                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log}/>;
+                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log} listFilter={activeGroupListFilter}/>;
                   }
                   return output;
                 })

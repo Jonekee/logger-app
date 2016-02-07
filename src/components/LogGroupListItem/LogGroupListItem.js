@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
+import HighlightedText from '../HighlightedText/HighlightedText';
 import styles from './LogGroupListItem.scss';
 
 export default class LogGroupListItem extends Component {
   static propTypes = {
     groupId: PropTypes.string.isRequired,
     logId: PropTypes.number.isRequired,
-    log: PropTypes.object.isRequired
+    log: PropTypes.object.isRequired,
+    listFilter: PropTypes.string
   };
 
   componentDidUpdate() {
@@ -14,7 +16,7 @@ export default class LogGroupListItem extends Component {
   }
 
   render() {
-    const { groupId, logId, log } = this.props;
+    const { groupId, logId, log, listFilter } = this.props;
     let colorClass;
     switch (log.activeState) {
       case 'ACTIVE':
@@ -35,8 +37,8 @@ export default class LogGroupListItem extends Component {
         <Link to={'/dashboard/group/' + groupId + '/log/' + logId}>
           <i className={colorClass}></i>
           <div>
-            <p>{log.name}</p>
-            <p>{log.fpath + log.fname}</p>
+            <p><HighlightedText text={log.name} matchText={listFilter}/></p>
+            <p><HighlightedText text={log.fpath + log.fname} matchText={listFilter}/></p>
           </div>
         </Link>
       </li>

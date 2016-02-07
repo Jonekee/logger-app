@@ -26,7 +26,7 @@ export default class LogGroupList extends Component {
                   || log.name.toLowerCase().indexOf(listFilter.toLowerCase()) > -1
                   || (log.fpath + log.fname).toLowerCase().indexOf(listFilter.toLowerCase()) > -1) {
                 allLogsFiltered = false;
-                output = <LogGroupListItem key={index} groupId={groupId} logId={index} log={log}/>;
+                output = <LogGroupListItem key={index} groupId={groupId} logId={index} log={log} listFilter={listFilter}/>;
               }
               return output;
             })
