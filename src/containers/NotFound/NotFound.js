@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './NotFound.scss';
+import { Link } from 'react-router';
 import { Icon } from '../../components';
 import Helmet from 'react-helmet';
 
@@ -23,6 +24,10 @@ export default class NotFound extends Component {
     };
   }
 
+  componentWillUnmount() {
+    document.onmousemove = undefined;
+  }
+
   render() {
     const { widthPercentage, heightPercentage } = this.state;
     const leftModifier = (widthPercentage - 0.5) * maxMovementPercentage;
@@ -37,10 +42,10 @@ export default class NotFound extends Component {
         <div className={styles.bg} style={{ left: backgroundLeft + '%', top: backgroundTop + '%' }}></div>
         <div className={styles.container} style={{ left: containerLeft + '%', top: containerTop + '%' }}>
           <div className={styles.transform}>
-            <a href="/dashboard">
+            <Link to="/dashboard">
               <Icon iconName="keyboard-backspace"/>
               <span>Dashboard</span>
-            </a>
+            </Link>
             <h1>404</h1>
             <p>This is not the page you are looking for</p>
           </div>
