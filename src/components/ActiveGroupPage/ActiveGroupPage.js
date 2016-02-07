@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Icon, LogGroupListItem } from '../../components';
+import { Icon, LogGroupList } from '../../components';
 import styles from './ActiveGroupPage.scss';
 import Helmet from 'react-helmet';
 
@@ -28,8 +28,13 @@ export default class ActiveGroupPage extends Component {
         group.logs.forEach((log, logId) => {
           if (log.activeState !== 'INACTIVE') {
             activeLogs.push({
+              logId,
               groupId,
-              logId
+              logName: log.name,
+              logFileName: log.fname,
+              logFilePath: log.fpath,
+              logStatus: log.activeState,
+              logHasNew: log.hasNew
             });
           }
         });
@@ -37,12 +42,15 @@ export default class ActiveGroupPage extends Component {
     }
 
     activeLogs.sort((first, second) => {
-      const firstName = groups[first.groupId].logs[first.logId].name;
-      const secondName = groups[second.groupId].logs[second.logId].name;
+      const firstName = first.logName;
+      const secondName = second.logName;
       return firstName > secondName;
     });
 
-    let allActiveLogsFiltered = activeLogs.length > 0;
+    const groupList = {
+      listFilter: activeGroupListFilter,
+      logs: activeLogs
+    };
 
     return (
       <section className={styles.activeGroupPage}>
@@ -55,36 +63,7 @@ export default class ActiveGroupPage extends Component {
           </div>
         </header>
         <section>
-          <article>
-            <ul>
-              {activeLogs.length > 0
-                ? activeLogs.map((activeLog, index) => {
-                  let output = null;
-                  const log = groups[activeLog.groupId].logs[activeLog.logId];
-                  if (!activeGroupListFilter
-                      || log.name.toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1
-                      || (log.fpath + log.fname).toLowerCase().indexOf(activeGroupListFilter.toLowerCase()) > -1) {
-                    allActiveLogsFiltered = false;
-                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log} listFilter={activeGroupListFilter}/>;
-                  }
-                  return output;
-                })
-                : (
-                  <li className={styles.noLogsLine}>
-                    <p>No logs in this group</p>
-                  </li>
-                )
-              }
-              {allActiveLogsFiltered
-                ? (
-                  <li className={styles.noLogsLine}>
-                    <p>No logs matching the filter &ldquo;{activeGroupListFilter}&rdquo;</p>
-                  </li>
-                )
-                : null
-              }
-            </ul>
-          </article>
+          <LogGroupList {...groupList}/>
         </section>
       </section>
     );

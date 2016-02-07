@@ -7,20 +7,38 @@ export default class LogGroupListItem extends Component {
   static propTypes = {
     groupId: PropTypes.string.isRequired,
     logId: PropTypes.number.isRequired,
-    log: PropTypes.object.isRequired,
+    logName: PropTypes.string.isRequired,
+    logFileName: PropTypes.string.isRequired,
+    logFilePath: PropTypes.string.isRequired,
+    logStatus: PropTypes.string.isRequired,
+    logHasNew: PropTypes.bool.isRequired,
     listFilter: PropTypes.string
   };
+
+  shouldComponentUpdate(nextProps) {
+    /*  Should only update if IDs, name, file name, file path, activeState,
+     *  hasNew or listFilter change
+     */
+    return this.props.groupId !== nextProps.groupId
+      || this.props.logId !== nextProps.logId
+      || this.props.logName !== nextProps.logName
+      || this.props.logFilePath !== nextProps.logFilePath
+      || this.props.logFileName !== nextProps.logFileName
+      || this.props.logHasNew !== nextProps.logHasNew
+      || this.props.logStatus !== nextProps.logStatus
+      || this.props.listFilter !== nextProps.listFilter;
+  }
 
   componentDidUpdate() {
     console.log('LogGroupListItem:cDU');
   }
 
   render() {
-    const { groupId, logId, log, listFilter } = this.props;
+    const { groupId, logId, logName, logFilePath, logFileName, logStatus, logHasNew, listFilter } = this.props;
     let colorClass;
-    switch (log.activeState) {
+    switch (logStatus) {
       case 'ACTIVE':
-        colorClass = log.hasNew ? styles.active : styles.idle;
+        colorClass = logHasNew ? styles.active : styles.idle;
         break;
       case 'PAUSED':
         colorClass = styles.paused;
@@ -37,8 +55,8 @@ export default class LogGroupListItem extends Component {
         <Link to={'/dashboard/group/' + groupId + '/log/' + logId}>
           <i className={colorClass}></i>
           <div>
-            <p><HighlightedText text={log.name} matchText={listFilter}/></p>
-            <p><HighlightedText text={log.fpath + log.fname} matchText={listFilter}/></p>
+            <p><HighlightedText text={logName} matchText={listFilter}/></p>
+            <p><HighlightedText text={logFilePath + logFileName} matchText={listFilter}/></p>
           </div>
         </Link>
       </li>

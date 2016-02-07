@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Icon, LogGroupList, LogGroupListItem } from '../../components';
+import { Icon, LogGroupList } from '../../components';
 import styles from './DashboardPage.scss';
 import Helmet from 'react-helmet';
 
@@ -28,8 +28,13 @@ export default class DashboardPage extends Component {
         group.logs.forEach((log, logId) => {
           if (log.activeState !== 'INACTIVE') {
             activeLogs.push({
+              logId,
               groupId,
-              logId
+              logName: log.name,
+              logFileName: log.fname,
+              logFilePath: log.fpath,
+              logStatus: log.activeState,
+              logHasNew: log.hasNew
             });
           }
         });
@@ -37,12 +42,36 @@ export default class DashboardPage extends Component {
     }
 
     activeLogs.sort((first, second) => {
-      const firstName = groups[first.groupId].logs[first.logId].name;
-      const secondName = groups[second.groupId].logs[second.logId].name;
+      const firstName = first.logName;
+      const secondName = second.logName;
       return firstName > secondName;
     });
 
-    let allActiveLogsFiltered = activeLogs.length > 0;
+    const groupLists = [];
+
+    groupLists.push({
+      groupName: 'Active Logs',
+      listFilter: dashboardListFilter,
+      logs: activeLogs
+    });
+
+    if (groups) {
+      groups.forEach((group, groupId) => {
+        groupLists.push({
+          groupName: group.name,
+          listFilter: dashboardListFilter,
+          logs: group.logs.map((log, logId) => ({
+            logId,
+            groupId,
+            logName: log.name,
+            logFileName: log.fname,
+            logFilePath: log.fpath,
+            logStatus: log.activeState,
+            logHasNew: log.hasNew
+          }))
+        });
+      });
+    }
 
     return (
       <section className={styles.dashboardPage}>
@@ -55,41 +84,10 @@ export default class DashboardPage extends Component {
           </div>
         </header>
         <section>
-          <article>
-            <h3>Active Logs</h3>
-            <ul>
-              {activeLogs.length > 0
-                ? activeLogs.map((activeLog, index) => {
-                  let output = null;
-                  const log = groups[activeLog.groupId].logs[activeLog.logId];
-                  if (!dashboardListFilter
-                      || log.name.toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1
-                      || (log.fpath + log.fname).toLowerCase().indexOf(dashboardListFilter.toLowerCase()) > -1) {
-                    allActiveLogsFiltered = false;
-                    output = <LogGroupListItem key={index} groupId={'' + activeLog.groupId} logId={activeLog.logId} log={log} listFilter={dashboardListFilter}/>;
-                  }
-                  return output;
-                })
-                : (
-                  <li className={styles.noLogsLine}>
-                    <p>There are no logs in this group</p>
-                  </li>
-                )
-              }
-              {allActiveLogsFiltered
-                ? (
-                  <li className={styles.noLogsLine}>
-                    <p>No logs matching the filter &ldquo;{dashboardListFilter}&rdquo;</p>
-                  </li>
-                )
-                : null
-              }
-            </ul>
-          </article>
-          {groups.map((group, index) => (
+          {groupLists.map((groupList, index) => (
             <article key={index}>
-              <h3>{group.name}</h3>
-              <LogGroupList groupId={'' + index} group={group} listFilter={dashboardListFilter}/>
+              <h3>{groupList.groupName}</h3>
+              <LogGroupList {...groupList}/>
             </article>
           ))}
         </section>

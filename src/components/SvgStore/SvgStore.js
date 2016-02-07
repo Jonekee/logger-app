@@ -1,6 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 export default class SvgStore extends Component {
+  shouldComponentUpdate() {
+    // Should never update, doesn't receive any props
+    return false;
+  }
+
   render() {
     return (
       <div>

@@ -20,6 +20,17 @@ export default class LogOutputPage extends Component {
     setLogRead(groupId, logId);
   }
 
+  shouldComponentUpdate(nextProps) {
+    /*  Should only update if IDs, scrollLocked or logData changes. Log data
+     *  array is only ever changed by pushing to or reseting the whole array.
+     *  Given this it is safe to simply check the array length.
+     */
+    return this.props.groupId !== nextProps.groupId
+      || this.props.logId !== nextProps.logId
+      || this.props.scrollLocked !== nextProps.scrollLocked
+      || this.props.logData.length !== nextProps.logData.length;
+  }
+
   componentDidUpdate = () => {
     console.log('LogOutputPage:cDU');
     const { groupId, logId, setLogRead, scrollLocked } = this.props; // eslint-disable-line no-shadow

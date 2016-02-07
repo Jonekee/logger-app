@@ -10,6 +10,16 @@ export default class ControlButton extends Component {
     onClick: PropTypes.func // ##TODO Make this required
   };
 
+  shouldComponentUpdate(nextProps) {
+    /*  This component should only update if the iconName, text, color or
+     *  onClick change.
+     */
+    return this.props.iconName !== nextProps.iconName
+      || this.props.text !== nextProps.text
+      || this.props.color !== nextProps.color
+      || this.props.onClick !== nextProps.onClick;
+  }
+
   componentDidUpdate() {
     console.log('ControlButton:cDU');
   }

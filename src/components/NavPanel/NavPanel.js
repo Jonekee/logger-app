@@ -1,29 +1,51 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
-import { Icon, NavPanelActiveGroup, NavPanelGroup } from '../../components';
+import { Icon, NavPanelGroup } from '../../components';
 import './NavPanel.scss';
 import { releaseStage } from '../../config';
+import {connect} from 'react-redux';
+import { toggleActiveNavGroupOpen, toggleNavGroupOpen } from '../../redux/modules/groups';
 
+@connect(
+  state => ({ activeGroupOpen: state.groups.activeGroupOpen }),
+  { toggleActiveNavGroupOpen, toggleNavGroupOpen })
 export default class NavPanel extends Component {
   static propTypes = {
     authEnabled: PropTypes.bool,
-    groups: PropTypes.array
+    groups: PropTypes.array,
+    activeGroupOpen: PropTypes.bool,
+    toggleNavGroupOpen: PropTypes.func,
+    toggleActiveNavGroupOpen: PropTypes.func
   };
 
   componentDidUpdate() {
     console.log('NavPanel:cDU');
   }
 
+  toggleNavGroupOpen(groupId) {
+    const { toggleNavGroupOpen, toggleActiveNavGroupOpen } = this.props; // eslint-disable-line
+    if (groupId === -1) {
+      // Is active group, use different function
+      toggleActiveNavGroupOpen();
+    } else {
+      toggleNavGroupOpen(groupId);
+    }
+  }
+
   render() {
-    const { authEnabled, groups } = this.props;
+    const { authEnabled, groups, activeGroupOpen } = this.props;
+
     const activeLogs = [];
     if (groups) {
       groups.forEach((group, groupId) => {
         group.logs.forEach((log, logId) => {
           if (log.activeState !== 'INACTIVE') {
             activeLogs.push({
+              logId,
               groupId,
-              logId
+              logName: log.name,
+              logStatus: log.activeState,
+              logHasNew: log.hasNew
             });
           }
         });
@@ -31,10 +53,54 @@ export default class NavPanel extends Component {
     }
 
     activeLogs.sort((first, second) => {
-      const firstName = groups[first.groupId].logs[first.logId].name;
-      const secondName = groups[second.groupId].logs[second.logId].name;
+      const firstName = first.logName;
+      const secondName = second.logName;
       return firstName > secondName;
     });
+
+    /* Normalise both normal and active groups to format:
+    {
+      groupId,
+      groupName,
+      groupNavOpen,
+      logs : [
+        {
+          logId,
+          groupId,
+          logName,
+          logStatus,
+          logHasNew
+        }
+      ]
+    }
+
+    */
+
+    const navGroups = [];
+
+    navGroups.push({
+      groupId: -1,
+      groupName: 'Active Group',
+      groupNavOpen: activeGroupOpen,
+      logs: activeLogs
+    });
+
+    if (groups) {
+      groups.forEach((group, groupId) => {
+        navGroups.push({
+          groupId,
+          groupName: group.name,
+          groupNavOpen: group.navOpen,
+          logs: group.logs.map((log, logId) => ({
+            logId,
+            groupId,
+            logName: log.name,
+            logStatus: log.activeState,
+            logHasNew: log.hasNew
+          }))
+        });
+      });
+    }
 
     return (
       <aside>
@@ -46,8 +112,9 @@ export default class NavPanel extends Component {
         <nav>
           <div>
             <div>
-              <NavPanelActiveGroup activeLogs={activeLogs} groups={groups}/>
-              {groups && groups.map((group, index) => <NavPanelGroup key={index} groupId={index} group={group}/>)}
+              {navGroups.map((group, index) => (
+                <NavPanelGroup key={index} groupId={group.groupId} groupName={group.groupName} groupNavOpen={group.groupNavOpen} logs={group.logs} toggleNavOpen={this.toggleNavGroupOpen.bind(this, group.groupId)}/>
+              ))}
             </div>
           </div>
           {releaseStage > 0

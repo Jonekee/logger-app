@@ -32,6 +32,20 @@ export default class GroupPage extends Component {
 
   render() {
     const { groupId, group } = this.props;
+
+    const groupList = {
+      listFilter: group.listFilter,
+      logs: group.logs.map((log, logId) => ({
+        logId,
+        groupId,
+        logName: log.name,
+        logFileName: log.fname,
+        logFilePath: log.fpath,
+        logStatus: log.activeState,
+        logHasNew: log.hasNew
+      }))
+    };
+
     return (
       <section className={styles.groupPage}>
         <Helmet title={group.name}/>
@@ -43,7 +57,7 @@ export default class GroupPage extends Component {
           </div>
         </header>
         <section>
-          <LogGroupList groupId={groupId} group={group} listFilter={group.listFilter}/>
+          <LogGroupList {...groupList}/>
         </section>
       </section>
     );

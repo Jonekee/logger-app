@@ -6,16 +6,30 @@ export default class NavPanelGroupItem extends Component {
   static propTypes = {
     groupId: PropTypes.number.isRequired,
     logId: PropTypes.number.isRequired,
-    log: PropTypes.object.isRequired,
+    logName: PropTypes.string.isRequired,
+    logStatus: PropTypes.string.isRequired,
+    logHasNew: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool
   };
 
+  shouldComponentUpdate(nextProps) {
+    /*  This component should only update if the IDs, name, activeState or
+     *  isVisisble values change.
+     */
+    return this.props.groupId !== nextProps.groupId
+      || this.props.logId !== nextProps.logId
+      || this.props.logName !== nextProps.logName
+      || this.props.logStatus !== nextProps.logStatus
+      || this.props.logHasNew !== nextProps.logHasNew
+      || this.props.isVisible !== nextProps.isVisible;
+  }
+
   render() {
-    const { groupId, logId, log, isVisible } = this.props;
+    const { groupId, logId, logName, logStatus, logHasNew, isVisible } = this.props;
     let colorClass;
-    switch (log.activeState) {
+    switch (logStatus) {
       case 'ACTIVE':
-        colorClass = log.hasNew ? styles.active : styles.idle;
+        colorClass = logHasNew ? styles.active : styles.idle;
         break;
       case 'PAUSED':
         colorClass = styles.paused;
@@ -32,7 +46,7 @@ export default class NavPanelGroupItem extends Component {
       <li className={styles.navPanelGroupItem}>
         <Link to={'/dashboard/group/' + groupId + '/log/' + logId} tabIndex={isVisible ? '0' : '-1'}>
           <i className={colorClass}></i>
-          <span>{log.name}</span>
+          <span>{logName}</span>
         </Link>
       </li>
     );

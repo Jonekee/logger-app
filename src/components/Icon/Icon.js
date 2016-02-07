@@ -5,6 +5,11 @@ export default class Icon extends Component {
     iconName: PropTypes.string.isRequired
   };
 
+  shouldComponentUpdate(nextProps) {
+    // Should only update if icon name changes
+    return nextProps.iconName !== this.props.iconName;
+  }
+
   componentDidUpdate() {
     console.log('Icon:cDU - ' + this.props.iconName);
   }

@@ -21,12 +21,18 @@ export default class HighlightedText extends Component {
     matchText: PropTypes.string
   };
 
+  shouldComponentUpdate(nextProps) {
+    /*  Component should only update if text or matchText changes
+     */
+    return this.props.text !== nextProps.text
+      || this.props.matchText !== nextProps.matchText;
+  }
+
   componentDidUpdate() {
     console.log('HighlightedText:cDU');
   }
 
   render() {
-    console.log('HighlightedText.render');
     const { text, matchText } = this.props;
 
     // Get indices of occurences
@@ -46,7 +52,6 @@ export default class HighlightedText extends Component {
             splits.push(text.substring(startOfMatch + matchText.length, indices[index + 1]));
           }
         });
-        console.log(splits);
       }
     }
 
