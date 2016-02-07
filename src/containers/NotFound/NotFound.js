@@ -16,24 +16,25 @@ export default class NotFound extends Component {
 
   componentDidMount() {
     document.onmousemove = (event) => {
-      const widthPercentage = event.pageX / window.innerWidth;
-      const heightPercentage = event.pageY / window.innerHeight;
       this.setState({
-        widthPercentage,
-        heightPercentage
+        widthPercentage: event.pageX / window.innerWidth,
+        heightPercentage: event.pageY / window.innerHeight
       });
-      console.log('[X:' + event.pageX + ', Y:' + event.pageY + '] [' + widthPercentage + '%, ' + heightPercentage + '%]');
     };
   }
 
   render() {
     const { widthPercentage, heightPercentage } = this.state;
-    const containerLeft = ((widthPercentage - 0.5) * -1 * maxMovementPercentage) + 50;
-    const containerTop = ((heightPercentage - 0.5) * -1 * maxMovementPercentage) + 50;
+    const leftModifier = (widthPercentage - 0.5) * maxMovementPercentage;
+    const topModifier = (heightPercentage - 0.5) * maxMovementPercentage;
+    const containerLeft = (leftModifier * -2) + 50;
+    const containerTop = (topModifier * -2) + 50;
+    const backgroundLeft = (leftModifier * 3) - 50;
+    const backgroundTop = (topModifier * 3) - 50;
     return (
       <main className={styles.notFound}>
         <Helmet title="Not Found - 404"/>
-        <div className={styles.bg} style={{ left: ((-1 * containerLeft)) + '%', top: ((-1 * containerTop)) + '%' }}></div>
+        <div className={styles.bg} style={{ left: backgroundLeft + '%', top: backgroundTop + '%' }}></div>
         <div className={styles.container} style={{ left: containerLeft + '%', top: containerTop + '%' }}>
           <div className={styles.transform}>
             <a href="/dashboard">
