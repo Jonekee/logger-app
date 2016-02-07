@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import NavPanelGroupItem from './NavPanelGroupItem/NavPanelGroupItem';
-import Icon from '../../Icon/Icon';
+import { NavPanelGroupItem, Icon } from '../../components';
 import styles from './NavPanelGroup.scss';
 import {connect} from 'react-redux';
-import { toggleNavGroupOpen } from '../../../redux/modules/groups';
+import { toggleNavGroupOpen } from '../../redux/modules/groups';
 
 @connect(
   null,

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './ControlButton.scss';
-import { Icon } from '../../../components';
+import { Icon } from '../../components';
 
 export default class ControlButton extends Component {
   static propTypes = {

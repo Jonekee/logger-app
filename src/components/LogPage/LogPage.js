@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './LogPage.scss';
-import { Icon, DropDown } from '../../components';
-import ControlButton from './ControlButton/ControlButton';
+import { ControlButton, Icon, DropDown } from '../../components';
 import { connect } from 'react-redux';
 import { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock } from '../../redux/modules/groups';
 import { Link } from 'react-router';

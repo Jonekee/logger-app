@@ -1,6 +1,7 @@
 export ActiveGroupPage from './ActiveGroupPage/ActiveGroupPage';
 export AdminPage from './AdminPage/AdminPage';
 export AnalysisPage from './AnalysisPage/AnalysisPage';
+export ControlButton from './ControlButton/ControlButton';
 export DashboardPage from './DashboardPage/DashboardPage';
 export DropDown from './DropDown/DropDown';
 export GroupManagementPage from './GroupManagementPage/GroupManagementPage';
@@ -13,4 +14,7 @@ export LogGroupListItem from './LogGroupListItem/LogGroupListItem';
 export LogOutputPage from './LogOutputPage/LogOutputPage';
 export LogPage from './LogPage/LogPage';
 export NavPanel from './NavPanel/NavPanel';
+export NavPanelGroup from './NavPanelGroup/NavPanelGroup';
+export NavPanelActiveGroup from './NavPanelGroup/NavPanelActiveGroup';
+export NavPanelGroupItem from './NavPanelGroupItem/NavPanelGroupItem';
 export SvgStore from './SvgStore/SvgStore';

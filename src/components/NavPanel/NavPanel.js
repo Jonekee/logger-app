@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
-import NavPanelGroup from './NavPanelGroup/NavPanelGroup';
-import NavPanelActiveGroup from './NavPanelGroup/NavPanelActiveGroup';
-import Icon from '../Icon/Icon';
+import { Icon, NavPanelActiveGroup, NavPanelGroup } from '../../components';
 import './NavPanel.scss';
 import { releaseStage } from '../../config';
 

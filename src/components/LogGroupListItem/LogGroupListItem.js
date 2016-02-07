@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
-import HighlightedText from '../HighlightedText/HighlightedText';
+import { HighlightedText } from '../../components';
 import styles from './LogGroupListItem.scss';
 
 export default class LogGroupListItem extends Component {
