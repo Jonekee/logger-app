@@ -22,12 +22,6 @@ Get consistency on use of `fetchData` vs `fetchDataDeferred`
 
 Regex based search boxes
 
-Highlight matched text on searched pages
-
-Parallax effect on 404 page
-
-Disconnect all button on Dashboard page.
-
 Download log file
 
 Download current log output. Generate on client-side using base64 encoding:
@@ -48,9 +42,16 @@ Download current log output. Generate on client-side using base64 encoding:
 
 Backtrack X amount of lines (if possible) when starting to tail log
 
-### Version 0.4
+### Unsure features
 
-Log Level management tool.
+Disconnect all button on Dashboard page.
+
+### Version 0.5
+
+Highlight matched text on searched pages
+
+Parallax effect on 404 page
+
 
 ### Version 1.0
 
