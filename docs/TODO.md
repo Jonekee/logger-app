@@ -1,57 +1,12 @@
 # TODO
 
-### Essential Improvements
+### Version 0.6
 
-`componentDidUpdate` tracker on everything.
-
-Ensure only essential `componentDidUpdate`'s are happening.
-
-Reconnect socket connections automatically, toast errors.
-
-### Improvements
-
-Compute derived data such as active logs using Reselect.
-
-Standardise active group and normal group components.
+Removal of unused boilerplate code
 
 Get consistency across use of `.isRequired` on props.
 
 Get consistency on use of `fetchData` vs `fetchDataDeferred`
-
-### Unassigned Features
-
-Regex based search boxes
-
-Download log file
-
-Download current log output. Generate on client-side using base64 encoding:
-```javascript
-  function download(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-  }
-```
-
-Backtrack X amount of lines (if possible) when starting to tail log
-
-### Unsure features
-
-Disconnect all button on Dashboard page.
-
-### Version 0.5
-
-Highlight matched text on searched pages
-
-Parallax effect on 404 page
-
 
 ### Version 1.0
 
@@ -83,3 +38,30 @@ Syntax highlighting (with management through UI)
 
 Admin status per group, users can add people/logs to a group if they are a admin of it
 
+### Future features
+
+Regex based search boxes
+
+Download log file
+
+Download current log output. Generate on client-side using base64 encoding:
+```javascript
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+```
+
+Backtrack X amount of lines (if possible) when starting to tail log
+
+### Unsure features
+
+Disconnect all button on Dashboard page.
