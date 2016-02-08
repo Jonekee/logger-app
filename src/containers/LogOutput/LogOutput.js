@@ -19,13 +19,19 @@ function fetchDataDeferred(getState, dispatch) {
   }))
 export default class LogOutput extends Component {
   static propTypes = {
-    groupId: PropTypes.string.isRequired,
-    logId: PropTypes.string.isRequired,
+    groupId: PropTypes.string, // These can't be required because they are removed from the sate before a page changes
+    logId: PropTypes.string, // These can't be required because they are removed from the sate before a page changes
     groups: PropTypes.array.isRequired
   };
 
   render() {
     const { groupId, groups, logId } = this.props;
+
+    if (!groupId || !logId) {
+      // This occurs when the user click onto another page and the route state changes before a page change actually occurs
+      return null;
+    }
+
     const logData = groups[groupId].logs[logId].logData;
     const scrollLocked = groups[groupId].logs[logId].scrollLocked;
     return (

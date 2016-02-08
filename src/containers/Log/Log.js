@@ -4,13 +4,13 @@ import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
 import { LogPage } from '../../components';
 
-function fetchDataDeferred(getState, dispatch) {
+function fetchData(getState, dispatch) {
   if (!isLoaded(getState())) {
     return dispatch(loadGroups());
   }
 }
 
-@connectData(null, fetchDataDeferred)
+@connectData(fetchData)
 @connect(
   state => ({
     groupId: state.router.params.groupId,
@@ -20,13 +20,19 @@ function fetchDataDeferred(getState, dispatch) {
 export default class Log extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    groupId: PropTypes.string.isRequired,
-    logId: PropTypes.string.isRequired,
+    groupId: PropTypes.string,
+    logId: PropTypes.string,
     groups: PropTypes.array.isRequired
   };
 
   render() {
     const { groupId, groups, logId } = this.props;
+
+    if (!groupId || !logId) {
+      // This occurs when the user click onto another page and the route state changes before a page change actually occurs
+      return null;
+    }
+
     const log = groups[groupId].logs[logId];
     return (
       <LogPage groupId={groupId} logId={logId} log={log}>

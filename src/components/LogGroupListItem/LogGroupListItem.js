@@ -5,7 +5,7 @@ import styles from './LogGroupListItem.scss';
 
 export default class LogGroupListItem extends Component {
   static propTypes = {
-    groupId: PropTypes.string.isRequired,
+    groupId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     logId: PropTypes.number.isRequired,
     logName: PropTypes.string.isRequired,
     logFileName: PropTypes.string.isRequired,
