@@ -4,13 +4,13 @@ import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
 import { NavPanel } from '../../components';
 
-function fetchDataDeferred(getState, dispatch) {
+function fetchData(getState, dispatch) {
   if (!isLoaded(getState())) {
     return dispatch(loadGroups());
   }
 }
 
-@connectData(null, fetchDataDeferred)
+@connectData(fetchData)
 @connect(
   state => ({
     authEnabled: state.auth.enabled,
