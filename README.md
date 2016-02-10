@@ -10,15 +10,35 @@ If you want to understand the planned progression of this application, releases 
 
 Install this app using NPM: `npm install -g logger-app`
 
-Then run the using the command `logger-app`
+Then run the using the command `logger-app`.
+This will run the app on the default ports, `8080` for the web server and `3030` for the API. If you need to change these, see the below details on configuration.
 
-## Configuration
+## App Configuration
 
-By default the app will run the UI server on port 8080 and the API server on port 3030. You can override this by passing command line arguments, either `--port [port]` and `--apiport [apiport]` or `-p [port]` and `-a [apiport]`.
+By default the app will run the UI server on port `8080` and the API server on port `3030`. These, and other values, can be changed using the following methods:
 
-Alternatively you can specify the properties `"port"` and `"apiport"` in a JSON config file which you provide using the command line argument `--config [file]` or `-c [file]`. Command line port arguments will override config port settings.
+### 1. Through the web UI (coming in next release)
 
-The log files to be watched should be manageable through the web UI but is currently in development. The file that stores these details is [system.json](./system.json) in the base folder of this application, make changes manually there for now.
+If you are an admin (all users are admin in releases below 1.1) then you can access the app admin settings through the web UI. There you can change various app settings and they will be saved back to whichever config file you are using (see below).
+
+So if you don't want to have to manually edit any config, start the app, make your changes through the UI and then restart the app for them to take effect.
+*Note:* Only port value changes need an app restart.
+
+### 2. Pre-packaged config file
+
+When installed the app comes with a default config file, stored in the root NPM module folder. This file is called `system.json`. This file is automatically used by the app if no command-line override is given. You can manually make your config changes here and restart the app for them to take effect. If any essential properties are missing from this file then they will be created with default values on startup.
+
+### 3. External config file
+
+You can use the command-line parameter `--config [file]` or `-c [file]` to specify specific config file to be used instead to the pre-packaged file. This file should contain the same properties as the pre-packaged file, so take a copy of that if you need to create one. This must be a JSON file and can be stored anywhere that the app process has access to. If any essential properties are missing from this file then they will be created with default values on startup.
+
+### 4. Command-line overrides
+
+You can override app config values by passing command line arguments, either `--port [port]` and `--apiport [apiport]` or `-p [port]` and `-a [apiport]`. These settings can be used along side a config file but will always override the values found there.
+
+## System Configuration
+
+The method of adding/editing/deleting groups and logs through the UI is currently in development. Please make your changes manually in either of the two config file methods mentioned above.
 
 ## How it works
 
