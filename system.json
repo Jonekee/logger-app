@@ -1,4 +1,9 @@
 {
+  "app": {
+    "webport": 8080,
+    "apiport": 3030,
+    "loglevel": "ERROR"
+  },
   "users": {
     "admin": {
       "passhash": "$2a$10$j9Ro05bHE.Oda0GhUlj98OqunZsI03FhiCoK99XzVu0gqX9eWfj7a",
