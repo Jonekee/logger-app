@@ -3,7 +3,7 @@
   "description": "A self-hosted application for remotely watching log files through a web UI.",
   "author": "Ross Court <rosscourt93@gmail.com> (http://github.com/rosscourt)",
   "license": "MIT",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/logger-app/logger-app.git"
