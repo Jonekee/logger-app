@@ -1,70 +1,70 @@
 {
-  "users" : {
-    "admin" : {
-      "passhash" : "$2a$10$j9Ro05bHE.Oda0GhUlj98OqunZsI03FhiCoK99XzVu0gqX9eWfj7a",
-      "passhint" : "its admin"
+  "users": {
+    "admin": {
+      "passhash": "$2a$10$j9Ro05bHE.Oda0GhUlj98OqunZsI03FhiCoK99XzVu0gqX9eWfj7a",
+      "passhint": "its admin"
     },
-    "ross" : {
-      "passhash" : "$2a$10$lTmESg2DKCunI5FdTnYmR.8sGIcNvQR6rbWo2x/OxNo07J8k1pFYu",
-      "passhint" : "its pass"
+    "ross": {
+      "passhash": "$2a$10$lTmESg2DKCunI5FdTnYmR.8sGIcNvQR6rbWo2x/OxNo07J8k1pFYu",
+      "passhint": "its pass"
     },
-    "steve" : {
-      "passhash" : "$2a$10$hqhxMluzr52MShF9pxjFKugvmfwsq7fsSWbAXUpOyZFVreDLXizua",
-      "passhint" : "its abc"
+    "steve": {
+      "passhash": "$2a$10$hqhxMluzr52MShF9pxjFKugvmfwsq7fsSWbAXUpOyZFVreDLXizua",
+      "passhint": "its abc"
     }
   },
-  "groups" : [
+  "groups": [
     {
-      "name" : "Actual Logs",
-      "logs" : [
+      "name": "Actual Logs",
+      "logs": [
         {
-          "name" : "System Log",
-          "fname" : "system.log",
-          "fpath" : "/var/log/"
+          "name": "System Log",
+          "fname": "system.log",
+          "fpath": "/var/log/"
         }
       ]
     },
     {
-      "name" : "Apache Logs",
-      "logs" : [
+      "name": "Apache Logs",
+      "logs": [
         {
-          "name" : "Apache Access",
-          "fname" : "access_log",
-          "fpath" : "/var/log/apache2/"
+          "name": "Apache Access",
+          "fname": "access_log",
+          "fpath": "/var/log/apache2/"
         },
         {
-          "name" : "Apache Error",
-          "fname" : "error_log",
-          "fpath" : "/var/log/apache2/"
+          "name": "Apache Error",
+          "fname": "error_log",
+          "fpath": "/var/log/apache2/"
         }
       ]
     },
     {
-      "name" : "Empty Lists",
-      "logs" : []
+      "name": "Empty Lists",
+      "logs": []
     },
     {
-      "name" : "WebLogic Logs",
-      "logs" : [
+      "name": "WebLogic Logs",
+      "logs": [
         {
-          "name" : "ManagedServer.log",
-          "fname" : "ManagedServer.log",
-          "fpath" : "/opt/projects/server/ms/logs/"
+          "name": "ManagedServer.log",
+          "fname": "ManagedServer.log",
+          "fpath": "/opt/projects/server/ms/logs/"
         },
         {
-          "name" : "ContentServer.log",
-          "fname" : "ContentServer.log",
-          "fpath" : "/opt/projects/server/cs/logs/"
+          "name": "ContentServer.log",
+          "fname": "ContentServer.log",
+          "fpath": "/opt/projects/server/cs/logs/"
         }
       ]
     },
     {
-      "name" : "Tomcat",
-      "logs" : [
+      "name": "Tomcat",
+      "logs": [
         {
-          "name" : "App Log",
-          "fname" : "tomcat.out",
-          "fpath" : "/opt/projects/server/appserver/logs/"
+          "name": "App Log",
+          "fname": "tomcat.out",
+          "fpath": "/opt/projects/server/appserver/logs/"
         }
       ]
     }
