@@ -4,7 +4,7 @@ import { Icon } from '../../components';
 
 export default class DropDown extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     options: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired
   };
@@ -17,7 +17,7 @@ export default class DropDown extends Component {
     const { title, options, onChange } = this.props;
     return (
       <div className={styles.dropDown}>
-        <span>{title}</span>
+        {title && <span>{title}</span>}
         <select onChange={onChange}>
           {options.map(option => <option value={option.value}>{option.text}</option>)}
         </select>

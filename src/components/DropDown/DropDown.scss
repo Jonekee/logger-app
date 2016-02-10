@@ -5,6 +5,8 @@
   display: flex;
   font-size: 0;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 
   & > * {
     align-self: flex-start;
@@ -34,6 +36,12 @@
     font-family: inherit;
     font-weight: normal;
     cursor: pointer;
+    width: 100%;
+
+    &:focus {
+      outline: inset 1px #2196F3;
+      outline-offset: -1px;
+    }
   }
 
   svg {
