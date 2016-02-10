@@ -22,11 +22,12 @@ import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 import { Instance as LoggingManager } from 'logging-manager';
 
+const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: 'http://' + config.apiHost + ':' + config.apiPort,
+  target: targetUrl,
   ws: true
 });
 
@@ -39,7 +40,15 @@ app.use(Express.static(path.join(__dirname, relativeStaticLocation, 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
-  proxy.web(req, res);
+  proxy.web(req, res, {target: targetUrl});
+});
+
+app.use('/ws', (req, res) => {
+  proxy.web(req, res, {target: targetUrl + '/ws'});
+});
+
+server.on('upgrade', (req, socket, head) => {
+  proxy.ws(req, socket, head);
 });
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
@@ -119,11 +128,6 @@ app.use((req, res) => {
 });
 
 if (config.port) {
-  if (config.isProduction) {
-    const io = new SocketIo(server);
-    io.path('/api/ws');
-  }
-
   server.listen(config.port, (err) => {
     if (err) {
       LoggingManager.fatal('WEB', 'main', 'Error starting webserver.');
