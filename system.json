@@ -30,12 +30,12 @@
         {
           "name" : "Apache Access",
           "fname" : "access_log",
-			    "fpath" : "/var/log/apache2/"
+          "fpath" : "/var/log/apache2/"
         },
         {
           "name" : "Apache Error",
           "fname" : "error_log",
-			    "fpath" : "/var/log/apache2/"
+          "fpath" : "/var/log/apache2/"
         }
       ]
     },
@@ -49,12 +49,12 @@
         {
           "name" : "ManagedServer.log",
           "fname" : "ManagedServer.log",
-			    "fpath" : "/opt/projects/server/ms/logs/"
+          "fpath" : "/opt/projects/server/ms/logs/"
         },
         {
           "name" : "ContentServer.log",
           "fname" : "ContentServer.log",
-			    "fpath" : "/opt/projects/server/cs/logs/"
+          "fpath" : "/opt/projects/server/cs/logs/"
         }
       ]
     },
@@ -64,7 +64,7 @@
         {
           "name" : "App Log",
           "fname" : "tomcat.out",
-			    "fpath" : "/opt/projects/server/appserver/logs/"
+          "fpath" : "/opt/projects/server/appserver/logs/"
         }
       ]
     }
