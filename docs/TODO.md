@@ -18,11 +18,15 @@ Optional commandline override for app config options
 
 Management of app config through UI with changes being saved back to config file
 
+### Version 0.9
+
+Break down redux reducer into multilpe nested reducers
+
+Removal of unused boilerplate code
+
 ### Version 1.0
 
 Management of groups and logs through UI
-
-Removal of unused boilerplate code
 
 ### Version 1.1
 
