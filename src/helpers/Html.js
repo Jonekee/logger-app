@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom/server';
 import serialize from 'serialize-javascript';
 import Helmet from 'react-helmet';
+import UglifyJS from 'uglify-js';
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
@@ -24,6 +25,12 @@ export default class Html extends Component {
     const content = component ? ReactDOM.renderToString(component) : '';
     const head = Helmet.rewind();
 
+    // Uglify expects valid JavaScript, not JSON, so we need to assign the
+    // store object to a variable and then remove the assignment after
+    const storeData = serialize(store.getState());
+    const temporaryAssign = 'var removeme=';
+    const minifiedStoreData = UglifyJS.minify(temporaryAssign + storeData, {fromString: true}).code.substring(temporaryAssign.length);
+
     return (
       <html lang="en-us">
         <head>
@@ -40,16 +47,10 @@ export default class Html extends Component {
             <link href={assets.styles[style]} key={key} media="screen, projection"
                   rel="stylesheet" type="text/css" charSet="UTF-8"/>
           )}
-
-          {/* (will be present only in development mode) */}
-          {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
-          {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
-          {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
-          { Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{__html: require('../containers/App/App.scss')._style}}/> : null }
         </head>
         <body>
           <div id="content" dangerouslySetInnerHTML={{__html: content}}/>
-          <script dangerouslySetInnerHTML={{__html: `window.__data=${serialize(store.getState())};`}} charSet="UTF-8"/>
+          <script dangerouslySetInnerHTML={{__html: `window.__data=${minifiedStoreData};`}} charSet="UTF-8"/>
           <script src={assets.javascript.main} charSet="UTF-8"/>
         </body>
       </html>
