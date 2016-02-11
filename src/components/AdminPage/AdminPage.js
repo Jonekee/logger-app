@@ -1,14 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './AdminPage.scss';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
 import { releaseStage } from '../../config';
 
-@connect(state => ({ route: state.router.routes }))
 export default class AdminPage extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
-    route: PropTypes.array
+    children: PropTypes.object.isRequired
   };
 
   componentDidUpdate() {
@@ -16,9 +13,6 @@ export default class AdminPage extends Component {
   }
 
   render() {
-    const { route } = this.props;
-    const currentRoute = route[route.length - 1].path;
-
     return (
       <section className={styles.adminPage}>
         <header>
@@ -29,18 +23,18 @@ export default class AdminPage extends Component {
             <nav>
               <ul>
                 <li>
-                  <Link to="/dashboard/admin/app" className={currentRoute === 'app' || currentRoute === undefined ? styles.active : ''}>App</Link>
+                  <Link to="/dashboard/admin/app" activeClassName={styles.active}>App</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/admin/groups" className={currentRoute === 'groups' ? styles.active : ''}>Groups</Link>
+                  <Link to="/dashboard/admin/groups" activeClassName={styles.active}>Groups</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/admin/logs" className={currentRoute === 'logs' ? styles.active : ''}>Logs</Link>
+                  <Link to="/dashboard/admin/logs" activeClassName={styles.active}>Logs</Link>
                 </li>
                 {releaseStage > 1
                   ? (
                     <li>
-                      <Link to="/dashboard/admin/users" className={currentRoute === 'users' ? styles.active : ''}>Users</Link>
+                      <Link to="/dashboard/admin/users" activeClassName={styles.active}>Users</Link>
                     </li>
                   )
                   : null
@@ -48,7 +42,7 @@ export default class AdminPage extends Component {
                 {releaseStage > 3
                   ? (
                     <li>
-                      <Link to="/dashboard/admin/syntax" className={currentRoute === 'syntax' ? styles.active : ''}>Syntax</Link>
+                      <Link to="/dashboard/admin/syntax" activeClassName={styles.active}>Syntax</Link>
                     </li>
                   )
                   : null

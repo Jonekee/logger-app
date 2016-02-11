@@ -1,6 +1,7 @@
 export ActiveGroupPage from './ActiveGroupPage/ActiveGroupPage';
 export AdminPage from './AdminPage/AdminPage';
 export AnalysisPage from './AnalysisPage/AnalysisPage';
+export AppManagementPage from './AppManagementPage/AppManagementPage';
 export ControlButton from './ControlButton/ControlButton';
 export DashboardPage from './DashboardPage/DashboardPage';
 export DropDown from './DropDown/DropDown';
