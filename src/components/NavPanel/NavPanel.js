@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 import { Icon, NavPanelGroup } from '../../components';
 import './NavPanel.scss';
-import { releaseStage } from '../../config';
 import {connect} from 'react-redux';
 import { toggleActiveNavGroupOpen, toggleNavGroupOpen } from '../../redux/modules/groups';
 
@@ -117,39 +116,34 @@ export default class NavPanel extends Component {
               ))}
             </div>
           </div>
-          {releaseStage > 0
-            ? (
-              <div>
-                <ul>
+          <div>
+            <ul>
+              <li>
+                <Link to="/dashboard/settings">
+                  <Icon iconName="settings"/>
+                  <span>Settings</span>
+                </Link>
+              </li>
+              {
+                authEnabled
+                ? [
                   <li>
-                    <Link to="/dashboard/admin">
-                      <Icon iconName="key-variant"/>
-                      <span>Admin Settings</span>
+                    <Link to="about">
+                      <Icon iconName="account"/>
+                      <span>Your Account</span>
+                    </Link>
+                  </li>,
+                  <li>
+                    <Link to="logout">
+                      <Icon iconName="logout"/>
+                      <span>Sign Out</span>
                     </Link>
                   </li>
-                  {
-                    authEnabled
-                    ? [
-                      <li>
-                        <Link to="about">
-                          <Icon iconName="settings"/>
-                          <span>User Settings</span>
-                        </Link>
-                      </li>,
-                      <li>
-                        <Link to="wdigets">
-                          <Icon iconName="account"/>
-                          <span>Sign Out</span>
-                        </Link>
-                      </li>
-                    ]
-                    : null
-                  }
-                </ul>
-              </div>
-            )
-            : null
-          }
+                ]
+                : null
+              }
+            </ul>
+          </div>
         </nav>
       </aside>
     );

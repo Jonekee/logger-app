@@ -6,6 +6,7 @@ import {
     Admin,
     Analysis,
     App,
+    AppManagement,
     Dashboard,
     DashboardHome,
     Group,
@@ -75,9 +76,9 @@ export default (store) => {
         </Route>
 
         { /* Admin control pages */ }
-        <Route path="admin" component={Admin}>
-          <IndexRoute component={GroupManagement}/>
-          <Route path="app" component={GroupManagement}/>
+        <Route path="settings" component={Admin}>
+          <IndexRedirect to="app"/>
+          <Route path="app" component={AppManagement}/>
           <Route path="groups" component={GroupManagement}/>
           <Route path="logs" component={GroupManagement}/>
           <Route path="users" component={GroupManagement}/>
