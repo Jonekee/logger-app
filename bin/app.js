@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /* eslint no-var:0, vars-on-top:0, func-names:0 */
 
-var LoggingManager = require('logging-manager').Instance;
 var program = require('commander');
 var path = require('path');
 var fs = require('fs');
@@ -11,12 +10,17 @@ var defaultAPIPort = 8080;
 var defaultLogLevel = 'ERROR';
 
 program
-  .version('0.3.0')
+  .version('0.7.0')
   .option('-p, --port [port]', 'Port to run webserver on.')
   .option('-a, --apiport [apiport]', 'Port to run API server on.')
   .option('-l, --loglevel [loglevel]', 'Log level to output.')
   .option('-c, --config [config]', 'Config file for app and system.')
   .parse(process.argv);
+
+
+// Get LoggingManager after the `program` setup so that it's init output isn't
+// printed when the user is only running the `-V` or `-h` commands
+var LoggingManager = require('logging-manager').Instance;
 
 /*
 This should either use the config file passed, or the system.json already
