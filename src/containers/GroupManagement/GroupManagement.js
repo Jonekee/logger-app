@@ -4,20 +4,20 @@ import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
 import { GroupManagementPage } from '../../components';
 
-function fetchDataDeferred(getState, dispatch) {
+function fetchData(getState, dispatch) {
   if (!isLoaded(getState())) {
     return dispatch(loadGroups());
   }
 }
 
-@connectData(null, fetchDataDeferred)
+@connectData(fetchData)
 @connect(
   state => ({
     groups: state.groups.data
   }))
-export default class Group extends Component {
+export default class GroupManagement extends Component {
   static propTypes = {
-    groups: PropTypes,
+    groups: PropTypes.array,
   };
 
   render() {
