@@ -108,6 +108,17 @@ class SystemHelper {
     const log = this.system.groups[groupId].logs[logId];
     return log.fpath + log.fname;
   };
+
+  updateSystemSettings = (newWebPort, newApiPort, newLogLevel) => {
+    this.system.app = {
+      ...this.system.app,
+      webport: newWebPort,
+      apiport: newApiPort,
+      loglevel: newLogLevel
+    };
+    LoggingManager.setLogLevel(newLogLevel);
+    return this.saveConfigToDisk();
+  };
 }
 
 const instance = new SystemHelper();
