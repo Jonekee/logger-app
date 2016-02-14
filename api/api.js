@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 
 
 app.use((req, res) => {
+  LoggingManager.trace('API', 'main', 'Incoming API request at URL: ' + req.url);
   const splittedUrlPath = req.url.split('?')[0].split('/').slice(1);
 
   const {action, params} = mapUrl(actions, splittedUrlPath);
