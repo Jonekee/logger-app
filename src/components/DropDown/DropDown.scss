@@ -32,7 +32,6 @@
     line-height: 16px;
     padding: 5px 10px;
     flex: 1 1 auto;
-    margin-left: -1px;
     font-family: inherit;
     font-weight: normal;
     cursor: pointer;
@@ -42,6 +41,11 @@
       outline: inset 1px #2196F3;
       outline-offset: -1px;
     }
+
+    &[disabled] {
+      color: #ddd;
+      cursor: default;
+    }
   }
 
   svg {
@@ -50,5 +54,11 @@
     pointer-events: none;
     right: 8px;
     top: 8px;
+  }
+
+  &.isDisabled {
+    svg {
+      fill: #ddd;
+    }
   }
 }
