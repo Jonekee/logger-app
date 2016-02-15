@@ -17,19 +17,19 @@ export default class AdminPage extends Component {
       <section className={styles.adminPage}>
         <header>
           <div className={styles.row}>
-            <h2>Admin Controls</h2>
+            <h2>Settings</h2>
           </div>
           <div className={styles.row}>
             <nav>
               <ul>
                 <li>
-                  <Link to="/dashboard/admin/app" activeClassName={styles.active}>App</Link>
+                  <Link to="/dashboard/settings/groups" activeClassName={styles.active}>Groups</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/admin/groups" activeClassName={styles.active}>Groups</Link>
+                  <Link to="/dashboard/settings/logs" activeClassName={styles.active}>Logs</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/admin/logs" activeClassName={styles.active}>Logs</Link>
+                  <Link to="/dashboard/settings/app" activeClassName={styles.active}>App</Link>
                 </li>
                 {releaseStage > 1
                   ? (
