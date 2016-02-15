@@ -72,6 +72,11 @@
       outline: inset 1px #2196F3;
       outline-offset: -1px;
     }
+
+    &[disabled] {
+      color: #ddd;
+      cursor: default;
+    }
   }
 
   .dropDown {
@@ -87,7 +92,21 @@
       right: 12px;
     }
   }
+
+  .savingIndicator {
+    article {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    p {
+      display: inline-block;
+      margin: 3px 0 3px 5px;
+      vertical-align: top;
+    }
+  }
 }
+
 
 .alert {
   margin-top: 7.5px;
@@ -106,7 +125,7 @@
 
   p {
     flex-grow: 1;
-    padding: 8px;
+    padding: 8px 8px 8px 0;
     line-height: 24px;
     color: #fff;
     font-size: 14px;

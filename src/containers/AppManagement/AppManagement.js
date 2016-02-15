@@ -13,15 +13,17 @@ function fetchData(getState, dispatch) {
 @connectData(fetchData)
 @connect(
   state => ({
-    system: state.system.data
+    system: state.system.data,
+    saving: state.system.saving
   }))
 export default class AppManagement extends Component {
   static propTypes = {
-    system: PropTypes.object.isRequired
+    system: PropTypes.object.isRequired,
+    saving: PropTypes.bool
   };
 
   render() {
-    const { system } = this.props;
-    return <AppManagementPage system={system}/>;
+    const { system, saving } = this.props;
+    return <AppManagementPage system={system} saving={saving}/>;
   }
 }

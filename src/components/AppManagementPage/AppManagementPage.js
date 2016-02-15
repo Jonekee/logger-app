@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import styles from './AppManagementPage.scss';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { ControlButton, Icon, DropDown } from '../../components';
-import { editWebPort, editApiPort, editLogLevel } from '../../redux/modules/system';
+import { ControlButton, Icon, DropDown, LoadingSpinner } from '../../components';
+import { editWebPort, editApiPort, editLogLevel, resetChanges, saveChanges } from '../../redux/modules/system';
 
 const logLevelOptions = [
   {
@@ -32,13 +32,16 @@ const logLevelOptions = [
   }
 ];
 
-@connect(null, { editWebPort, editApiPort, editLogLevel })
+@connect(null, { editWebPort, editApiPort, editLogLevel, resetChanges, saveChanges })
 export default class AppManagementPage extends Component {
   static propTypes = {
     system: PropTypes.object.isRequired,
+    saving: PropTypes.bool,
     editWebPort: PropTypes.func.isRequired,
     editApiPort: PropTypes.func.isRequired,
-    editLogLevel: PropTypes.func.isRequired
+    editLogLevel: PropTypes.func.isRequired,
+    resetChanges: PropTypes.func.isRequired,
+    saveChanges: PropTypes.func.isRequired
   };
 
   componentDidUpdate() {
@@ -50,16 +53,49 @@ export default class AppManagementPage extends Component {
     this.props.editWebPort(newWebPort);
   };
 
+  editApiPort = (event) => {
+    const newApiPort = event.target.value;
+    this.props.editApiPort(newApiPort);
+  };
+
+  editLogLevel = (event) => {
+    const newLogLevel = event.target.value;
+    this.props.editLogLevel(newLogLevel);
+  };
+
+  resetChanges = () => {
+    this.props.resetChanges();
+  };
+
+  saveChanges = () => {
+    const { editableWebPort, editableApiPort, editableLogLevel } = this.props.system;
+    this.props.saveChanges(editableWebPort, editableApiPort, editableLogLevel);
+  };
+
   render() {
-    const { system } = this.props;
+    const { system, saving } = this.props;
+
+    const valuesHaveChanged = system.webport !== system.editableWebPort
+      || system.apiport !== system.editableApiPort
+      || system.loglevel !== system.editableLogLevel;
+
     return (
       <section className={styles.appManagementPage}>
-        <Helmet title="Admin - App"/>
+        <Helmet title="Settings - App"/>
         <header>
-          <h2>Application Management</h2>
+          <h2>Application Settings</h2>
           <div className={styles.actions}>
-            <ControlButton iconName="play" text="Save changes" color="positive" />
-            <ControlButton iconName="play" text="Reset changes" color="positive" />
+            {saving ? (
+              <div className={styles.savingIndicator}>
+                <LoadingSpinner size={24} strokeWidth={1}/>
+                <p>Saving...</p>
+              </div>
+            ) : (
+              <div>
+                <ControlButton iconName="delete" text="Reset changes" color="negative" isDisabled={!valuesHaveChanged} onClick={this.resetChanges}/>
+                <ControlButton iconName="content-save" text="Save changes" color="positive" isDisabled={!valuesHaveChanged} onClick={this.saveChanges}/>
+              </div>
+            )}
           </div>
         </header>
         <section>
@@ -71,11 +107,11 @@ export default class AppManagementPage extends Component {
           <ul>
             <li>
               <label>Web Port</label>
-              <input type="text" value={system.editableWebPort} onChange={this.editWebPort}/>
+              <input type="text" maxLength="5" value={system.editableWebPort} onChange={this.editWebPort} disabled={saving}/>
             </li>
             <li>
               <label>API Port</label>
-              <input type="text" value={system.editableApiPort}/>
+              <input type="text" maxLength="5" value={system.editableApiPort} onChange={this.editApiPort} disabled={saving}/>
             </li>
           </ul>
           <h3>Additional Settings</h3>
@@ -83,7 +119,7 @@ export default class AppManagementPage extends Component {
             <li>
               <label>Log Level</label>
               <div className={styles.dropDown}>
-                <DropDown options={logLevelOptions} onChange={() => {}} />
+                <DropDown options={logLevelOptions} onChange={this.editLogLevel} initialValue={system.editableLogLevel} isDisabled={saving}/>
               </div>
             </li>
           </ul>
