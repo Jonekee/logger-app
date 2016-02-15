@@ -1,18 +1,13 @@
 .loadingSpinner {
-	width: 100px;
-	height: 100px;
 	zoom: 1;
 
 	svg {
 		-webkit-animation: rotate 2s linear infinite;
 		animation: rotate 2s linear infinite;
-		height: 100px;
 		position: relative;
-		width: 100px;
 	}
 
 	circle {
-		stroke-width: 2;
 		stroke-miterlimit: 10;
 		stroke-dasharray: 1,200;
 		stroke-dashoffset: 0;
