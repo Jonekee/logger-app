@@ -41,6 +41,13 @@ export default function saveSystemSettings(req) {
           errorField: 'apiport',
           errorReason: 'The API Port you provided is invalid. It should be an interger in the range 0 to 65535.'
         });
+      } else if (newWebPort === newApiPort) {
+        LoggingManager.debug('System', 'saveSystemSettings', 'Same value passed for both ports: ' + newWebPort);
+        reject({
+          status: 401,
+          errorField: 'apiport',
+          errorReason: 'The API port and Web port must be different values.'
+        });
       } else if (!~validLogLevels.indexOf(newLogLevel)) {
         LoggingManager.debug('System', 'saveSystemSettings', 'Invalid log level passed: ' + newLogLevel);
         reject({
