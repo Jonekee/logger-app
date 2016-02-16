@@ -8,6 +8,7 @@ const RESET_CHANGES = 'redux-example/system/RESET_CHANGES';
 const SAVE = 'redux-example/system/SAVE';
 const SAVE_SUCCESS = 'redux-example/system/SAVE_SUCCESS';
 const SAVE_FAIL = 'redux-example/system/SAVE_FAIL';
+const CLEAR_ERROR = 'redux-example/system/CLEAR_ERROR';
 
 const initialState = {
   loaded: false
@@ -95,7 +96,13 @@ export default function reducer(state = initialState, action = {}) {
           webport: state.data.editableWebPort,
           apiport: state.data.editableApiPort,
           loglevel: state.data.editableLogLevel
-        }
+        },
+        error: null
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
       };
     default:
       return state;
@@ -150,5 +157,11 @@ export function saveChanges(newWebPort, newApiPort, newLogLevel) {
         newLogLevel
       }
     })
+  };
+}
+
+export function clearError() {
+  return {
+    type: CLEAR_ERROR
   };
 }
