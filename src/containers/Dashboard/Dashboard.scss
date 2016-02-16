@@ -8,5 +8,7 @@
     flex: 1 1 auto;
     height: 100vh;
     overflow: scroll;
+    display: flex;
+    flex-direction: column;
   }
 }
