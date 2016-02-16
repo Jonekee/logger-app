@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         data: {
           ...state.data,
-          editableWebPort: parseInt(action.newWebPort.replace(/[^0-9]/g, ''), 10) || ''
+          editableWebPort: parseInt(action.newWebPort.replace(/[^0-9]/g, '').substring(0, 5), 10) || ''
         }
       };
     case EDIT_API_PORT:
@@ -54,7 +54,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         data: {
           ...state.data,
-          editableApiPort: parseInt(action.newApiPort.replace(/[^0-9]/g, ''), 10) || ''
+          editableApiPort: parseInt(action.newApiPort.replace(/[^0-9]/g, '').substring(0, 5), 10) || ''
         }
       };
     case EDIT_LOG_LEVEL:

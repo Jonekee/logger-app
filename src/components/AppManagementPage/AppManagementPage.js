@@ -32,6 +32,15 @@ const logLevelOptions = [
   }
 ];
 
+function portElementIsValid(inputElement) {
+  return inputElement && (inputElement.matches
+    || inputElement.matchesSelector
+    || inputElement.msMatchesSelector
+    || inputElement.mozMatchesSelector
+    || inputElement.webkitMatchesSelector
+    || inputElement.oMatchesSelector).call(inputElement, ':valid');
+}
+
 @connect(null, { editWebPort, editApiPort, editLogLevel, resetChanges, saveChanges })
 export default class AppManagementPage extends Component {
   static propTypes = {
@@ -79,6 +88,9 @@ export default class AppManagementPage extends Component {
       || system.apiport !== system.editableApiPort
       || system.loglevel !== system.editableLogLevel;
 
+    const portsAreValid = portElementIsValid(this.refs.webportInput)
+      && portElementIsValid(this.refs.apiportInput);
+
     return (
       <section className={styles.appManagementPage}>
         <Helmet title="Settings - App"/>
@@ -93,7 +105,7 @@ export default class AppManagementPage extends Component {
             ) : (
               <div>
                 <ControlButton iconName="delete" text="Reset changes" color="negative" isDisabled={!valuesHaveChanged} onClick={this.resetChanges}/>
-                <ControlButton iconName="content-save" text="Save changes" color="positive" isDisabled={!valuesHaveChanged} onClick={this.saveChanges}/>
+                <ControlButton iconName="content-save" text="Save changes" color="positive" isDisabled={!valuesHaveChanged || !portsAreValid} onClick={this.saveChanges}/>
               </div>
             )}
           </div>
@@ -107,11 +119,11 @@ export default class AppManagementPage extends Component {
           <ul>
             <li>
               <label>Web Port</label>
-              <input type="text" maxLength="5" value={system.editableWebPort} onChange={this.editWebPort} disabled={saving}/>
+              <input ref="webportInput" type="number" min="0" max="65535" required value={system.editableWebPort} onChange={this.editWebPort} disabled={saving}/>
             </li>
             <li>
               <label>API Port</label>
-              <input type="text" maxLength="5" value={system.editableApiPort} onChange={this.editApiPort} disabled={saving}/>
+              <input ref="apiportInput" type="number" min="0" max="65535" required value={system.editableApiPort} onChange={this.editApiPort} disabled={saving}/>
             </li>
           </ul>
           <h3>Additional Settings</h3>
