@@ -41,7 +41,7 @@
     "populate-lib": "cp -r api/* lib/api/ && cp -r src/* lib/src/ && find ./lib -name \"*.js\" -type f -delete",
     "compile-to-lib": "babel -d lib/src/ src/ && babel -d lib/api/ api/",
     "build-from-lib": "better-npm-run npm-build",
-    "prepublish": "npm run clean-lib && npm run populate-lib && npm run compile-to-lib && npm run build-from-lib"
+    "prepublish": "npm run lint && npm run clean-lib && npm run populate-lib && npm run compile-to-lib && npm run build-from-lib"
   },
   "betterScripts": {
     "start-prod": {
