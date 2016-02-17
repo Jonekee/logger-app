@@ -16,40 +16,45 @@ export default class AdminPage extends Component {
     return (
       <section className={styles.adminPage}>
         <header>
-          <div className={styles.row}>
+          <div className={styles.row + ' ' + styles.preReleaseA}>
             <h2>Settings</h2>
           </div>
-          <div className={styles.row}>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/dashboard/settings/groups" activeClassName={styles.active}>Groups</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/settings/logs" activeClassName={styles.active}>Logs</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/settings/app" activeClassName={styles.active}>App</Link>
-                </li>
-                {releaseStage > 1
-                  ? (
+          {releaseStage > 1
+            ? (
+              <div className={styles.row}>
+                <nav>
+                  <ul>
                     <li>
-                      <Link to="/dashboard/admin/users" activeClassName={styles.active}>Users</Link>
+                      <Link to="/dashboard/settings/groups" activeClassName={styles.active}>Groups</Link>
                     </li>
-                  )
-                  : null
-                }
-                {releaseStage > 3
-                  ? (
                     <li>
-                      <Link to="/dashboard/admin/syntax" activeClassName={styles.active}>Syntax</Link>
+                      <Link to="/dashboard/settings/logs" activeClassName={styles.active}>Logs</Link>
                     </li>
-                  )
-                  : null
-                }
-              </ul>
-            </nav>
-          </div>
+                    <li>
+                      <Link to="/dashboard/settings/app" activeClassName={styles.active}>App</Link>
+                    </li>
+                    {releaseStage > 1
+                      ? (
+                        <li>
+                          <Link to="/dashboard/admin/users" activeClassName={styles.active}>Users</Link>
+                        </li>
+                      )
+                      : null
+                    }
+                    {releaseStage > 3
+                      ? (
+                        <li>
+                          <Link to="/dashboard/admin/syntax" activeClassName={styles.active}>Syntax</Link>
+                        </li>
+                      )
+                      : null
+                    }
+                  </ul>
+                </nav>
+              </div>
+            )
+            : null
+          }
         </header>
         {this.props.children}
       </section>
