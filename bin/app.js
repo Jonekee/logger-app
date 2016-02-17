@@ -6,7 +6,7 @@ var path = require('path');
 var fs = require('fs');
 
 var defaultWebPort = 8080;
-var defaultAPIPort = 8080;
+var defaultAPIPort = 3030;
 var defaultLogLevel = 'ERROR';
 
 program
@@ -72,21 +72,21 @@ LoggingManager.system('APP', 'main', 'Finished reading config file.');
 
 
 // Warn user if any default values were used:
-if (!program.port && !(config && config.port)) {
+if (!program.port && !(config.app && config.app.webport)) {
   LoggingManager.system('APP', 'main', 'Warning! No webserver port value found in config file, using default value: ' + defaultWebPort);
 }
-if (!program.apiport && !(config && config.apiport)) {
+if (!program.apiport && !(config.app && config.app.apiport)) {
   LoggingManager.system('APP', 'main', 'Warning! No API server port value found in config file, using default value: ' + defaultAPIPort);
 }
-if (!program.loglevel && !(config && config.loglevel)) {
+if (!program.loglevel && !(config.app && config.app.loglevel)) {
   LoggingManager.system('APP', 'main', 'Warning! No log level value found in config file, using default value: ' + defaultLogLevel);
 }
 
 
 // Set values or defaults:
-process.env.PORT = program.port || (config && config.port) || defaultWebPort;
-process.env.APIPORT = program.apiport || (config && config.apiport) || defaultAPIPort;
-LoggingManager.setLogLevel(program.loglevel || (config && config.loglevel) || defaultLogLevel);
+process.env.PORT = program.port || (config.app && config.app.webport) || defaultWebPort;
+process.env.APIPORT = program.apiport || (config.app && config.app.apiport) || defaultAPIPort;
+LoggingManager.setLogLevel(program.loglevel || (config.app && config.app.loglevel) || defaultLogLevel);
 
 
 // App initialisation code:
