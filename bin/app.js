@@ -41,7 +41,7 @@ if (!!program.config) {
   configFile = program.config;
 } else {
   LoggingManager.system('APP', 'main', 'Using pre-packaged config file');
-  configFile = './system.json';
+  configFile = path.join(__dirname, '..', 'system.json');
 }
 
 // Set configFile reference for use by the servers later on
