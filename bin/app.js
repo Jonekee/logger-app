@@ -10,7 +10,7 @@ var defaultAPIPort = 3030;
 var defaultLogLevel = 'ERROR';
 
 program
-  .version('0.7.0')
+  .version('0.8.0')
   .option('-p, --port [port]', 'Port to run webserver on.')
   .option('-a, --apiport [apiport]', 'Port to run API server on.')
   .option('-l, --loglevel [loglevel]', 'Log level to output.')
