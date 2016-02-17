@@ -13,13 +13,17 @@ Install this app using NPM: `npm install -g logger-app`
 Then run the using the command `logger-app`.
 This will run the app on the default ports, `8080` for the web server and `3030` for the API. If you need to change these, see the below details on configuration.
 
+### Offline Installation
+
+If you would like to deploy this to a server which doesn't have an outgoing internet connection or can't access the NPM repo, do so using [npmbox](https://www.npmjs.com/package/npmbox). You will first need to install NodeJS/NPM and npmbox offline, this is a relatively easy and well documented process.
+
 ## App Configuration
 
 By default the app will run the UI server on port `8080` and the API server on port `3030`. These, and other values, can be changed using the following methods:
 
-### 1. Through the web UI (coming in next release)
+### 1. Through the web UI
 
-If you are an admin (all users are admin in releases below 1.1) then you can access the app admin settings through the web UI. There you can change various app settings and they will be saved back to whichever config file you are using (see below).
+You can access the app settings through the web UI. There you can change various app settings and they will be saved back to whichever config file you are using (see below).
 
 So if you don't want to have to manually edit any config, start the app, make your changes through the UI and then restart the app for them to take effect.
 *Note:* Only port value changes need an app restart.
