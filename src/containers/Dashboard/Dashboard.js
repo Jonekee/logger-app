@@ -31,7 +31,7 @@ export default class Dashboard extends Component {
     authEnabled: PropTypes.bool,
     addLineToLog: PropTypes.func,
     groups: PropTypes.array.isRequired,
-    appSettingsError: PropTypes.array.isRequired,
+    appSettingsError: PropTypes.array,
     clearAppSettingsError: PropTypes.func.isRequired
   };
 
