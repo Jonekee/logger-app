@@ -76,7 +76,6 @@ if (config.apiPort) {
 
   io.on('connection', (socket) => {
     LoggingManager.trace('API', 'main', 'SOCKET connected');
-    socket.emit('news', {msg: `'Hello World!' from server`});
 
     socket.on('history', () => {
       for (let index = 0; index < bufferSize; index++) {
