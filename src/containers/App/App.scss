@@ -28,20 +28,12 @@ a {
   &:hover {
     color: inherit;
   }
-
-  &:focus {
-    outline: none;
-  }
 }
 
 button {
    background: inherit;
    border: none;
    cursor: pointer;
-
-   &:focus {
-     outline: none;
-   }
 }
 
 input {
@@ -52,6 +44,18 @@ input {
   &:invalid {
     border-color: #F44336;
   }
+}
+
+a, button, input, select {
+	// Setting these default rules means that the outline doesn't close in on the
+	// element due to the default offset being 0px and the default outline not
+	// being inset
+	outline-offset: -1px;
+	outline: inset 0px transparent;
+
+	&:focus {
+		outline: inset 1px #2196F3;
+	}
 }
 
 h1 {

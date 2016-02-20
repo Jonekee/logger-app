@@ -30,11 +30,6 @@
     float: right;
     font-size: 0;
 
-    &:focus {
-      outline: inset 1px #2196F3;
-      outline-offset: -1px;
-    }
-
     &:hover {
       background: #474747;
     }
