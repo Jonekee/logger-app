@@ -24,15 +24,10 @@
   }
 
   button {
-    transition: all .28s cubic-bezier(0.4,0,.2,1);
     flex: 0 0 auto;
     padding: 8px;
     float: right;
     font-size: 0;
-
-    &:hover {
-      background: #474747;
-    }
 
     &.closed svg {
       transform: rotate(-90deg);
