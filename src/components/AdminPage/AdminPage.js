@@ -33,7 +33,7 @@ export default class AdminPage extends Component {
                     <li>
                       <Link to="/dashboard/settings/app" activeClassName={styles.active}>App</Link>
                     </li>
-                    {releaseStage > 1
+                    {releaseStage > 2
                       ? (
                         <li>
                           <Link to="/dashboard/admin/users" activeClassName={styles.active}>Users</Link>
