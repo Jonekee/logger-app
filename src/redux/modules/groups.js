@@ -15,6 +15,9 @@ const ADD_LINE_TO_LOG = 'redux-example/groups/ADD_LINE_TO_LOG';
 const SET_LOG_READ = 'redux-example/groups/SET_LOG_READ';
 const CLEAR_LOG_OUTPUT = 'redux-example/groups/CLEAR_LOG_OUTPUT';
 const TOGGLE_SCROLL_LOCK = 'redux-example/groups/TOGGLE_SCROLL_LOCK';
+const TOGGLE_EDIT_GROUP_NAME = 'redux-example/groups/TOGGLE_EDIT_GROUP_NAME';
+const TOGGLE_DELETE_GROUP = 'redux-example/groups/TOGGLE_DELETE_GROUP';
+const UPDATE_UNSAVED_GROUP_NAME = 'redux-example/groups/UPDATE_UNSAVED_GROUP_NAME';
 
 const initialState = {
   loaded: false,
@@ -260,6 +263,42 @@ export default function reducer(state = initialState, action = {}) {
             : group
         )
       };
+    case TOGGLE_EDIT_GROUP_NAME:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageEditing: !group.adminPageEditing
+            }
+            : group
+        )
+      };
+    case TOGGLE_DELETE_GROUP:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageDeleting: !group.adminPageDeleting
+            }
+            : group
+        )
+      };
+    case UPDATE_UNSAVED_GROUP_NAME:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageNewName: action.name
+            }
+            : group
+        )
+      };
     default:
       return state;
   }
@@ -381,5 +420,28 @@ export function toggleScrollLock(groupId, logId) {
     type: TOGGLE_SCROLL_LOCK,
     groupId,
     logId
+  };
+}
+
+export function toggleEditGroupName(groupId) {
+  return {
+    type: TOGGLE_EDIT_GROUP_NAME,
+    groupId
+  };
+}
+
+export function toggleDeleteGroup(groupId) {
+  return {
+    type: TOGGLE_DELETE_GROUP,
+    groupId
+  };
+}
+
+
+export function updateUnsavedGroupName(groupId, name) {
+  return {
+    type: UPDATE_UNSAVED_GROUP_NAME,
+    groupId,
+    name
   };
 }

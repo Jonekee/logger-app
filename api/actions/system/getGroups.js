@@ -6,6 +6,9 @@ export default function getGroups() {
       ...group,
       navOpen: true,
       listFilter: '',
+      adminPageEditing: false,
+      adminPageDeleting: false,
+      adminPageNewName: group.name,
       logs: group.logs.map(log => ({
         ...log,
         logData: [],

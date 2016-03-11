@@ -1,0 +1,111 @@
+.groupManagementPage {
+  width: 100%;
+  padding: 0 20px;
+  max-width: 840px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  header {
+    border: none;
+    padding: 25px 0 0;
+  }
+
+  ul {
+    margin-top: 20px;
+  }
+
+  li {
+    display: block;
+    background: #eee;
+
+    &:nth-of-type(2n) {
+      background: #f9f9f9;
+    }
+  }
+
+  button:hover {
+    background: #ddd;
+  }
+
+  .newGroupItem {
+    button {
+      width: 100%;
+      padding: 20px 12px;
+      text-align: left;
+
+      & > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    p {
+      margin-left: 6px;
+      font-size: 16px;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .groupItem {
+    position: relative;
+    overflow: hidden;
+
+    .basePanel {
+      padding: 12px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .editNamePanel {
+      padding: 12px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      box-sizing: border-box;
+      background: inherit;
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &.open {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: all;
+      }
+
+      input {
+        background: none;
+        border: none;
+        border-bottom: 1px solid #777;
+        padding: 4px;
+      }
+    }
+
+    .info {
+      flex-grow: 1;
+    }
+
+    p {
+      font-size: 14px;
+
+      &:last-of-type {
+        font-size: 11px;
+      }
+    }
+
+    svg {
+      padding: 6px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
