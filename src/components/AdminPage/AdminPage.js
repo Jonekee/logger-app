@@ -16,7 +16,7 @@ export default class AdminPage extends Component {
     return (
       <section className={styles.adminPage}>
         <header>
-          <div className={styles.row + ' ' + styles.preReleaseA}>
+          <div className={styles.row}>
             <h2>Settings</h2>
           </div>
           {releaseStage > 1

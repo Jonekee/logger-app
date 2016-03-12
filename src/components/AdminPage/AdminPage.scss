@@ -15,10 +15,6 @@
     .row {
       display: flex;
       flex-direction: row;
-
-      &:not(:first-of-type) {
-        padding-top: 8px;
-      }
     }
 
     h2 {
@@ -43,7 +39,7 @@
         font-size: 16px;
         width: 120px;
         box-sizing: border-box;
-        padding: 0 24px 4px;
+        padding: 6px 24px 4px;
         border-bottom: 4px solid transparent;
         margin-bottom: -1px;
         transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -54,9 +50,4 @@
       }
     }
   }
-}
-
-// TODO: ## Remove these styles on release 1
-.preReleaseA {
-  padding-bottom: 6px;
 }
