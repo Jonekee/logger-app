@@ -14,6 +14,7 @@ export default class GroupManagementPage extends Component {
   };
 
   shouldComponentUpdate(nextProps) {
+    let shouldUpdate = false;
     /*  GroupManagementPage should only update if it is being passed a groups
      *  array which has changed any of the actual data rendered, i.e. group
      *  name, id (for link), amount of logs...
@@ -23,18 +24,15 @@ export default class GroupManagementPage extends Component {
 
     // Check if any groups have been added or removed
     if (currGroups.length !== newGroups.length) {
-      return true;
+      shouldUpdate = true;
     }
 
     // Check if any groups names have been changed
-    console.log('scu');
-    let shouldUpdate = false;
     newGroups.forEach((newGroup, index) => {
       if (newGroup.name !== currGroups[index].name
         || newGroup.adminPageEditing !== currGroups[index].adminPageEditing
         || newGroup.adminPageDeleting !== currGroups[index].adminPageDeleting
         || newGroup.adminPageNewName !== currGroups[index].newGroupadminPageNewName) {
-        console.log('yep');
         shouldUpdate = true;
       }
     });
