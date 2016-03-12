@@ -48,7 +48,6 @@ export default class GroupManagementPage extends Component {
 
   render() {
     const { groups, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName } = this.props;
-    console.log('rendy');
     return (
       <section className={styles.groupManagementPage}>
         <Helmet title="Admin - Groups"/>
@@ -81,7 +80,9 @@ export default class GroupManagementPage extends Component {
               </div>
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: group.adminPageEditing })}>
                 <div className={styles.info}>
-                  <input type="text" maxLength="15" value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
+                  <form onSubmit={(event) => { saveGroupName(index, group.adminPageNewName); event.preventDefault(); return false; }}>
+                    <input type="text" maxLength="15" value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
+                  </form>
                 </div>
                 <div className={styles.actions}>
                   <button onClick={() => saveGroupName(index, group.adminPageNewName)}>
