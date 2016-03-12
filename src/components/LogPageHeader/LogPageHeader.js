@@ -112,9 +112,9 @@ export default class LogPageHeader extends Component {
             <ControlButton iconName={log.scrollLocked ? 'lock-open' : 'lock'} text={(log.scrollLocked ? 'Unl' : 'L') + 'ock scrolling'} color="neutral" onClick={this.toggleScrollLock}/>
           </div>
         </div>
-        <div className={styles.row + (releaseStage < 2 ? ' ' + styles.earlyReleaseStyle : '')}>
+        <div className={styles.row + (releaseStage < 3 ? ' ' + styles.earlyReleaseStyle : '')}>
           <h3>{log.fpath + log.fname}</h3>
-          {releaseStage > 1
+          {releaseStage > 2
             ? (
               <div className={styles.rhs}>
                 <button className={log.extraActionsOpen ? styles.toggle : styles.toggle + ' ' + styles.closed } onClick={toggleLogExtraActionsOpen.bind(null, groupId, logId)}>
@@ -126,7 +126,7 @@ export default class LogPageHeader extends Component {
             : null
           }
         </div>
-        {releaseStage > 1
+        {releaseStage > 2
           ? [
             <div className={styles.row} style={log.extraActionsOpen ? { maxHeight: '40px', paddingTop: '12px' } : {}}>
               <DropDown title="Syntax" options={[]} onChange={() => {}}/>
