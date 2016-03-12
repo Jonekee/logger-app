@@ -135,6 +135,23 @@ export default class AppManagementPage extends Component {
               </div>
             </li>
           </ul>
+          <h3>App Info</h3>
+          <ul className={styles.infoList}>
+            <li>
+              <label>Version</label>
+              <p>v0.9.0</p>
+            </li>
+            <li>
+              <label>Users Enabled</label>
+              <p>No</p>
+            </li>
+            <li>
+              <label>Config File</label>
+              <p>/some/place/or/whatever/config.json</p>
+            </li>
+          </ul>
+          <p className={styles.helpMeParagraph}>This application is currently in a stage of base feature development. This means that many decisions are still to be made or finalised and everything is open to improvement.</p>
+          <p className={styles.helpMeParagraph}>As a one-man team with little scope for user testing, any feedback you have would be greatly appreciated. Feel free to use the <a href="#">online feedback form</a> or raise an issue on the <a href="#">GitHub repo.</a></p>
         </section>
       </section>
     );
