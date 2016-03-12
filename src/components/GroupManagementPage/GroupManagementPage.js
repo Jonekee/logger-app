@@ -99,6 +99,7 @@ export default class GroupManagementPage extends Component {
               <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleting })}>
                 <div className={styles.info}>
                   <p>Are you sure you want to delete group: "{group.name}"</p>
+                  <p>Deleting a group will remove all of its logs!</p>
                 </div>
                 <div className={styles.actions}>
                   <button onClick={() => saveGroupName(index, group.adminPageNewName)}>

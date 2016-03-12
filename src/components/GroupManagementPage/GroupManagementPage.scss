@@ -94,6 +94,17 @@
       }
     }
 
+    .deleteCheckPanel {
+      p {
+        font-size: 14px;
+
+        &:last-of-type {
+          font-size: 11px;
+          color: #C62828;
+        }
+      }
+    }
+
     .fadeInPanel {
       padding: 12px;
       display: flex;
