@@ -37,7 +37,6 @@ button {
 }
 
 input {
-  font-family: 'Open sans', sans-serif;
   font-size: 15px;
   font-weight: 100;
 
@@ -52,6 +51,7 @@ a, button, input, select {
 	// being inset
 	outline-offset: -1px;
 	outline: inset 0px transparent;
+  font-family: inherit;
 
 	&:focus {
 		outline: inset 1px #2196F3;
