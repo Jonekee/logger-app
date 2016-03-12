@@ -96,6 +96,19 @@ export default class GroupManagementPage extends Component {
                 <LoadingSpinner size={24} strokeWidth={1}/>
                 <p>Saving...</p>
               </div>
+              <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleting })}>
+                <div className={styles.info}>
+                  <p>Are you sure you want to delete group: "{group.name}"</p>
+                </div>
+                <div className={styles.actions}>
+                  <button onClick={() => saveGroupName(index, group.adminPageNewName)}>
+                    <Icon iconName="check"/>
+                  </button>
+                  <button onClick={() => toggleDeleteGroup(index)}>
+                    <Icon iconName="close"/>
+                  </button>
+                </div>
+              </div>
             </li>)}
           </ul>
         </section>
