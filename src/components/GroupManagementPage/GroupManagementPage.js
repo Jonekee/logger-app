@@ -1,13 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './GroupManagementPage.scss';
 import Helmet from 'react-helmet';
-import { Icon } from '../../components';
+import classnames from 'classnames';
+import { Icon, LoadingSpinner } from '../../components';
 
 export default class GroupManagementPage extends Component {
   static propTypes = {
     groups: PropTypes.array.isRequired,
     toggleEditGroupName: PropTypes.func.isRequired,
-    toggleDeleteGroup: PropTypes.func.isRequired
+    toggleDeleteGroup: PropTypes.func.isRequired,
+    updateUnsavedGroupName: PropTypes.func.isRequired,
+    saveGroupName: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate(nextProps) {
@@ -29,7 +32,8 @@ export default class GroupManagementPage extends Component {
     newGroups.forEach((newGroup, index) => {
       if (newGroup.name !== currGroups[index].name
         || newGroup.adminPageEditing !== currGroups[index].adminPageEditing
-        || newGroup.adminPageDeleting !== currGroups[index].adminPageDeleting) {
+        || newGroup.adminPageDeleting !== currGroups[index].adminPageDeleting
+        || newGroup.adminPageNewName !== currGroups[index].newGroupadminPageNewName) {
         console.log('yep');
         shouldUpdate = true;
       }
@@ -43,7 +47,7 @@ export default class GroupManagementPage extends Component {
   }
 
   render() {
-    const { groups, toggleEditGroupName, toggleDeleteGroup } = this.props;
+    const { groups, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName } = this.props;
     console.log('rendy');
     return (
       <section className={styles.groupManagementPage}>
@@ -75,18 +79,22 @@ export default class GroupManagementPage extends Component {
                   </button>
                 </div>
               </div>
-              <div className={styles.editNamePanel + (group.adminPageEditing ? ' ' + styles.open : '')}>
+              <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: group.adminPageEditing })}>
                 <div className={styles.info}>
-                  <input type="text" value={group.adminPageNewName} />
+                  <input type="text" maxLength="15" value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
                 </div>
                 <div className={styles.actions}>
-                  <button>
+                  <button onClick={() => saveGroupName(index, group.adminPageNewName)}>
                     <Icon iconName="check"/>
                   </button>
                   <button onClick={() => toggleEditGroupName(index)}>
                     <Icon iconName="close"/>
                   </button>
                 </div>
+              </div>
+              <div className={classnames(styles.savingPanel, styles.fadeInPanel, { [styles.open]: group.adminPageSaving })}>
+                <LoadingSpinner size={24} strokeWidth={1}/>
+                <p>Saving...</p>
               </div>
             </li>)}
           </ul>

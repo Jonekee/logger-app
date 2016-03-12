@@ -18,6 +18,9 @@ const TOGGLE_SCROLL_LOCK = 'redux-example/groups/TOGGLE_SCROLL_LOCK';
 const TOGGLE_EDIT_GROUP_NAME = 'redux-example/groups/TOGGLE_EDIT_GROUP_NAME';
 const TOGGLE_DELETE_GROUP = 'redux-example/groups/TOGGLE_DELETE_GROUP';
 const UPDATE_UNSAVED_GROUP_NAME = 'redux-example/groups/UPDATE_UNSAVED_GROUP_NAME';
+const SAVE_GROUP_NAME = 'redux-example/groups/SAVE_GROUP_NAME';
+const SAVE_GROUP_NAME_SUCCESS = 'redux-example/groups/SAVE_GROUP_NAME_SUCCESS';
+const SAVE_GROUP_NAME_FAIL = 'redux-example/groups/SAVE_GROUP_NAME_FAIL';
 
 const initialState = {
   loaded: false,
@@ -299,6 +302,46 @@ export default function reducer(state = initialState, action = {}) {
             : group
         )
       };
+    case SAVE_GROUP_NAME:
+      console.log('why u no save');
+      console.log(action);
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageSaving: true
+            }
+            : group
+        )
+      };
+    case SAVE_GROUP_NAME_SUCCESS:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              name: group.adminPageNewName,
+              adminPageEditing: false,
+              adminPageSaving: false
+            }
+            : group
+        )
+      };
+    case SAVE_GROUP_NAME_FAIL:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageSaving: false
+            }
+            : group
+        )
+      };
     default:
       return state;
   }
@@ -443,5 +486,18 @@ export function updateUnsavedGroupName(groupId, name) {
     type: UPDATE_UNSAVED_GROUP_NAME,
     groupId,
     name
+  };
+}
+
+export function saveGroupName(groupId, name) {
+  return {
+    types: [SAVE_GROUP_NAME, SAVE_GROUP_NAME_SUCCESS, SAVE_GROUP_NAME_FAIL],
+    promise: (client) => client.post('/system/saveGroupName', {
+      data: {
+        groupId,
+        name
+      }
+    }),
+    groupId
   };
 }
