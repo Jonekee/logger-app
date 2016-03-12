@@ -303,8 +303,6 @@ export default function reducer(state = initialState, action = {}) {
         )
       };
     case SAVE_GROUP_NAME:
-      console.log('why u no save');
-      console.log(action);
       return {
         ...state,
         data: state.data.map((group, index) =>
