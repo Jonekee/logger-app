@@ -8,6 +8,7 @@ export default function getGroups() {
       listFilter: '',
       adminPageEditing: false,
       adminPageDeleting: false,
+      adminPageSaving: false,
       adminPageNewName: group.name,
       logs: group.logs.map(log => ({
         ...log,

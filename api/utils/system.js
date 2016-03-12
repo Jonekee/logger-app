@@ -119,6 +119,12 @@ class SystemHelper {
     LoggingManager.setLogLevel(newLogLevel);
     return this.saveConfigToDisk();
   };
+
+  updateGroupName = (groupId, newName) => {
+    console.log('updateGroupName');
+    this.system.groups[groupId].name = newName;
+    return this.saveConfigToDisk();
+  };
 }
 
 const instance = new SystemHelper();
