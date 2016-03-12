@@ -297,7 +297,8 @@ export default function reducer(state = initialState, action = {}) {
           index === parseInt(action.groupId, 10)
             ? {
               ...group,
-              adminPageNewName: action.name
+              adminPageNewName: action.name,
+              adminPageEditingError: false
             }
             : group
         )
@@ -335,7 +336,8 @@ export default function reducer(state = initialState, action = {}) {
           index === parseInt(action.groupId, 10)
             ? {
               ...group,
-              adminPageSaving: false
+              adminPageSaving: false,
+              adminPageEditingError: true
             }
             : group
         )

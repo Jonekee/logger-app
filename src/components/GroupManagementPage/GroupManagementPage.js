@@ -32,7 +32,8 @@ export default class GroupManagementPage extends Component {
       if (newGroup.name !== currGroups[index].name
         || newGroup.adminPageEditing !== currGroups[index].adminPageEditing
         || newGroup.adminPageDeleting !== currGroups[index].adminPageDeleting
-        || newGroup.adminPageNewName !== currGroups[index].newGroupadminPageNewName) {
+        || newGroup.adminPageNewName !== currGroups[index].newGroupadminPageNewName
+        || newGroup.adminPageEditingError !== currGroups[index].adminPageEditingError) {
         shouldUpdate = true;
       }
     });
@@ -79,7 +80,7 @@ export default class GroupManagementPage extends Component {
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: group.adminPageEditing })}>
                 <div className={styles.info}>
                   <form onSubmit={(event) => { saveGroupName(index, group.adminPageNewName); event.preventDefault(); return false; }}>
-                    <input type="text" maxLength="15" value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
+                    <input type="text" maxLength="15" className={classnames({ [styles.invalid]: group.adminPageEditingError })} value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
                   </form>
                 </div>
                 <div className={styles.actions}>
