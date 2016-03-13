@@ -5,12 +5,9 @@ import { Instance as LoggingManager } from 'logging-manager';
 export default function saveGroupName(req) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log(req.body);
-      const { name, groupId} = req.body;
+      const { name, groupId } = req.body;
 
       if (!name || name.length > 15) {
-        console.log(!name);
-        console.log(name.length < 15);
         LoggingManager.debug('System', 'saveGroupName', 'Invalid group name passed: ' + name);
         reject({
           status: 400,
