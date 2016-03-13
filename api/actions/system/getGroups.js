@@ -7,6 +7,8 @@ export default function getGroups() {
       navOpen: true,
       listFilter: '',
       adminPageEditing: false,
+      adminPageEditingError: false,
+      adminPageDeleteChecking: false,
       adminPageDeleting: false,
       adminPageSaving: false,
       adminPageNewName: group.name,

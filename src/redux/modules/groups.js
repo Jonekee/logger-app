@@ -21,6 +21,9 @@ const UPDATE_UNSAVED_GROUP_NAME = 'redux-example/groups/UPDATE_UNSAVED_GROUP_NAM
 const SAVE_GROUP_NAME = 'redux-example/groups/SAVE_GROUP_NAME';
 const SAVE_GROUP_NAME_SUCCESS = 'redux-example/groups/SAVE_GROUP_NAME_SUCCESS';
 const SAVE_GROUP_NAME_FAIL = 'redux-example/groups/SAVE_GROUP_NAME_FAIL';
+const DELETE_GROUP = 'redux-example/groups/DELETE_GROUP';
+const DELETE_GROUP_SUCCESS = 'redux-example/groups/DELETE_GROUP_SUCCESS';
+const DELETE_GROUP_FAIL = 'redux-example/groups/DELETE_GROUP_FAIL';
 
 const initialState = {
   loaded: false,
@@ -285,7 +288,7 @@ export default function reducer(state = initialState, action = {}) {
           index === parseInt(action.groupId, 10)
             ? {
               ...group,
-              adminPageDeleting: !group.adminPageDeleting
+              adminPageDeleteChecking: !group.adminPageDeleteChecking
             }
             : group
         )
@@ -338,6 +341,39 @@ export default function reducer(state = initialState, action = {}) {
               ...group,
               adminPageSaving: false,
               adminPageEditingError: true
+            }
+            : group
+        )
+      };
+    case DELETE_GROUP:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageDeleting: true
+            }
+            : group
+        )
+      };
+    case DELETE_GROUP_SUCCESS:
+      return {
+        ...state,
+        data: [
+          ...state.data.slice(0, parseInt(action.groupId, 10)),
+          ...state.data.slice(parseInt(action.groupId, 10) + 1)
+        ]
+      };
+    case DELETE_GROUP_FAIL:
+      return {
+        ...state,
+        data: state.data.map((group, index) =>
+          index === parseInt(action.groupId, 10)
+            ? {
+              ...group,
+              adminPageDeleteChecking: false,
+              adminPageDeleting: false
             }
             : group
         )
@@ -496,6 +532,18 @@ export function saveGroupName(groupId, name) {
       data: {
         groupId,
         name
+      }
+    }),
+    groupId
+  };
+}
+
+export function deleteGroup(groupId) {
+  return {
+    types: [DELETE_GROUP, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAIL],
+    promise: (client) => client.post('/system/deleteGroup', {
+      data: {
+        groupId
       }
     }),
     groupId

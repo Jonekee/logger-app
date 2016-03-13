@@ -121,10 +121,24 @@ class SystemHelper {
   };
 
   updateGroupName = (groupId, newName) => {
-    console.log('updateGroupName');
+    LoggingManager.debug('SystemHelper', 'updateGroupName', `Updating group name using groupId: ${groupId} and newName: ${newName}`);
     this.system.groups[groupId].name = newName;
     return this.saveConfigToDisk();
   };
+
+  groupIdIsValid = (groupId) => {
+    LoggingManager.debug('SystemHelper', 'groupIdIsValid', `Checking groupId: ${groupId}`);
+    return !!this.system.groups[groupId];
+  }
+
+  deleteGroup = (groupId) => {
+    LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
+    this.system.groups = [
+      ...this.system.groups.slice(0, groupId),
+      ...this.system.groups.slice(groupId + 1)
+    ];
+    return this.saveConfigToDisk();
+  }
 }
 
 const instance = new SystemHelper();

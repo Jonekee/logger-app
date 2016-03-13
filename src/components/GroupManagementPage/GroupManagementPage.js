@@ -10,7 +10,8 @@ export default class GroupManagementPage extends Component {
     toggleEditGroupName: PropTypes.func.isRequired,
     toggleDeleteGroup: PropTypes.func.isRequired,
     updateUnsavedGroupName: PropTypes.func.isRequired,
-    saveGroupName: PropTypes.func.isRequired
+    saveGroupName: PropTypes.func.isRequired,
+    deleteGroup: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate(nextProps) {
@@ -32,6 +33,7 @@ export default class GroupManagementPage extends Component {
       if (newGroup.name !== currGroups[index].name
         || newGroup.adminPageEditing !== currGroups[index].adminPageEditing
         || newGroup.adminPageDeleting !== currGroups[index].adminPageDeleting
+        || newGroup.adminPageDeleteChecking !== currGroups[index].adminPageDeleteChecking
         || newGroup.adminPageNewName !== currGroups[index].newGroupadminPageNewName
         || newGroup.adminPageEditingError !== currGroups[index].adminPageEditingError) {
         shouldUpdate = true;
@@ -46,7 +48,7 @@ export default class GroupManagementPage extends Component {
   }
 
   render() {
-    const { groups, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName } = this.props;
+    const { groups, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName, deleteGroup } = this.props;
     return (
       <section className={styles.groupManagementPage}>
         <Helmet title="Admin - Groups"/>
@@ -96,19 +98,23 @@ export default class GroupManagementPage extends Component {
                 <LoadingSpinner size={24} strokeWidth={1}/>
                 <p>Saving...</p>
               </div>
-              <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleting })}>
+              <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleteChecking })}>
                 <div className={styles.info}>
                   <p>Are you sure you want to delete group: "{group.name}"</p>
                   <p>Deleting a group will remove all of its logs!</p>
                 </div>
                 <div className={styles.actions}>
-                  <button onClick={() => saveGroupName(index, group.adminPageNewName)}>
+                  <button onClick={() => deleteGroup(index)}>
                     <Icon iconName="check"/>
                   </button>
                   <button onClick={() => toggleDeleteGroup(index)}>
                     <Icon iconName="close"/>
                   </button>
                 </div>
+              </div>
+              <div className={classnames(styles.deletingPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleting })}>
+                <LoadingSpinner size={24} strokeWidth={1}/>
+                <p>Deleting...</p>
               </div>
             </li>)}
           </ul>
