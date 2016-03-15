@@ -139,6 +139,14 @@ class SystemHelper {
     ];
     return this.saveConfigToDisk();
   }
+
+  createGroup = (newGroupName) => {
+    this.system.groups.push({
+      name: newGroupName,
+      logs: []
+    });
+    return this.saveConfigToDisk().then(() => this.system.groups.length - 1);
+  }
 }
 
 const instance = new SystemHelper();
