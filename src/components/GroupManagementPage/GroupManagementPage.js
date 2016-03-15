@@ -7,11 +7,15 @@ import { Icon, LoadingSpinner } from '../../components';
 export default class GroupManagementPage extends Component {
   static propTypes = {
     groups: PropTypes.array.isRequired,
+    newGroupControls: PropTypes.object.isRequired,
     toggleEditGroupName: PropTypes.func.isRequired,
     toggleDeleteGroup: PropTypes.func.isRequired,
     updateUnsavedGroupName: PropTypes.func.isRequired,
     saveGroupName: PropTypes.func.isRequired,
-    deleteGroup: PropTypes.func.isRequired
+    deleteGroup: PropTypes.func.isRequired,
+    setNewGroupName: PropTypes.func.isRequired,
+    toggleInputingNewGroup: PropTypes.func.isRequired,
+    createNewGroup: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate(nextProps) {
@@ -48,7 +52,7 @@ export default class GroupManagementPage extends Component {
   }
 
   render() {
-    const { groups, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName, deleteGroup } = this.props;
+    const { groups, newGroupControls, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName, deleteGroup, setNewGroupName, toggleInputingNewGroup, createNewGroup } = this.props;
     return (
       <section className={styles.groupManagementPage}>
         <Helmet title="Admin - Groups"/>
@@ -59,14 +63,29 @@ export default class GroupManagementPage extends Component {
           {/* This page should provide general CRUD functionality, create new group, see all groups, edit group name, delete group */}
           <ul>
             <li className={styles.newGroupItem}>
-              <button>
+              <button onClick={() => toggleInputingNewGroup()}>
                 <Icon iconName="plus"/>
                 <p>New Group</p>
               </button>
+              <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: newGroupControls.inputingNewGroup })}>
+                <div className={styles.lhs}>
+                  <form onSubmit={(event) => { event.preventDefault(); return false; }}>
+                    <input type="text" maxLength="15" placeholder="New group name" className={classnames({ [styles.invalid]: newGroupControls.errorSavingNewGroup })} value={newGroupControls.newGroupName} onChange={(event) => setNewGroupName(event.target.value)} />
+                  </form>
+                </div>
+                <div className={styles.actions}>
+                  <button onClick={() => createNewGroup(newGroupControls.newGroupName)}>
+                    <Icon iconName="check"/>
+                  </button>
+                  <button onClick={() => toggleInputingNewGroup()}>
+                    <Icon iconName="close"/>
+                  </button>
+                </div>
+              </div>
             </li>
             {groups.map((group, index) => <li key={index} className={styles.groupItem}>
               <div className={styles.basePanel}>
-                <div className={styles.info}>
+                <div className={styles.lhs}>
                   <p>{group.name}</p>
                   <p>{group.logs.length} Log{group.logs.length !== 1 ? 's' : ''}</p>
                 </div>
@@ -80,9 +99,9 @@ export default class GroupManagementPage extends Component {
                 </div>
               </div>
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: group.adminPageEditing })}>
-                <div className={styles.info}>
+                <div className={styles.lhs}>
                   <form onSubmit={(event) => { saveGroupName(index, group.adminPageNewName); event.preventDefault(); return false; }}>
-                    <input type="text" maxLength="15" className={classnames({ [styles.invalid]: group.adminPageEditingError })} value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
+                    <input type="text" maxLength="15" placeholder="Group name" className={classnames({ [styles.invalid]: group.adminPageEditingError })} value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
                   </form>
                 </div>
                 <div className={styles.actions}>
@@ -99,7 +118,7 @@ export default class GroupManagementPage extends Component {
                 <p>Saving...</p>
               </div>
               <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleteChecking })}>
-                <div className={styles.info}>
+                <div className={styles.lhs}>
                   <p>Are you sure you want to delete group: "{group.name}"</p>
                   <p>Deleting a group will remove all of its logs!</p>
                 </div>

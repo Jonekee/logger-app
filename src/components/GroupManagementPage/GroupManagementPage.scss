@@ -23,12 +23,20 @@
     }
   }
 
-  button:hover {
-    background: #ddd;
+  button {
+    svg {
+      padding: 6px;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background: #ddd;
+    }
   }
 
   .newGroupItem {
-    button {
+    & > button {
       width: 100%;
       padding: 20px 12px;
       text-align: left;
@@ -50,10 +58,12 @@
     }
   }
 
-  .groupItem {
+  li {
     position: relative;
     overflow: hidden;
+  }
 
+  .groupItem {
     .basePanel {
       padding: 12px;
       display: flex;
@@ -69,30 +79,7 @@
       }
     }
 
-    .editNamePanel {
-      input {
-        background: none;
-        border: none;
-        border-bottom: 1px solid #777;
-        padding: 4px;
-        width: 180px;
 
-        &.invalid {
-          border-color: #F44336;
-        }
-      }
-    }
-
-    .savingPanel, .deletingPanel {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      p {
-        font-size: 16px;
-        margin-left: 5px;
-      }
-    }
 
     .deleteCheckPanel {
       p {
@@ -104,38 +91,57 @@
         }
       }
     }
+  }
 
-    .fadeInPanel {
-      padding: 12px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      position: absolute;
-      width: 100%;
-      height: 58px;
-      top: 0;
-      box-sizing: border-box;
-      background: inherit;
-      pointer-events: none;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0;
-      transform: scale(1.05);
+  .fadeInPanel {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    box-sizing: border-box;
+    background: inherit;
+    pointer-events: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(1.05);
 
-      &.open {
-        opacity: 1;
-        transform: scale(1);
-        pointer-events: all;
+    &.open {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: all;
+    }
+  }
+
+  .lhs {
+    flex-grow: 1;
+  }
+
+  .editNamePanel {
+    input {
+      background: none;
+      border: none;
+      border-bottom: 1px solid #777;
+      padding: 4px;
+      width: 180px;
+
+      &.invalid {
+        border-color: #F44336;
       }
     }
+  }
 
-    .info {
-      flex-grow: 1;
-    }
+  .savingPanel, .deletingPanel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    button svg {
-      padding: 6px;
-      width: 16px;
-      height: 16px;
+    p {
+      font-size: 16px;
+      margin-left: 5px;
     }
   }
 }
