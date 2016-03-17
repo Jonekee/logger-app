@@ -7,6 +7,7 @@ import {mapUrl} from './utils/url.js';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import SocketIo from 'socket.io';
+import SystemHelper from './utils/system.js';
 import TailHelper from './utils/tailhelper.js';
 import { Instance as LoggingManager } from 'logging-manager';
 
@@ -18,6 +19,8 @@ const server = new http.Server(app);
 
 const io = new SocketIo(server);
 io.path('/ws');
+
+SystemHelper.setSocketIo(io);
 
 app.use(session({
   secret: 'react and redux rule!!!!',

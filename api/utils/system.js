@@ -66,6 +66,10 @@ class SystemHelper {
       });
   }
 
+  setSocketIo = (io) => {
+    this.io = io;
+  };
+
   saveConfigToDisk = () => {
     LoggingManager.debug('SystemHelper', 'saveConfigToDisk', 'Writing system file to disk');
     return writeFile(this.fileLocation, JSON.stringify(this.system, null, 2))
@@ -123,7 +127,11 @@ class SystemHelper {
   updateGroupName = (groupId, newName) => {
     LoggingManager.debug('SystemHelper', 'updateGroupName', `Updating group name using groupId: ${groupId} and newName: ${newName}`);
     this.system.groups[groupId].name = newName;
-    return this.saveConfigToDisk();
+    return this.saveConfigToDisk().then(() => {
+      // Emit updated group to all sessions including the guy that updated the group
+      // TODO ##
+      this.io.emit({});
+    });
   };
 
   groupIdIsValid = (groupId) => {
@@ -137,7 +145,11 @@ class SystemHelper {
       ...this.system.groups.slice(0, groupId),
       ...this.system.groups.slice(groupId + 1)
     ];
-    return this.saveConfigToDisk();
+    return this.saveConfigToDisk().then(() => {
+      // Emit deleted group to all sessions including the guy that deleted the group
+      // TODO ##
+      this.io.emit({});
+    });
   }
 
   createGroup = (newGroupName) => {
@@ -145,7 +157,11 @@ class SystemHelper {
       name: newGroupName,
       logs: []
     });
-    return this.saveConfigToDisk().then(() => this.system.groups.length - 1);
+    return this.saveConfigToDisk().then(() => {
+      // Emit new group to all sessions including the guy that created the group
+      // TODO ##
+      this.io.emit({});
+    });
   }
 }
 
