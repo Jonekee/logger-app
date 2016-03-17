@@ -57,7 +57,7 @@ export default class GroupManagementPage extends Component {
       <section className={styles.groupManagementPage}>
         <Helmet title="Admin - Groups"/>
         <header>
-          <h2>Groups Management</h2>
+          <h2>Group Management</h2>
         </header>
         <section>
           {/* This page should provide general CRUD functionality, create new group, see all groups, edit group name, delete group */}
