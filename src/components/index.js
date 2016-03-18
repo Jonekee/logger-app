@@ -13,6 +13,8 @@ export Icon from './Icon/Icon';
 export LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 export LogGroupList from './LogGroupList/LogGroupList';
 export LogGroupListItem from './LogGroupListItem/LogGroupListItem';
+export LogManagementPage from './LogManagementPage/LogManagementPage';
+export LogManagementPageLogPanel from './LogManagementPageLogPanel/LogManagementPageLogPanel';
 export LogOutputPage from './LogOutputPage/LogOutputPage';
 export LogPage from './LogPage/LogPage';
 export LogPageHeader from './LogPageHeader/LogPageHeader';

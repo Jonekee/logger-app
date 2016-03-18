@@ -9,5 +9,6 @@ export Group from './Group/Group';
 export GroupManagement from './GroupManagement/GroupManagement';
 export Log from './Log/Log';
 export Login from './Login/Login';
+export LogManagement from './LogManagement/LogManagement';
 export LogOutput from './LogOutput/LogOutput';
 export NotFound from './NotFound/NotFound';

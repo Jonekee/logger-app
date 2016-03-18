@@ -98,6 +98,10 @@ export default class SvgStore extends Component {
               <title>check</title>
               <path class="path1" d="M1350.665 107.668l-916.333 916.333-419.986-419.986 107.669-107.669 312.317 311.554 808.663-807.899 107.669 107.669z"></path>
             </symbol>
+            <symbol id="icon-swap-vertical" viewBox="0 0 43 32">
+              <title>swap-vertical</title>
+              <path class="path1" d="M15.995 0l-7.111 7.111h5.333v12.444h3.556v-12.444h5.333zM28.439 24.889v-12.444h-3.556v12.444h-5.333l7.111 7.111 7.111-7.111h-5.333z"></path>
+            </symbol>
           </defs>
         </svg>
       </div>

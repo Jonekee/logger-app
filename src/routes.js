@@ -13,6 +13,7 @@ import {
     GroupManagement,
     Log,
     Login,
+    LogManagement,
     LogOutput,
     NotFound,
   } from './containers';
@@ -80,7 +81,7 @@ export default (store) => {
           <IndexRedirect to="app"/>
           <Route path="app" component={AppManagement}/>
           <Route path="groups" component={GroupManagement}/>
-          <Route path="logs" component={GroupManagement}/>
+          <Route path="logs" component={LogManagement}/>
           <Route path="users" component={GroupManagement}/>
           <Route path="syntax" component={GroupManagement}/>
         </Route>

@@ -1,0 +1,46 @@
+.logManagementPageLogPanel {
+  position: relative;
+
+  .basePanel {
+    box-sizing: border-box;
+    min-height: 58px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  p {
+    font-size: 11px;
+
+    &:first-of-type {
+      font-size: 14px;
+    }
+
+    span:first-of-type {
+      font-weight: bold;
+      margin-right: 4px;
+    }
+  }
+
+  .info {
+    flex-grow: 1;
+  }
+
+  .actions {
+    flex-grow: 0;
+  }
+
+  button {
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+    svg {
+      padding: 6px;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background: #ddd;
+    }
+  }
+}

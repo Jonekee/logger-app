@@ -7,6 +7,7 @@ import info from './info';
 import widgets from './widgets';
 import groups from './groups';
 import groupManagement from './groupManagement';
+import logManagement from './logManagement';
 import system from './system';
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
   widgets,
   groups,
   groupManagement,
+  logManagement,
   system
 });

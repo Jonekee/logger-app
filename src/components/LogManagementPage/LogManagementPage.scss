@@ -1,0 +1,91 @@
+.logManagementPage {
+  width: 100%;
+  padding: 0 20px;
+  max-width: 840px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  header {
+    border: none;
+    padding: 25px 0 20px;
+    display: flex;
+    align-items: baseline;
+
+    .actions {
+      flex-grow: 0;
+
+      label, input {
+        cursor: pointer;
+      }
+
+      label {
+        padding-right: 4px;
+        font-size: 14px;
+        color: #555;
+      }
+    }
+  }
+
+  h3 {
+    padding-top: 24px;
+    padding-bottom: 8px;
+  }
+
+  .addButton {
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    padding: 20px 12px;
+    text-align: left;
+    background: #eee;
+
+    &:hover {
+      background: #ddd;
+    }
+
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    p {
+      margin-left: 6px;
+      font-size: 16px;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      padding: 6px;
+    }
+  }
+
+  li {
+    display: block;
+    background: #eee;
+
+    &:nth-of-type(2n) {
+      background: #f9f9f9;
+    }
+  }
+
+  .singleList li {
+    display: block;
+    background: #f9f9f9;
+
+    &:nth-of-type(2n) {
+      background: #eee;
+    }
+  }
+
+  .noLogsLine {
+    background: #eee;
+    display: block;
+    padding: 20px 12px;
+    color: #777;
+
+    p {
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+}
