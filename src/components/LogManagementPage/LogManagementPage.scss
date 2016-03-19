@@ -36,7 +36,6 @@
     width: 100%;
     padding: 20px 12px;
     text-align: left;
-    background: #eee;
 
     &:hover {
       background: #ddd;
@@ -86,6 +85,122 @@
     p {
       font-size: 14px;
       line-height: 18px;
+    }
+  }
+
+  .fadeInPanel {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    box-sizing: border-box;
+    background: inherit;
+    pointer-events: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(1.05);
+
+    &.open {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: all;
+    }
+  }
+
+  .newLogContainer {
+    position: relative;
+    background: #eee;
+    height: 68px;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.addLogOpen {
+      height: 167px;
+
+      .formContainer {
+        pointer-events: all;
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .formContainer {
+      display: flex;
+      flex-direction: row;
+
+      div:first-of-type {
+        flex-grow: 1;
+      }
+
+      select, input {
+        box-sizing: border-box;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #777;
+        padding: 4px;
+        display: block;
+        margin-bottom: 8px;
+        width: 188px;
+
+        &.invalid {
+          border-color: #F44336;
+        }
+      }
+
+      select {
+        appearance:none;
+        border-radius: 0px;
+        font-size: 15px;
+
+        &.default {
+          color: #a9a9a9;
+        }
+      }
+
+      input {
+        &:not(:first-of-type) {
+          width: 360px;
+        }
+      }
+
+      .actions {
+        button {
+          transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+          svg {
+            padding: 6px;
+            width: 16px;
+            height: 16px;
+          }
+
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+    }
+  }
+
+  .selectStyling {
+    display: block;
+    width: 188px;
+    border: none;
+
+    &.placeholderColour select {
+      color: #a9a9a9;
+    }
+
+    select {
+      line-height: 20px;
+    }
+
+    svg {
+      width: 10px;
+      right: 6px;
+      top: 10px;
     }
   }
 }

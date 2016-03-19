@@ -1,13 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './LogManagementPage.scss';
 import Helmet from 'react-helmet';
-import { Icon, LogManagementPageLogPanel } from '../../components';
+import classnames from 'classnames';
+import { Icon, LogManagementPageLogPanel, DropDown } from '../../components';
 
 export default class LogManagementPage extends Component {
   static propTypes = {
     groups: PropTypes.array.isRequired,
     logManagementState: PropTypes.object.isRequired,
-    toggleSortByGroup: PropTypes.func.isRequired
+    toggleSortByGroup: PropTypes.func.isRequired,
+    toggleInputingNewGroup: PropTypes.func.isRequired,
+    setNewLogGroup: PropTypes.func.isRequired
   };
 
   componentDidUpdate() {
@@ -15,13 +18,22 @@ export default class LogManagementPage extends Component {
   }
 
   render() {
-    const { groups, logManagementState, toggleSortByGroup } = this.props;
+    const { groups, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogGroup } = this.props;
 
-    let fullLogList;
-    if (!logManagementState.sortByGroup) {
-      fullLogList = [];
+    const fullLogList = [];
 
-      groups.forEach((group, groupId) => {
+    const groupOptionsList = [{
+      text: 'Select a group',
+      value: '-1'
+    }];
+
+    groups.forEach((group, groupId) => {
+      groupOptionsList.push({
+        text: group.name,
+        value: '' + groupId
+      });
+
+      if (!logManagementState.sortByGroup) {
         group.logs.forEach((log, logId) => {
           fullLogList.push({
             ...log,
@@ -29,14 +41,17 @@ export default class LogManagementPage extends Component {
             groupId
           });
         });
-      });
+      }
+    });
 
+    if (!logManagementState.sortByGroup) {
       fullLogList.sort((first, second) => {
         const firstName = first.name;
         const secondName = second.name;
         return firstName > secondName;
       });
     }
+
 
     return (
       <section className={styles.logManagementPage}>
@@ -51,10 +66,28 @@ export default class LogManagementPage extends Component {
           </div>
         </header>
         <section>
-          <button className={styles.addButton} onClick={() => {}}>
-            <Icon iconName="plus"/>
-            <p>New Log</p>
-          </button>
+          <div className={classnames(styles.newLogContainer, { [styles.addLogOpen]: logManagementState.inputingNewLog })}>
+            <button className={styles.addButton} onClick={() => toggleInputingNewGroup()}>
+              <Icon iconName="plus"/>
+              <p>New Log</p>
+            </button>
+            <div className={classnames(styles.formContainer, styles.fadeInPanel)}>
+              <div className={styles.lhs}>
+                <input type="text" placeholder="New log name" />
+                <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: logManagementState.newLogGroup === '-1' })} options={groupOptionsList} initialValue={logManagementState.newLogGroup} onChange={(event) => setNewLogGroup(event.target.value)} />
+                <input type="text" placeholder="File name" />
+                <input type="text" placeholder="File location" />
+              </div>
+              <div className={styles.actions}>
+                <button onClick={() => {}}>
+                  <Icon iconName="check"/>
+                </button>
+                <button onClick={() => toggleInputingNewGroup()}>
+                  <Icon iconName="close"/>
+                </button>
+              </div>
+            </div>
+          </div>
           <div className={styles.listContainer}>
             {logManagementState.sortByGroup
               ? groups.map((group, index) => (
