@@ -1,5 +1,6 @@
 const TOGGLE_SORT_BY_GROUP = 'redux-example/logManagement/TOGGLE_SORT_BY_GROUP';
 const SET_NEW_LOG_NAME = 'redux-example/logManagement/SET_NEW_LOG_NAME';
+const SET_NEW_LOG_GROUP = 'redux-example/logManagement/SET_NEW_LOG_GROUP';
 const TOGGLE_INPUTING_NEW_LOG = 'redux-example/logManagement/TOGGLE_INPUTING_NEW_LOG';
 const CREATE_NEW_LOG = 'redux-example/logManagement/CREATE_NEW_LOG';
 const CREATE_NEW_LOG_FAIL = 'redux-example/logManagement/CREATE_NEW_LOG_FAIL';
@@ -10,7 +11,8 @@ const initialState = {
   inputingNewLog: false,
   savingNewLog: false,
   errorSavingNewLog: false,
-  newLogName: ''
+  newLogName: '',
+  newLogGroup: '-1'
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -30,6 +32,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         inputingNewLog: !state.inputingNewLog
+      };
+    case SET_NEW_LOG_GROUP:
+      return {
+        ...state,
+        newLogGroup: action.newLogGroup
       };
     case CREATE_NEW_LOG:
       return {
@@ -70,6 +77,13 @@ export function setNewGroupName(newLogName) {
 export function toggleInputingNewGroup() {
   return {
     type: TOGGLE_INPUTING_NEW_LOG
+  };
+}
+
+export function setNewLogGroup(newLogGroup) {
+  return {
+    type: SET_NEW_LOG_GROUP,
+    newLogGroup
   };
 }
 
