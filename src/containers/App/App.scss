@@ -63,3 +63,21 @@ h1 {
   font-size: 22px;
   font-weight: 100;
 }
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #a9a9a9;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #a9a9a9;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #a9a9a9;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #a9a9a9;
+}
+:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+  color:    #a9a9a9;
+}
