@@ -7,7 +7,7 @@ export default class LogManagementPageLogPanel extends Component {
     groupName: PropTypes.string,
     groupId: PropTypes.number.isRequired,
     logId: PropTypes.number.isRequired,
-    log: PropTypes.string.isRequired
+    log: PropTypes.object.isRequired
   };
 
   shouldComponentUpdate(nextProps) {

@@ -10,7 +10,10 @@ export default class LogManagementPage extends Component {
     logManagementState: PropTypes.object.isRequired,
     toggleSortByGroup: PropTypes.func.isRequired,
     toggleInputingNewGroup: PropTypes.func.isRequired,
-    setNewLogGroup: PropTypes.func.isRequired
+    setNewLogName: PropTypes.func.isRequired,
+    setNewLogGroup: PropTypes.func.isRequired,
+    setNewLogFile: PropTypes.func.isRequired,
+    setNewLogPath: PropTypes.func.isRequired
   };
 
   componentDidUpdate() {
@@ -18,7 +21,7 @@ export default class LogManagementPage extends Component {
   }
 
   render() {
-    const { groups, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogGroup } = this.props;
+    const { groups, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath } = this.props;
 
     const fullLogList = [];
 
@@ -73,10 +76,10 @@ export default class LogManagementPage extends Component {
             </button>
             <div className={classnames(styles.formContainer, styles.fadeInPanel)}>
               <div className={styles.lhs}>
-                <input type="text" placeholder="New log name" />
+                <input type="text" placeholder="New log name" maxLength="15" value={logManagementState.newLogName} onChange={(event) => setNewLogName(event.target.value)} />
                 <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: logManagementState.newLogGroup === '-1' })} options={groupOptionsList} initialValue={logManagementState.newLogGroup} onChange={(event) => setNewLogGroup(event.target.value)} />
-                <input type="text" placeholder="File name" />
-                <input type="text" placeholder="File location" />
+                <input type="text" placeholder="File name" maxLength="30" value={logManagementState.newLogFile} onChange={(event) => setNewLogFile(event.target.value)} />
+                <input type="text" placeholder="File location" maxLength="30" value={logManagementState.newLogPath} onChange={(event) => setNewLogPath(event.target.value)} />
               </div>
               <div className={styles.actions}>
                 <button onClick={() => {}}>

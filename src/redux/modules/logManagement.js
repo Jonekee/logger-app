@@ -1,7 +1,9 @@
 const TOGGLE_SORT_BY_GROUP = 'redux-example/logManagement/TOGGLE_SORT_BY_GROUP';
+const TOGGLE_INPUTING_NEW_LOG = 'redux-example/logManagement/TOGGLE_INPUTING_NEW_LOG';
 const SET_NEW_LOG_NAME = 'redux-example/logManagement/SET_NEW_LOG_NAME';
 const SET_NEW_LOG_GROUP = 'redux-example/logManagement/SET_NEW_LOG_GROUP';
-const TOGGLE_INPUTING_NEW_LOG = 'redux-example/logManagement/TOGGLE_INPUTING_NEW_LOG';
+const SET_NEW_LOG_FILE = 'redux-example/logManagement/SET_NEW_LOG_FILE';
+const SET_NEW_LOG_PATH = 'redux-example/logManagement/SET_NEW_LOG_PATH';
 const CREATE_NEW_LOG = 'redux-example/logManagement/CREATE_NEW_LOG';
 const CREATE_NEW_LOG_FAIL = 'redux-example/logManagement/CREATE_NEW_LOG_FAIL';
 const CREATE_NEW_LOG_SUCCESS = 'redux-example/logManagement/CREATE_NEW_LOG_SUCCESS';
@@ -22,21 +24,32 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         sortByGroup: !state.sortByGroup
       };
+    case TOGGLE_INPUTING_NEW_LOG:
+      return {
+        ...state,
+        inputingNewLog: !state.inputingNewLog
+      };
     case SET_NEW_LOG_NAME:
       return {
         ...state,
         newLogName: action.newLogName,
         errorSavingNewLog: false
       };
-    case TOGGLE_INPUTING_NEW_LOG:
-      return {
-        ...state,
-        inputingNewLog: !state.inputingNewLog
-      };
     case SET_NEW_LOG_GROUP:
       return {
         ...state,
         newLogGroup: action.newLogGroup
+      };
+    case SET_NEW_LOG_FILE:
+      return {
+        ...state,
+        newLogFile: action.newLogFile
+      };
+    case SET_NEW_LOG_PATH:
+      console.log('SET_NEW_LOG_PATH');
+      return {
+        ...state,
+        newLogPath: action.newLogPath
       };
     case CREATE_NEW_LOG:
       return {
@@ -67,16 +80,16 @@ export function toggleSortByGroup() {
   };
 }
 
-export function setNewGroupName(newLogName) {
-  return {
-    type: SET_NEW_LOG_NAME,
-    newLogName
-  };
-}
-
 export function toggleInputingNewGroup() {
   return {
     type: TOGGLE_INPUTING_NEW_LOG
+  };
+}
+
+export function setNewLogName(newLogName) {
+  return {
+    type: SET_NEW_LOG_NAME,
+    newLogName
   };
 }
 
@@ -84,6 +97,20 @@ export function setNewLogGroup(newLogGroup) {
   return {
     type: SET_NEW_LOG_GROUP,
     newLogGroup
+  };
+}
+
+export function setNewLogFile(newLogFile) {
+  return {
+    type: SET_NEW_LOG_FILE,
+    newLogFile
+  };
+}
+
+export function setNewLogPath(newLogPath) {
+  return {
+    type: SET_NEW_LOG_PATH,
+    newLogPath
   };
 }
 
