@@ -41,9 +41,6 @@ export default class LogManagementPageLogPanel extends Component {
             <button onClick={() => console.log(`Change name: ${groupId}:${logId}`)}>
               <Icon iconName="pencil"/>
             </button>
-            <button onClick={() => console.log(`Move group: ${groupId}:${logId}`)}>
-              <Icon iconName="swap-vertical"/>
-            </button>
             <button onClick={() => console.log(`Delete log: ${groupId}:${logId}`)}>
               <Icon iconName="delete"/>
             </button>
