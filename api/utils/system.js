@@ -133,8 +133,7 @@ class SystemHelper {
     this.system.groups[groupId].name = newName;
     return this.saveConfigToDisk().then(() => {
       // Emit updated group to all sessions including the guy that updated the group
-      // TODO ##
-      this.io.emit({});
+      this.io.emit('group:nameChange', { groupId, newName });
     });
   };
 
@@ -151,8 +150,7 @@ class SystemHelper {
     ];
     return this.saveConfigToDisk().then(() => {
       // Emit deleted group to all sessions including the guy that deleted the group
-      // TODO ##
-      this.io.emit({});
+      this.io.emit('group:groupDelete', { groupId });
     });
   }
 
@@ -163,8 +161,7 @@ class SystemHelper {
     });
     return this.saveConfigToDisk().then(() => {
       // Emit new group to all sessions including the guy that created the group
-      // TODO ##
-      this.io.emit({});
+      this.io.emit('group:newGroup', { newGroupName });
     });
   }
 }
