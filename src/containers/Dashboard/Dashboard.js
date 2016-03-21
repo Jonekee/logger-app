@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {isLoaded as isGroupsLoaded, addLineToLog, load as loadGroups, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted } from '../../redux/modules/groups';
 import { isLoaded as isGroupzLoaded, load as loadGroupz } from '../../redux/modules/groupz';
+import { isLoaded as isLogzLoaded, load as loadLogz } from '../../redux/modules/logz';
 import {isLoaded as isSystemSettingsLoaded, load as loadSystemSettings, clearError as clearAppSettingsError} from '../../redux/modules/system';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
@@ -15,6 +16,9 @@ function fetchData(getState, dispatch) {
   }
   if (!isGroupzLoaded(getState())) {
     promises.push(dispatch(loadGroupz()));
+  }
+  if (!isLogzLoaded(getState())) {
+    promises.push(dispatch(loadLogz()));
   }
   if (!isSystemSettingsLoaded(getState())) {
     promises.push(dispatch(loadSystemSettings()));

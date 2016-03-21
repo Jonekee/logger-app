@@ -7,6 +7,7 @@ import info from './info';
 import widgets from './widgets';
 import groups from './groups';
 import groupz from './groupz';
+import logz from './logz';
 import groupManagement from './groupManagement';
 import logManagement from './logManagement';
 import system from './system';
@@ -19,6 +20,7 @@ export default combineReducers({
   widgets,
   groups,
   groupz,
+  logz,
   groupManagement,
   logManagement,
   system
