@@ -6,6 +6,7 @@ import {reducer as form} from 'redux-form';
 import info from './info';
 import widgets from './widgets';
 import groups from './groups';
+import groupz from './groupz';
 import groupManagement from './groupManagement';
 import logManagement from './logManagement';
 import system from './system';
@@ -17,6 +18,7 @@ export default combineReducers({
   info,
   widgets,
   groups,
+  groupz,
   groupManagement,
   logManagement,
   system

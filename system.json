@@ -73,5 +73,59 @@
         }
       ]
     }
-  ]
+  ],
+  "groupz": {
+    "1": {
+      "name": "Actual Logs",
+      "logs": [ "1" ]
+    },
+    "2": {
+      "name": "Apache Logs",
+      "logs": [ "2", "3" ]
+    },
+    "3": {
+      "name": "Empty Lists",
+      "logs": []
+    },
+    "4": {
+      "name": "WebLogic Logs",
+      "logs": [ "4", "5" ]
+    },
+    "5": {
+      "name": "Tomcat",
+      "logs": [ "6" ]
+    }
+  },
+  "logz": {
+    "1": {
+      "name": "System Log",
+      "fname": "system.log",
+      "fpath": "/var/log/"
+    },
+    "2": {
+      "name": "Apache Access",
+      "fname": "access_log",
+      "fpath": "/var/log/apache2/"
+    },
+    "3": {
+      "name": "Apache Error",
+      "fname": "error_log",
+      "fpath": "/var/log/apache2/"
+    },
+    "4": {
+      "name": "ManagedServer.log",
+      "fname": "ManagedServer.log",
+      "fpath": "/opt/projects/server/ms/logs/"
+    },
+    "5": {
+      "name": "ContentServer.log",
+      "fname": "ContentServer.log",
+      "fpath": "/opt/projects/server/cs/logs/"
+    },
+    "6": {
+      "name": "App Log",
+      "fname": "tomcat.out",
+      "fpath": "/opt/projects/server/appserver/logs/"
+    }
+  }
 }

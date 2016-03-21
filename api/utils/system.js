@@ -95,6 +95,10 @@ class SystemHelper {
     return this.system.groups;
   };
 
+  getGroupz = () => {
+    return this.system.groupz;
+  };
+
   checkForUser = (username) => {
     return !!this.system.users[username];
   };
