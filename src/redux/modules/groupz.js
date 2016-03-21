@@ -1,6 +1,6 @@
-const INITIAL_LOAD = 'redux-example/groups/INITIAL_LOAD';
-const INITIAL_LOAD_SUCCESS = 'redux-example/groups/INITIAL_LOAD_SUCCESS';
-const INITIAL_LOAD_FAIL = 'redux-example/groups/INITIAL_LOAD_FAIL';
+const INITIAL_LOAD = 'redux-example/groupz/INITIAL_LOAD';
+const INITIAL_LOAD_SUCCESS = 'redux-example/groupz/INITIAL_LOAD_SUCCESS';
+const INITIAL_LOAD_FAIL = 'redux-example/groupz/INITIAL_LOAD_FAIL';
 
 const initialState = {
   loaded: false
