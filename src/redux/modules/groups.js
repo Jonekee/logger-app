@@ -25,6 +25,10 @@ const DELETE_GROUP = 'redux-example/groups/DELETE_GROUP';
 const DELETE_GROUP_SUCCESS = 'redux-example/groups/DELETE_GROUP_SUCCESS';
 const DELETE_GROUP_FAIL = 'redux-example/groups/DELETE_GROUP_FAIL';
 
+const NEW_GROUP_EMITTED = 'redux-example/groups/NEW_GROUP_EMITTED';
+const GROUP_NAME_CHANGE_EMITTED = 'redux-example/groups/GROUP_NAME_CHANGE_EMITTED';
+const GROUP_DELETE_EMITTED = 'redux-example/groups/GROUP_DELETE_EMITTED';
+
 const initialState = {
   loaded: false,
   activeGroupOpen: true,
@@ -378,6 +382,37 @@ export default function reducer(state = initialState, action = {}) {
             : group
         )
       };
+    case NEW_GROUP_EMITTED:
+      return {
+        ...state,
+        data: [
+          ...state.data,
+          {
+            name: action.name,
+            logs: []
+          }
+        ]
+      };
+    case GROUP_NAME_CHANGE_EMITTED:
+      return {
+        ...state,
+        data: [
+          ...state.data.slice(0, parseInt(action.groupId, 10)),
+          {
+            ...state.data[parseInt(action.groupId, 10)],
+            name: action.name
+          },
+          ...state.data.slice(parseInt(action.groupId, 10) + 1)
+        ]
+      };
+    case GROUP_DELETE_EMITTED:
+      return {
+        ...state,
+        data: [
+          ...state.data.slice(0, parseInt(action.groupId, 10)),
+          ...state.data.slice(parseInt(action.groupId, 10) + 1)
+        ]
+      };
     default:
       return state;
   }
@@ -546,6 +581,31 @@ export function deleteGroup(groupId) {
         groupId
       }
     }),
+    groupId
+  };
+}
+
+
+export function newGroupEmitted(name) {
+  return {
+    type: NEW_GROUP_EMITTED,
+    name
+  };
+}
+
+
+export function groupNameChangeEmitted(groupId, name) {
+  return {
+    type: GROUP_NAME_CHANGE_EMITTED,
+    groupId,
+    name
+  };
+}
+
+
+export function groupDeleteEmitted(groupId) {
+  return {
+    type: GROUP_DELETE_EMITTED,
     groupId
   };
 }
