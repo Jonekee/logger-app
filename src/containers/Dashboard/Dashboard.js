@@ -5,6 +5,7 @@ import {isLoaded as isSystemSettingsLoaded, load as loadSystemSettings, clearErr
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
 import { NavPanel, ErrorPanel } from '../../components';
+import styles from './Dashboard.scss';
 
 
 function fetchData(getState, dispatch) {
@@ -65,7 +66,6 @@ export default class Dashboard extends Component {
 
   render() {
     const { authEnabled, groups, appSettingsError, clearAppSettingsError } = this.props; // eslint-disable-line
-    const styles = require('./Dashboard.scss');
     return (
       <div className={styles.dashboard}>
         <NavPanel authEnabled={authEnabled} groups={groups}/>
