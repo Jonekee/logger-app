@@ -99,6 +99,10 @@ class SystemHelper {
     return this.system.groupz;
   };
 
+  getLogz = () => {
+    return this.system.logz;
+  };
+
   checkForUser = (username) => {
     return !!this.system.users[username];
   };
