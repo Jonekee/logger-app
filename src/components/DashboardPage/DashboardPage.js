@@ -6,8 +6,9 @@ import Helmet from 'react-helmet';
 export default class DashboardPage extends Component {
   static propTypes = {
     dashboardListFilter: PropTypes.string.isRequired,
-    groups: PropTypes.array.isRequired,
-    setDashboardListFilter: PropTypes.func.isRequired
+    setDashboardListFilter: PropTypes.func.isRequired,
+    groupz: PropTypes.object.isRequired,
+    logz: PropTypes.object.isRequired
   };
 
   componentDidUpdate() {
@@ -20,47 +21,33 @@ export default class DashboardPage extends Component {
   };
 
   render() {
-    const { dashboardListFilter, groups } = this.props;
+    const { dashboardListFilter, groupz, logz } = this.props;
 
     const activeLogs = [];
-    if (groups) {
-      groups.forEach((group, groupId) => {
-        group.logs.forEach((log, logId) => {
-          if (log.activeState !== 'INACTIVE') {
-            activeLogs.push({
-              logId,
-              groupId,
-              logName: log.name,
-              logFileName: log.fname,
-              logFilePath: log.fpath,
-              logStatus: log.activeState,
-              logHasNew: log.hasNew
-            });
-          }
-        });
-      });
-    }
-
-    activeLogs.sort((first, second) => {
-      const firstName = first.logName;
-      const secondName = second.logName;
-      return firstName > secondName;
-    });
-
     const groupLists = [];
 
-    groupLists.push({
-      groupName: 'Active Logs',
-      listFilter: dashboardListFilter,
-      logs: activeLogs
-    });
 
-    if (groups) {
-      groups.forEach((group, groupId) => {
-        groupLists.push({
-          groupName: group.name,
-          listFilter: dashboardListFilter,
-          logs: group.logs.map((log, logId) => ({
+    Object.keys(groupz).forEach((groupId) => {
+      const group = groupz[groupId];
+      const logs = [];
+
+      group.logs.forEach((logId) => {
+        const log = logz[logId];
+
+        // Add log to group list
+        logs.push({
+          logId,
+          groupId,
+          logName: log.name,
+          logFileName: log.fname,
+          logFilePath: log.fpath,
+          logStatus: log.activeState,
+          logHasNew: log.hasNew
+        });
+
+        // Add log to active list if isn't inactive
+        if (log.activeState !== 'INACTIVE') {
+          activeLogs.push({
             logId,
             groupId,
             logName: log.name,
@@ -68,10 +55,32 @@ export default class DashboardPage extends Component {
             logFilePath: log.fpath,
             logStatus: log.activeState,
             logHasNew: log.hasNew
-          }))
-        });
+          });
+        }
       });
-    }
+
+      logs.sort((first, second) => (first.logName > second.logName));
+
+      groupLists.push({
+        groupId,
+        logs,
+        listFilter: dashboardListFilter,
+        groupName: group.name,
+      });
+    });
+
+    // Sort groups based on name
+    groupLists.sort((first, second) => (first.groupName > second.groupName));
+
+    // Sort active logs and push to start of list
+    activeLogs.sort((first, second) => (first.logName > second.logName));
+    groupLists.unshift({
+      groupId: '-1',
+      groupName: 'Active Group',
+      listFilter: dashboardListFilter,
+      logs: activeLogs
+    });
+
 
     return (
       <section className={styles.dashboardPage}>
@@ -84,8 +93,8 @@ export default class DashboardPage extends Component {
           </div>
         </header>
         <section>
-          {groupLists.map((groupList, index) => (
-            <article key={index}>
+          {groupLists.map((groupList) => (
+            <article key={groupList.groupId}>
               <h3>{groupList.groupName}</h3>
               <LogGroupList {...groupList}/>
             </article>

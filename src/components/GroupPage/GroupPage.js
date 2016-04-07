@@ -2,11 +2,16 @@ import React, {Component, PropTypes} from 'react';
 import { Icon, LogGroupList } from '../../components';
 import styles from './GroupPage.scss';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 
+@connect((state, props) => ({
+  logs: props.group.logs.reduce((prev, curr) => ({ ...prev, [curr]: state.logz.data[curr] }), {})
+}))
 export default class GroupPage extends Component {
   static propTypes = {
     groupId: PropTypes.string.isRequired,
     group: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired,
     setGroupListFilter: PropTypes.func.isRequired
   };
 
@@ -31,19 +36,23 @@ export default class GroupPage extends Component {
   };
 
   render() {
-    const { groupId, group } = this.props;
+    const { groupId, group, logs } = this.props;
+
+    const listLogs = group.logs.map(logId => ({
+      logId,
+      groupId,
+      logName: logs[logId].name,
+      logFileName: logs[logId].fname,
+      logFilePath: logs[logId].fpath,
+      logStatus: logs[logId].activeState,
+      logHasNew: logs[logId].hasNew
+    }));
+
+    listLogs.sort((first, second) => (first.logName > second.logName));
 
     const groupList = {
       listFilter: group.listFilter,
-      logs: group.logs.map((log, logId) => ({
-        logId,
-        groupId,
-        logName: log.name,
-        logFileName: log.fname,
-        logFilePath: log.fpath,
-        logStatus: log.activeState,
-        logHasNew: log.hasNew
-      }))
+      logs: listLogs
     };
 
     return (

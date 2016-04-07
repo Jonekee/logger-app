@@ -1,33 +1,41 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, load as loadGroups, setDashboardListFilter } from '../../redux/modules/groups';
+import { setDashboardListFilter } from '../../redux/modules/appInterface';
+import { isLoaded as groupsLoaded, load as loadGroups } from '../../redux/modules/groupz';
+import { isLoaded as logsLoaded, load as loadLogs } from '../../redux/modules/logz';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
 import { DashboardPage } from '../../components';
 
 function fetchData(getState, dispatch) {
-  if (!isLoaded(getState())) {
-    return dispatch(loadGroups());
+  const promises = [];
+  if (!groupsLoaded(getState())) {
+    promises.push(dispatch(loadGroups()));
   }
+  if (!logsLoaded(getState())) {
+    promises.push(dispatch(loadLogs()));
+  }
+  return Promise.all(promises);
 }
 
 @connectData(fetchData)
 @connect(
   state => ({
-    groups: state.groups.data,
-    dashboardListFilter: state.groups.dashboardListFilter
+    dashboardListFilter: state.appInterface.dashboardListFilter,
+    groupz: state.groupz.data,
+    logz: state.logz.data
   }),
   { setDashboardListFilter })
 export default class DashboardHome extends Component {
   static propTypes = {
-    groups: PropTypes.array,
     dashboardListFilter: PropTypes.string,
-    setDashboardListFilter: PropTypes.func
+    setDashboardListFilter: PropTypes.func,
+    groupz: PropTypes.object.isRequired,
+    logz: PropTypes.object.isRequired
   };
 
   render() {
-    const { groups, dashboardListFilter, setDashboardListFilter } = this.props; // eslint-disable-line
     return (
-      <DashboardPage groups={groups} dashboardListFilter={dashboardListFilter} setDashboardListFilter={setDashboardListFilter}/>
+      <DashboardPage {...this.props}/>
     );
   }
 }

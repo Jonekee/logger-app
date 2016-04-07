@@ -17,7 +17,7 @@ const applyDefaultLogValues = (log) => ({
   logLevelMapping: null
 });
 
-export default function reducer(state = initialState, action = {}) {
+export default function logz(state = initialState, action = {}) {
   switch (action.type) {
     case INITIAL_LOAD:
       return {

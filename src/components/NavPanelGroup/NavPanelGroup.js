@@ -5,7 +5,7 @@ import styles from './NavPanelGroup.scss';
 
 export default class NavPanelGroup extends Component {
   static propTypes = {
-    groupId: PropTypes.number.isRequired,
+    groupId: PropTypes.string,
     groupName: PropTypes.string.isRequired,
     groupNavOpen: PropTypes.bool.isRequired,
     toggleNavOpen: PropTypes.func.isRequired,

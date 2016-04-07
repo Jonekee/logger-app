@@ -4,8 +4,8 @@ import styles from './NavPanelGroupItem.scss';
 
 export default class NavPanelGroupItem extends Component {
   static propTypes = {
-    groupId: PropTypes.number.isRequired,
-    logId: PropTypes.number.isRequired,
+    groupId: PropTypes.string.isRequired,
+    logId: PropTypes.string.isRequired,
     logName: PropTypes.string.isRequired,
     logStatus: PropTypes.string.isRequired,
     logHasNew: PropTypes.bool.isRequired,

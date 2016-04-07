@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerStateReducer } from 'redux-router';
 
+import appInterface from './appInterface';
 import auth from './auth';
 import {reducer as form} from 'redux-form';
 import info from './info';
@@ -14,6 +15,7 @@ import system from './system';
 
 export default combineReducers({
   router: routerStateReducer,
+  appInterface,
   auth,
   form,
   info,

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import {isLoaded, setGroupListFilter, load as loadGroups} from '../../redux/modules/groups';
+import { isLoaded, setGroupListFilter, load as loadGroups } from '../../redux/modules/groupz';
 import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
-import { GroupPage } from '../../components';
+import { GroupPage, GroupNotFoundPage } from '../../components';
 
 function fetchData(getState, dispatch) {
   if (!isLoaded(getState())) {
@@ -14,19 +14,17 @@ function fetchData(getState, dispatch) {
 @connect(
   state => ({
     groupId: state.router.params.groupId,
-    groups: state.groups.data
+    group: state.groupz.data[state.router.params.groupId]
   }),
   { setGroupListFilter })
 export default class Group extends Component {
   static propTypes = {
     groupId: PropTypes.string,
-    groups: PropTypes.array.isRequired,
+    group: PropTypes.object,
     setGroupListFilter: PropTypes.func.isRequired
   };
 
   render() {
-    const { groupId, groups, setGroupListFilter } = this.props; // eslint-disable-line no-shadow
-    const group = groups[groupId];
-    return !!groupId ? <GroupPage groupId={groupId} group={group} setGroupListFilter={setGroupListFilter}/> : null;
+    return !!this.props.group ? <GroupPage {...this.props}/> : <GroupNotFoundPage groupId={this.props.groupId}/>;
   }
 }

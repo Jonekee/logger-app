@@ -1,0 +1,13 @@
+.groupNotFoundPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 33%;
+
+  p {
+    margin-top: 16px;
+    width: 450px;
+    text-align: center;
+  }
+}

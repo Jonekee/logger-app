@@ -3,18 +3,24 @@ import { Link } from 'react-router';
 import { Icon, NavPanelGroup } from '../../components';
 import './NavPanel.scss';
 import {connect} from 'react-redux';
-import { toggleActiveNavGroupOpen, toggleNavGroupOpen } from '../../redux/modules/groups';
+import { toggleActiveNavGroupOpen } from '../../redux/modules/appInterface';
+import { toggleNavGroupOpen } from '../../redux/modules/groupz';
 
 @connect(
-  state => ({ activeGroupOpen: state.groups.activeGroupOpen }),
+  state => ({
+    activeGroupOpen: state.appInterface.activeGroupNavOpen,
+    groupz: state.groupz.data,
+    logz: state.logz.data
+  }),
   { toggleActiveNavGroupOpen, toggleNavGroupOpen })
 export default class NavPanel extends Component {
   static propTypes = {
     authEnabled: PropTypes.bool,
-    groups: PropTypes.array,
     activeGroupOpen: PropTypes.bool,
     toggleNavGroupOpen: PropTypes.func,
-    toggleActiveNavGroupOpen: PropTypes.func
+    toggleActiveNavGroupOpen: PropTypes.func,
+    groupz: PropTypes.object.isRequired,
+    logz: PropTypes.object.isRequired
   };
 
   componentDidUpdate() {
@@ -23,7 +29,7 @@ export default class NavPanel extends Component {
 
   toggleNavGroupOpen(groupId) {
     const { toggleNavGroupOpen, toggleActiveNavGroupOpen } = this.props; // eslint-disable-line
-    if (groupId === -1) {
+    if (!groupId) {
       // Is active group, use different function
       toggleActiveNavGroupOpen();
     } else {
@@ -32,30 +38,7 @@ export default class NavPanel extends Component {
   }
 
   render() {
-    const { authEnabled, groups, activeGroupOpen } = this.props;
-
-    const activeLogs = [];
-    if (groups) {
-      groups.forEach((group, groupId) => {
-        group.logs.forEach((log, logId) => {
-          if (log.activeState !== 'INACTIVE') {
-            activeLogs.push({
-              logId,
-              groupId,
-              logName: log.name,
-              logStatus: log.activeState,
-              logHasNew: log.hasNew
-            });
-          }
-        });
-      });
-    }
-
-    activeLogs.sort((first, second) => {
-      const firstName = first.logName;
-      const secondName = second.logName;
-      return firstName > secondName;
-    });
+    const { authEnabled, activeGroupOpen, groupz, logz } = this.props;
 
     /* Normalise both normal and active groups to format:
     {
@@ -72,34 +55,59 @@ export default class NavPanel extends Component {
         }
       ]
     }
-
     */
 
     const navGroups = [];
+    const activeLogs = [];
 
-    navGroups.push({
-      groupId: -1,
-      groupName: 'Active Group',
-      groupNavOpen: activeGroupOpen,
-      logs: activeLogs
-    });
+    Object.keys(groupz).forEach((groupId) => {
+      const group = groupz[groupId];
+      const logs = [];
 
-    if (groups) {
-      groups.forEach((group, groupId) => {
-        navGroups.push({
+      group.logs.forEach((logId) => {
+        const log = logz[logId];
+
+        // Add log to group list
+        logs.push({
+          logId,
           groupId,
-          groupName: group.name,
-          groupNavOpen: group.navOpen,
-          logs: group.logs.map((log, logId) => ({
+          logName: log.name,
+          logStatus: log.activeState,
+          logHasNew: log.hasNew
+        });
+
+        // Add log to active list if isn't inactive
+        if (log.activeState !== 'INACTIVE') {
+          activeLogs.push({
             logId,
             groupId,
             logName: log.name,
             logStatus: log.activeState,
             logHasNew: log.hasNew
-          }))
-        });
+          });
+        }
       });
-    }
+
+      logs.sort((first, second) => (first.logName > second.logName));
+
+      navGroups.push({
+        groupId,
+        logs,
+        groupName: group.name,
+        groupNavOpen: group.navOpen
+      });
+    });
+
+    // Sort groups based on name
+    navGroups.sort((first, second) => (first.groupName > second.groupName));
+
+    // Sort active logs and push to start of list
+    activeLogs.sort((first, second) => (first.logName > second.logName));
+    navGroups.unshift({
+      groupName: 'Active Group',
+      groupNavOpen: activeGroupOpen,
+      logs: activeLogs
+    });
 
     return (
       <aside>
