@@ -88,12 +88,12 @@
       "logs": []
     },
     "4": {
-      "name": "WebLogic Logs",
-      "logs": [ "4", "5" ]
-    },
-    "5": {
       "name": "Tomcat",
       "logs": [ "6" ]
+    },
+    "5": {
+      "name": "WebLogic Logs",
+      "logs": [ "4", "5" ]
     }
   },
   "logz": {
@@ -103,13 +103,13 @@
       "fpath": "/var/log/"
     },
     "2": {
-      "name": "Apache Access",
-      "fname": "access_log",
+      "name": "Apache Error",
+      "fname": "error_log",
       "fpath": "/var/log/apache2/"
     },
     "3": {
-      "name": "Apache Error",
-      "fname": "error_log",
+      "name": "Apache Access",
+      "fname": "access_log",
       "fpath": "/var/log/apache2/"
     },
     "4": {
