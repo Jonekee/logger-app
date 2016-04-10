@@ -6,7 +6,8 @@ import Helmet from 'react-helmet';
 export default class ActiveGroupPage extends Component {
   static propTypes = {
     activeGroupListFilter: PropTypes.string,
-    groups: PropTypes.array,
+    groups: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired,
     setActiveGroupListFilter: PropTypes.func
   };
 
@@ -20,12 +21,14 @@ export default class ActiveGroupPage extends Component {
   };
 
   render() {
-    const { activeGroupListFilter, groups } = this.props;
+    const { activeGroupListFilter, groups, logs } = this.props;
 
     const activeLogs = [];
     if (groups) {
-      groups.forEach((group, groupId) => {
-        group.logs.forEach((log, logId) => {
+      Object.keys(groups).forEach(groupId => {
+        const group = groups[groupId];
+        group.logs.forEach(logId => {
+          const log = logs[logId];
           if (log.activeState !== 'INACTIVE') {
             activeLogs.push({
               logId,
@@ -41,11 +44,7 @@ export default class ActiveGroupPage extends Component {
       });
     }
 
-    activeLogs.sort((first, second) => {
-      const firstName = first.logName;
-      const secondName = second.logName;
-      return firstName > secondName;
-    });
+    activeLogs.sort((first, second) => (first.logName > second.logName));
 
     const groupList = {
       listFilter: activeGroupListFilter,

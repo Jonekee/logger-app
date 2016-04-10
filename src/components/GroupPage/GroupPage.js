@@ -36,11 +36,10 @@ export default class GroupPage extends Component {
   };
 
   render() {
-    const { groupId, group, logs } = this.props;
+    const { group, logs } = this.props;
 
     const listLogs = group.logs.map(logId => ({
       logId,
-      groupId,
       logName: logs[logId].name,
       logFileName: logs[logId].fname,
       logFilePath: logs[logId].fpath,

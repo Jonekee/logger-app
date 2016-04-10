@@ -1,8 +1,8 @@
-const SET_NEW_GROUP_NAME = 'redux-example/groupManagement/SET_NEW_GROUP_NAME';
-const TOGGLE_INPUTING_NEW_GROUP = 'redux-example/groupManagement/TOGGLE_INPUTING_NEW_GROUP';
-const CREATE_NEW_GROUP = 'redux-example/groupManagement/CREATE_NEW_GROUP';
-const CREATE_NEW_GROUP_FAIL = 'redux-example/groupManagement/CREATE_NEW_GROUP_FAIL';
-const CREATE_NEW_GROUP_SUCCESS = 'redux-example/groupManagement/CREATE_NEW_GROUP_SUCCESS';
+const SET_NEW_GROUP_NAME = 'logger-app/groupManagement/SET_NEW_GROUP_NAME';
+const TOGGLE_INPUTING_NEW_GROUP = 'logger-app/groupManagement/TOGGLE_INPUTING_NEW_GROUP';
+const CREATE_NEW_GROUP = 'logger-app/groupManagement/CREATE_NEW_GROUP';
+const CREATE_NEW_GROUP_FAIL = 'logger-app/groupManagement/CREATE_NEW_GROUP_FAIL';
+const CREATE_NEW_GROUP_SUCCESS = 'logger-app/groupManagement/CREATE_NEW_GROUP_SUCCESS';
 
 const initialState = {
   inputingNewGroup: false,

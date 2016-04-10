@@ -2,27 +2,27 @@ import SystemHelper from '../../utils/system';
 import { Instance as LoggingManager } from 'logging-manager';
 
 
-export default function deleteGroup(req) {
+export default function createNewGroup(req) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const { newGroupName } = req.body;
 
       if (!newGroupName) {
-        LoggingManager.debug('System', 'deleteGroup', 'Blank group name passed.');
+        LoggingManager.debug('System', 'createNewGroup', 'Blank group name passed.');
         reject({
           status: 400,
           errorField: 'newGroupName',
           errorReason: `No group name was passed to create request.`
         });
       } else if (newGroupName > 15) {
-        LoggingManager.debug('System', 'deleteGroup', `Invalid group name passed: ${newGroupName}`);
+        LoggingManager.debug('System', 'createNewGroup', `Invalid group name passed: ${newGroupName}`);
         reject({
           status: 400,
           errorField: 'newGroupName',
           errorReason: `The group name "${newGroupName}" is invalid. It must be 15 characters or less.`
         });
       } else {
-        LoggingManager.debug('System', 'deleteGroup', `Creating group using name: ${newGroupName}`);
+        LoggingManager.debug('System', 'createNewGroup', `Creating group using name: ${newGroupName}`);
         SystemHelper.createGroup(newGroupName)
         .then((newGroupId) => {
           console.log('NGID:' + newGroupId);
@@ -30,8 +30,8 @@ export default function deleteGroup(req) {
             newGroupId
           });
         }, (error) => {
-          LoggingManager.error('System', 'deleteGroup', `Error occured creating group using name: ${newGroupName}`);
-          LoggingManager.error('System', 'deleteGroup', error);
+          LoggingManager.error('System', 'createNewGroup', `Error occured creating group using name: ${newGroupName}`);
+          LoggingManager.error('System', 'createNewGroup', error);
           reject({
             status: 500,
             errorField: 'newGroupName',

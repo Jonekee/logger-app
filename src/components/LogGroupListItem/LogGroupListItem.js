@@ -5,7 +5,6 @@ import styles from './LogGroupListItem.scss';
 
 export default class LogGroupListItem extends Component {
   static propTypes = {
-    groupId: PropTypes.string.isRequired,
     logId: PropTypes.string.isRequired,
     logName: PropTypes.string.isRequired,
     logFileName: PropTypes.string.isRequired,
@@ -19,8 +18,7 @@ export default class LogGroupListItem extends Component {
     /*  Should only update if IDs, name, file name, file path, activeState,
      *  hasNew or listFilter change
      */
-    return this.props.groupId !== nextProps.groupId
-      || this.props.logId !== nextProps.logId
+    return this.props.logId !== nextProps.logId
       || this.props.logName !== nextProps.logName
       || this.props.logFilePath !== nextProps.logFilePath
       || this.props.logFileName !== nextProps.logFileName
@@ -34,7 +32,7 @@ export default class LogGroupListItem extends Component {
   }
 
   render() {
-    const { groupId, logId, logName, logFilePath, logFileName, logStatus, logHasNew, listFilter } = this.props;
+    const { logId, logName, logFilePath, logFileName, logStatus, logHasNew, listFilter } = this.props;
     let colorClass;
     switch (logStatus) {
       case 'ACTIVE':
@@ -52,7 +50,7 @@ export default class LogGroupListItem extends Component {
     }
     return (
       <li className={styles.logGroupListItem}>
-        <Link to={'/dashboard/group/' + groupId + '/log/' + logId}>
+        <Link to={'/dashboard/log/' + logId}>
           <i className={colorClass}></i>
           <div>
             <p><HighlightedText text={logName} matchText={listFilter}/></p>

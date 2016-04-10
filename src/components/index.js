@@ -16,6 +16,7 @@ export LogGroupList from './LogGroupList/LogGroupList';
 export LogGroupListItem from './LogGroupListItem/LogGroupListItem';
 export LogManagementPage from './LogManagementPage/LogManagementPage';
 export LogManagementPageLogPanel from './LogManagementPageLogPanel/LogManagementPageLogPanel';
+export LogNotFoundPage from './LogNotFoundPage/LogNotFoundPage';
 export LogOutputPage from './LogOutputPage/LogOutputPage';
 export LogPage from './LogPage/LogPage';
 export LogPageHeader from './LogPageHeader/LogPageHeader';

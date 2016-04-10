@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, setActiveGroupListFilter, load as loadGroups } from '../../redux/modules/groups';
+import { isLoaded, load as loadGroups } from '../../redux/modules/groupz';
+import { setActiveGroupListFilter } from '../../redux/modules/appInterface';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
 import { ActiveGroupPage } from '../../components';
@@ -13,21 +14,22 @@ function fetchData(getState, dispatch) {
 @connectData(fetchData)
 @connect(
   state => ({
-    activeGroupListFilter: state.groups.activeGroupListFilter,
-    groups: state.groups.data
+    activeGroupListFilter: state.appInterface.activeGroupListFilter,
+    groups: state.groupz.data,
+    logs: state.logz.data
   }),
   { setActiveGroupListFilter })
 export default class ActiveGroup extends Component {
   static propTypes = {
     activeGroupListFilter: PropTypes.string,
-    groups: PropTypes.array,
+    groups: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired,
     setActiveGroupListFilter: PropTypes.func
   };
 
   render() {
-    const { activeGroupListFilter, groups, setActiveGroupListFilter } = this.props; // eslint-disable-line no-shadow
     return (
-      <ActiveGroupPage activeGroupListFilter={activeGroupListFilter} groups={groups} setActiveGroupListFilter={setActiveGroupListFilter}/>
+      <ActiveGroupPage {...this.props}/>
     );
   }
 }

@@ -101,19 +101,18 @@ if (config.apiPort) {
 
     socket.on('attachLogListener', data => {
       LoggingManager.trace('API', 'main', 'SOCKET attachLogListener: ' + JSON.stringify(data));
-      TailHelper.attachListener(io, socket, data.groupId, data.logId);
+      TailHelper.attachListener(io, socket, data.logId);
       socketSessions[socket.id].push({
-        groupId: data.groupId,
         logId: data.logId
       });
     });
 
     socket.on('detachLogListener', data => {
       LoggingManager.trace('API', 'main', 'SOCKET detachLogListener: ' + JSON.stringify(data));
-      TailHelper.detachListener(socket, data.groupId, data.logId);
+      TailHelper.detachListener(socket, data.logId);
       let toRemove;
       socketSessions[socket.id].forEach((item, index) => {
-        if ((item.groupId === data.groupId) && (item.logId === data.logId)) {
+        if (item.logId === data.logId) {
           toRemove = index;
         }
       });
@@ -126,7 +125,7 @@ if (config.apiPort) {
     socket.on('disconnect', () => {
       LoggingManager.trace('API', 'main', 'SOCKET disconnected');
       socketSessions[socket.id].forEach((item) => {
-        TailHelper.detachListener(socket, item.groupId, item.logId);
+        TailHelper.detachListener(socket, item.logId);
       });
       delete(socketSessions[socket.id]);
     });

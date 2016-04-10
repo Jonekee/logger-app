@@ -6,12 +6,11 @@ import auth from './auth';
 import {reducer as form} from 'redux-form';
 import info from './info';
 import widgets from './widgets';
-import groups from './groups';
 import groupz from './groupz';
 import logz from './logz';
 import groupManagement from './groupManagement';
 import logManagement from './logManagement';
-import system from './system';
+import appManagement from './appManagement';
 
 export default combineReducers({
   router: routerStateReducer,
@@ -20,10 +19,9 @@ export default combineReducers({
   form,
   info,
   widgets,
-  groups,
   groupz,
   logz,
   groupManagement,
   logManagement,
-  system
+  appManagement
 });

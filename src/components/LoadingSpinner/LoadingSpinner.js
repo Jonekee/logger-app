@@ -19,7 +19,7 @@ export default class LoadingSpinner extends Component {
     return (
       <article className={styles.loadingSpinner} style={{ height: size + 'px', width: size + 'px' }}>
         <svg style={{ height: size + 'px', width: size + 'px' }}>
-          <circle class="path" cx={size / 2} cy={size / 2} r={(size / 2) - (4 * strokeWidth)} fill="none" stroke-width={strokeWidth || 2} stroke-miterlimit="10"/>
+          <circle className="path" cx={size / 2} cy={size / 2} r={(size / 2) - (4 * strokeWidth)} fill="none" strokeWidth={strokeWidth || 2} strokeMiterlimit="10"/>
         </svg>
       </article>
     );

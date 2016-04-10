@@ -1,12 +1,12 @@
-const TOGGLE_SORT_BY_GROUP = 'redux-example/logManagement/TOGGLE_SORT_BY_GROUP';
-const TOGGLE_INPUTING_NEW_LOG = 'redux-example/logManagement/TOGGLE_INPUTING_NEW_LOG';
-const SET_NEW_LOG_NAME = 'redux-example/logManagement/SET_NEW_LOG_NAME';
-const SET_NEW_LOG_GROUP = 'redux-example/logManagement/SET_NEW_LOG_GROUP';
-const SET_NEW_LOG_FILE = 'redux-example/logManagement/SET_NEW_LOG_FILE';
-const SET_NEW_LOG_PATH = 'redux-example/logManagement/SET_NEW_LOG_PATH';
-const CREATE_NEW_LOG = 'redux-example/logManagement/CREATE_NEW_LOG';
-const CREATE_NEW_LOG_FAIL = 'redux-example/logManagement/CREATE_NEW_LOG_FAIL';
-const CREATE_NEW_LOG_SUCCESS = 'redux-example/logManagement/CREATE_NEW_LOG_SUCCESS';
+const TOGGLE_SORT_BY_GROUP = 'logger-app/logManagement/TOGGLE_SORT_BY_GROUP';
+const TOGGLE_INPUTING_NEW_LOG = 'logger-app/logManagement/TOGGLE_INPUTING_NEW_LOG';
+const SET_NEW_LOG_NAME = 'logger-app/logManagement/SET_NEW_LOG_NAME';
+const SET_NEW_LOG_GROUP = 'logger-app/logManagement/SET_NEW_LOG_GROUP';
+const SET_NEW_LOG_FILE = 'logger-app/logManagement/SET_NEW_LOG_FILE';
+const SET_NEW_LOG_PATH = 'logger-app/logManagement/SET_NEW_LOG_PATH';
+const CREATE_NEW_LOG = 'logger-app/logManagement/CREATE_NEW_LOG';
+const CREATE_NEW_LOG_FAIL = 'logger-app/logManagement/CREATE_NEW_LOG_FAIL';
+const CREATE_NEW_LOG_SUCCESS = 'logger-app/logManagement/CREATE_NEW_LOG_SUCCESS';
 
 const initialState = {
   sortByGroup: true,

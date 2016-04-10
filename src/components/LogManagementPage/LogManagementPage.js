@@ -6,7 +6,8 @@ import { Icon, LogManagementPageLogPanel, DropDown } from '../../components';
 
 export default class LogManagementPage extends Component {
   static propTypes = {
-    groups: PropTypes.array.isRequired,
+    groups: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired,
     logManagementState: PropTypes.object.isRequired,
     toggleSortByGroup: PropTypes.func.isRequired,
     toggleInputingNewGroup: PropTypes.func.isRequired,
@@ -21,7 +22,7 @@ export default class LogManagementPage extends Component {
   }
 
   render() {
-    const { groups, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath } = this.props;
+    const { groups, logs, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath } = this.props;
 
     const fullLogList = [];
 
@@ -30,14 +31,15 @@ export default class LogManagementPage extends Component {
       value: '-1'
     }];
 
-    groups.forEach((group, groupId) => {
+    Object.keys(groups).forEach(groupId => {
       groupOptionsList.push({
-        text: group.name,
+        text: groups[groupId].name,
         value: '' + groupId
       });
 
       if (!logManagementState.sortByGroup) {
-        group.logs.forEach((log, logId) => {
+        groups[groupId].logs.forEach(logId => {
+          const log = logs[logId];
           fullLogList.push({
             ...log,
             logId,
@@ -47,14 +49,14 @@ export default class LogManagementPage extends Component {
       }
     });
 
-    if (!logManagementState.sortByGroup) {
-      fullLogList.sort((first, second) => {
-        const firstName = first.name;
-        const secondName = second.name;
-        return firstName > secondName;
-      });
-    }
+    const groupIdsAlphabetically = Object.keys(groups)
+      .map(groupId => ({ groupId, name: groups[groupId].name }))
+      .sort((first, second) => (first.name > second.name))
+      .map(obj => obj.groupId);
 
+    if (!logManagementState.sortByGroup) {
+      fullLogList.sort((first, second) => (first.name > second.name));
+    }
 
     return (
       <section className={styles.logManagementPage}>
@@ -93,12 +95,12 @@ export default class LogManagementPage extends Component {
           </div>
           <div className={styles.listContainer}>
             {logManagementState.sortByGroup
-              ? groups.map((group, index) => (
-                <div key={index}>
-                  <h3>{group.name}</h3>
+              ? groupIdsAlphabetically.map(groupId => (
+                <div key={groupId}>
+                  <h3>{groups[groupId].name}</h3>
                   <ol>
-                    {group.logs.length > 0
-                      ? group.logs.map((log, iindex) => (<li key={iindex}><LogManagementPageLogPanel groupId={index} logId={iindex} log={log}/></li>))
+                    {groups[groupId].logs.length > 0
+                      ? groups[groupId].logs.map(logId => (<li key={logId}><LogManagementPageLogPanel groupId={groupId} logId={logId} log={logs[logId]}/></li>))
                       : (
                         <li className={styles.noLogsLine}><p>There are no logs in this group</p></li>
                       )

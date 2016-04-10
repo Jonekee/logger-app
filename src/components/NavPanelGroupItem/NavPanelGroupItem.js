@@ -4,7 +4,6 @@ import styles from './NavPanelGroupItem.scss';
 
 export default class NavPanelGroupItem extends Component {
   static propTypes = {
-    groupId: PropTypes.string.isRequired,
     logId: PropTypes.string.isRequired,
     logName: PropTypes.string.isRequired,
     logStatus: PropTypes.string.isRequired,
@@ -16,8 +15,7 @@ export default class NavPanelGroupItem extends Component {
     /*  This component should only update if the IDs, name, activeState or
      *  isVisisble values change.
      */
-    return this.props.groupId !== nextProps.groupId
-      || this.props.logId !== nextProps.logId
+    return this.props.logId !== nextProps.logId
       || this.props.logName !== nextProps.logName
       || this.props.logStatus !== nextProps.logStatus
       || this.props.logHasNew !== nextProps.logHasNew
@@ -25,7 +23,7 @@ export default class NavPanelGroupItem extends Component {
   }
 
   render() {
-    const { groupId, logId, logName, logStatus, logHasNew, isVisible } = this.props;
+    const { logId, logName, logStatus, logHasNew, isVisible } = this.props;
     let colorClass;
     switch (logStatus) {
       case 'ACTIVE':
@@ -44,7 +42,7 @@ export default class NavPanelGroupItem extends Component {
 
     return (
       <li className={styles.navPanelGroupItem}>
-        <Link to={'/dashboard/group/' + groupId + '/log/' + logId} tabIndex={isVisible ? '0' : '-1'}>
+        <Link to={'/dashboard/log/' + logId} tabIndex={isVisible ? '0' : '-1'}>
           <i className={colorClass}></i>
           <span>{logName}</span>
         </Link>

@@ -5,8 +5,8 @@ import { Instance as LoggingManager } from 'logging-manager';
 const activeSessions = {};
 
 export default {
-  attachListener(io, socket, groupId, logId) {
-    const file = SystemHelper.getLogFile(groupId, logId);
+  attachListener(io, socket, logId) {
+    const file = SystemHelper.getLogFile(logId);
     if (!activeSessions[file]) {
       LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for file: ' + file);
       const tailer = new Tail(file);
@@ -18,7 +18,6 @@ export default {
       tailer.on('line', data => {
         LoggingManager.trace('TailHelper', 'tailerOnLine', 'For file: ' + file + ' - ' + data);
         io.to('listenerFor_' + file).emit('lineUpdate', {
-          groupId,
           logId,
           newLine: data
         });
@@ -33,8 +32,8 @@ export default {
     activeSessions[file].listeners++;
     socket.join('listenerFor_' + file);
   },
-  detachListener(socket, groupId, logId) {
-    const file = SystemHelper.getLogFile(groupId, logId);
+  detachListener(socket, logId) {
+    const file = SystemHelper.getLogFile(logId);
     LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for: ' + file);
 
     if (!!activeSessions[file] && activeSessions[file].listeners === 1) {

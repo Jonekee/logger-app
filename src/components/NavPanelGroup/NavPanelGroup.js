@@ -46,7 +46,7 @@ export default class NavPanelGroup extends Component {
       <section className={styles.navPanelGroup}>
         <header>
           <div>
-            <Link to={groupId === -1 ? '/dashboard/active' : '/dashboard/group/' + groupId}>
+            <Link to={!groupId ? '/dashboard/active' : '/dashboard/group/' + groupId}>
               <h3>{groupName}</h3>
             </Link>
           </div>

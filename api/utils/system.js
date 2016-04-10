@@ -87,10 +87,6 @@ class SystemHelper {
     return this.system.app;
   };
 
-  getGroupNames = () => {
-    return Object.keys(this.system.groups);
-  };
-
   getGroups = () => {
     return this.system.groups;
   };
@@ -116,8 +112,8 @@ class SystemHelper {
     });
   };
 
-  getLogFile = (groupId, logId) => {
-    const log = this.system.groups[groupId].logs[logId];
+  getLogFile = (logId) => {
+    const log = this.system.logz[logId];
     return log.fpath + log.fname;
   };
 
@@ -134,7 +130,7 @@ class SystemHelper {
 
   updateGroupName = (groupId, newName) => {
     LoggingManager.debug('SystemHelper', 'updateGroupName', `Updating group name using groupId: ${groupId} and newName: ${newName}`);
-    this.system.groups[groupId].name = newName;
+    this.system.groupz[groupId].name = newName;
     return this.saveConfigToDisk().then(() => {
       // Emit updated group to all sessions including the guy that updated the group
       this.io.emit('group:nameChange', { groupId, newName });
@@ -143,15 +139,12 @@ class SystemHelper {
 
   groupIdIsValid = (groupId) => {
     LoggingManager.debug('SystemHelper', 'groupIdIsValid', `Checking groupId: ${groupId}`);
-    return !!this.system.groups[groupId];
+    return !!this.system.groupz[groupId];
   }
 
   deleteGroup = (groupId) => {
     LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
-    this.system.groups = [
-      ...this.system.groups.slice(0, groupId),
-      ...this.system.groups.slice(groupId + 1)
-    ];
+    delete this.system.groupz[groupId];
     return this.saveConfigToDisk().then(() => {
       // Emit deleted group to all sessions including the guy that deleted the group
       this.io.emit('group:groupDelete', { groupId });
@@ -159,13 +152,18 @@ class SystemHelper {
   }
 
   createGroup = (newGroupName) => {
-    this.system.groups.push({
+    // Get new ID:
+    const currentKeys = Object.keys(this.system.groupz).map(key => parseInt(key, 10)).sort((first, second) => first > second);
+    const newGroupId = (currentKeys.pop() || 0) + 1;
+
+    // Create group
+    this.system.groupz[newGroupId] = {
       name: newGroupName,
       logs: []
-    });
+    };
     return this.saveConfigToDisk().then(() => {
       // Emit new group to all sessions including the guy that created the group
-      this.io.emit('group:newGroup', { newGroupName });
+      this.io.emit('group:newGroup', { newGroupId, newGroupName });
     });
   }
 }

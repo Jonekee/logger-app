@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './LogPageHeader.scss';
 import { ControlButton, Icon, DropDown } from '../../components';
 import { connect } from 'react-redux';
-import { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock } from '../../redux/modules/groups';
+import { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock } from '../../redux/modules/logz';
 import { Link } from 'react-router';
 import { releaseStage } from '../../config';
 
@@ -11,24 +11,22 @@ import { releaseStage } from '../../config';
   { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock })
 export default class LogPageHeader extends Component {
   static propTypes = {
-    groupId: PropTypes.string,
-    logId: PropTypes.string,
-    log: PropTypes.object,
-    toggleLogExtraActionsOpen: PropTypes.func,
-    activateLog: PropTypes.func,
-    pauseLog: PropTypes.func,
-    resumeLog: PropTypes.func,
-    deactivateLog: PropTypes.func,
-    clearLogOutput: PropTypes.func,
-    toggleScrollLock: PropTypes.func
+    logId: PropTypes.string.isRequired,
+    log: PropTypes.object.isRequired,
+    toggleLogExtraActionsOpen: PropTypes.func.isRequired,
+    activateLog: PropTypes.func.isRequired,
+    pauseLog: PropTypes.func.isRequired,
+    resumeLog: PropTypes.func.isRequired,
+    deactivateLog: PropTypes.func.isRequired,
+    clearLogOutput: PropTypes.func.isRequired,
+    toggleScrollLock: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate(nextProps) {
     /*  Component should only update when IDs, name, file name, file path,
      *  activeState or extraActionsOpen change.
      */
-    return this.props.groupId !== nextProps.groupId
-      || this.props.logId !== nextProps.logId
+    return this.props.logId !== nextProps.logId
       || this.props.log.name !== nextProps.log.name
       || this.props.log.fpath !== nextProps.log.fpath
       || this.props.log.fname !== nextProps.log.fname
@@ -42,39 +40,39 @@ export default class LogPageHeader extends Component {
   }
 
   triggerActivateLog = () => {
-    const { groupId, logId, activateLog } = this.props; // eslint-disable-line no-shadow
-    activateLog(groupId, logId);
-    socket.emit('attachLogListener', { groupId, logId });
+    const { logId, activateLog } = this.props; // eslint-disable-line no-shadow
+    activateLog(logId);
+    socket.emit('attachLogListener', { logId });
   };
 
   triggerDeactivateLog = () => {
-    const { groupId, logId, deactivateLog } = this.props; // eslint-disable-line no-shadow
-    deactivateLog(groupId, logId);
-    socket.emit('detachLogListener', { groupId, logId });
+    const { logId, deactivateLog } = this.props; // eslint-disable-line no-shadow
+    deactivateLog(logId);
+    socket.emit('detachLogListener', { logId });
   };
 
   triggerPauseLog = () => {
-    const { groupId, logId, pauseLog } = this.props; // eslint-disable-line no-shadow
-    pauseLog(groupId, logId);
+    const { logId, pauseLog } = this.props; // eslint-disable-line no-shadow
+    pauseLog(logId);
   };
 
   triggerResumeLog = () => {
-    const { groupId, logId, resumeLog } = this.props; // eslint-disable-line no-shadow
-    resumeLog(groupId, logId);
+    const { logId, resumeLog } = this.props; // eslint-disable-line no-shadow
+    resumeLog(logId);
   };
 
   clearLogOutput = () => {
-    const { groupId, logId, clearLogOutput } = this.props; // eslint-disable-line no-shadow
-    clearLogOutput(groupId, logId);
+    const { logId, clearLogOutput } = this.props; // eslint-disable-line no-shadow
+    clearLogOutput(logId);
   };
 
   toggleScrollLock = () => {
-    const { groupId, logId, toggleScrollLock } = this.props; // eslint-disable-line no-shadow
-    toggleScrollLock(groupId, logId);
+    const { logId, toggleScrollLock } = this.props; // eslint-disable-line no-shadow
+    toggleScrollLock(logId);
   };
 
   render() {
-    const { groupId, logId, log, toggleLogExtraActionsOpen } = this.props; // eslint-disable-line no-shadow
+    const { logId, log, toggleLogExtraActionsOpen } = this.props; // eslint-disable-line no-shadow
 
     // Control buttons depending on log active state
     let headerActions;
@@ -117,7 +115,7 @@ export default class LogPageHeader extends Component {
           {releaseStage > 2
             ? (
               <div className={styles.rhs}>
-                <button className={log.extraActionsOpen ? styles.toggle : styles.toggle + ' ' + styles.closed } onClick={toggleLogExtraActionsOpen.bind(null, groupId, logId)}>
+                <button className={log.extraActionsOpen ? styles.toggle : styles.toggle + ' ' + styles.closed } onClick={toggleLogExtraActionsOpen.bind(null, logId)}>
                   <span>{log.extraActionsOpen ? 'Hide' : 'Show'}</span>
                   <Icon iconName="chevron-down"/>
                 </button>
@@ -136,10 +134,10 @@ export default class LogPageHeader extends Component {
               <nav>
                 <ul>
                   <li>
-                    <Link to={'/dashboard/group/' + groupId + '/log/' + logId + '/output'}>Output</Link>
+                    <Link to={'/dashboard/log/' + logId + '/output'}>Output</Link>
                   </li>
                   <li>
-                    <Link to={'/dashboard/group/' + groupId + '/log/' + logId + '/analysis'}>Analysis</Link>
+                    <Link to={'/dashboard/log/' + logId + '/analysis'}>Analysis</Link>
                   </li>
                 </ul>
               </nav>

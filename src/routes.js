@@ -70,7 +70,7 @@ export default (store) => {
         { /* Group and Log pages */ }
         <Route path="active" component={ActiveGroup}/>
         <Route path="group/:groupId" component={Group}/>
-        <Route path="group/:groupId/log/:logId" component={Log}>
+        <Route path="log/:logId" component={Log}>
           <IndexRoute component={LogOutput}/>
           <Route path="output" component={LogOutput}/>
           <Route path="analysis" component={Analysis}/>

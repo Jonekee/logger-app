@@ -6,11 +6,11 @@ import { Icon, LoadingSpinner } from '../../components';
 
 export default class GroupManagementPage extends Component {
   static propTypes = {
-    groups: PropTypes.array.isRequired,
+    groups: PropTypes.object.isRequired,
     newGroupControls: PropTypes.object.isRequired,
-    toggleEditGroupName: PropTypes.func.isRequired,
-    toggleDeleteGroup: PropTypes.func.isRequired,
-    updateUnsavedGroupName: PropTypes.func.isRequired,
+    toggleEditNameOpen: PropTypes.func.isRequired,
+    toggleDeleteGroupOpen: PropTypes.func.isRequired,
+    setEditedName: PropTypes.func.isRequired,
     saveGroupName: PropTypes.func.isRequired,
     deleteGroup: PropTypes.func.isRequired,
     setNewGroupName: PropTypes.func.isRequired,
@@ -28,18 +28,30 @@ export default class GroupManagementPage extends Component {
     const newGroups = nextProps.groups;
 
     // Check if any groups have been added or removed
-    if (currGroups.length !== newGroups.length) {
+    if (Object.keys(currGroups).length !== Object.keys(newGroups).length) {
+      shouldUpdate = true;
+    }
+
+
+    const currGroupControls = this.props.newGroupControls;
+    const nextGroupControls = nextProps.newGroupControls;
+    if (currGroupControls.inputingNewGroup !== nextGroupControls.inputingNewGroup
+      || currGroupControls.newGroupName !== nextGroupControls.newGroupName
+      || currGroupControls.savingNewGroup !== nextGroupControls.savingNewGroup) {
       shouldUpdate = true;
     }
 
     // Check if any groups names have been changed
-    newGroups.forEach((newGroup, index) => {
-      if (newGroup.name !== currGroups[index].name
-        || newGroup.adminPageEditing !== currGroups[index].adminPageEditing
-        || newGroup.adminPageDeleting !== currGroups[index].adminPageDeleting
-        || newGroup.adminPageDeleteChecking !== currGroups[index].adminPageDeleteChecking
-        || newGroup.adminPageNewName !== currGroups[index].newGroupadminPageNewName
-        || newGroup.adminPageEditingError !== currGroups[index].adminPageEditingError) {
+    Object.keys(newGroups).forEach(newGroupId => {
+      const newGroup = newGroups[newGroupId];
+      if (!currGroups[newGroupId]
+        || newGroup.name !== currGroups[newGroupId].name
+        || newGroup.editNameOpen !== currGroups[newGroupId].editNameOpen
+        || newGroup.editedName !== currGroups[newGroupId].editedName
+        || newGroup.editedNameHasError !== currGroups[newGroupId].editedNameHasError
+        || newGroup.editSaving !== currGroups[newGroupId].editSaving
+        || newGroup.deleteGroupOpen !== currGroups[newGroupId].deleteGroupOpen
+        || newGroup.deleteSaving !== currGroups[newGroupId].deleteSaving) {
         shouldUpdate = true;
       }
     });
@@ -52,7 +64,13 @@ export default class GroupManagementPage extends Component {
   }
 
   render() {
-    const { groups, newGroupControls, toggleEditGroupName, toggleDeleteGroup, updateUnsavedGroupName, saveGroupName, deleteGroup, setNewGroupName, toggleInputingNewGroup, createNewGroup } = this.props;
+    const { groups, newGroupControls, toggleEditNameOpen, toggleDeleteGroupOpen, setEditedName, saveGroupName, deleteGroup, setNewGroupName, toggleInputingNewGroup, createNewGroup } = this.props;
+
+    const groupIdsAlphabetically = Object.keys(groups)
+      .map(groupId => ({ groupId, name: groups[groupId].name }))
+      .sort((first, second) => (first.name > second.name))
+      .map(obj => obj.groupId);
+
     return (
       <section className={styles.groupManagementPage}>
         <Helmet title="Admin - Groups"/>
@@ -69,7 +87,7 @@ export default class GroupManagementPage extends Component {
               </button>
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: newGroupControls.inputingNewGroup })}>
                 <div className={styles.lhs}>
-                  <form onSubmit={(event) => { event.preventDefault(); return false; }}>
+                  <form onSubmit={(event) => { createNewGroup(newGroupControls.newGroupName); event.preventDefault(); return false; }}>
                     <input type="text" maxLength="15" placeholder="New group name" className={classnames({ [styles.invalid]: newGroupControls.errorSavingNewGroup })} value={newGroupControls.newGroupName} onChange={(event) => setNewGroupName(event.target.value)} />
                   </form>
                 </div>
@@ -83,55 +101,55 @@ export default class GroupManagementPage extends Component {
                 </div>
               </div>
             </li>
-            {groups.map((group, index) => <li key={index} className={styles.groupItem}>
+            {groupIdsAlphabetically.map(groupId => <li key={groupId} className={styles.groupItem}>
               <div className={styles.basePanel}>
                 <div className={styles.lhs}>
-                  <p>{group.name}</p>
-                  <p>{group.logs.length} Log{group.logs.length !== 1 ? 's' : ''}</p>
+                  <p>{groups[groupId].name}</p>
+                  <p>{groups[groupId].logs.length} Log{groups[groupId].logs.length !== 1 ? 's' : ''}</p>
                 </div>
                 <div className={styles.actions}>
-                  <button onClick={() => toggleEditGroupName(index)}>
+                  <button onClick={() => toggleEditNameOpen(groupId)}>
                     <Icon iconName="pencil"/>
                   </button>
-                  <button onClick={() => toggleDeleteGroup(index)}>
+                  <button onClick={() => toggleDeleteGroupOpen(groupId)}>
                     <Icon iconName="delete"/>
                   </button>
                 </div>
               </div>
-              <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: group.adminPageEditing })}>
+              <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: groups[groupId].editNameOpen })}>
                 <div className={styles.lhs}>
-                  <form onSubmit={(event) => { saveGroupName(index, group.adminPageNewName); event.preventDefault(); return false; }}>
-                    <input type="text" maxLength="15" placeholder="Group name" className={classnames({ [styles.invalid]: group.adminPageEditingError })} value={group.adminPageNewName} onChange={(event) => updateUnsavedGroupName(index, event.target.value)}/>
+                  <form onSubmit={(event) => { saveGroupName(groupId, groups[groupId].editedName); event.preventDefault(); return false; }}>
+                    <input type="text" maxLength="15" placeholder="Group name" className={classnames({ [styles.invalid]: groups[groupId].editedNameHasError })} value={groups[groupId].editedName} onChange={(event) => setEditedName(groupId, event.target.value)}/>
                   </form>
                 </div>
                 <div className={styles.actions}>
-                  <button onClick={() => saveGroupName(index, group.adminPageNewName)}>
+                  <button onClick={() => saveGroupName(groupId, groups[groupId].editedName)}>
                     <Icon iconName="check"/>
                   </button>
-                  <button onClick={() => toggleEditGroupName(index)}>
+                  <button onClick={() => toggleEditNameOpen(groupId)}>
                     <Icon iconName="close"/>
                   </button>
                 </div>
               </div>
-              <div className={classnames(styles.savingPanel, styles.fadeInPanel, { [styles.open]: group.adminPageSaving })}>
+              <div className={classnames(styles.savingPanel, styles.fadeInPanel, { [styles.open]: groups[groupId].editSaving })}>
                 <LoadingSpinner size={24} strokeWidth={1}/>
                 <p>Saving...</p>
               </div>
-              <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleteChecking })}>
+              <div className={classnames(styles.deleteCheckPanel, styles.fadeInPanel, { [styles.open]: groups[groupId].deleteGroupOpen })}>
                 <div className={styles.lhs}>
-                  <p>Are you sure you want to delete group: "{group.name}"</p>
+                  <p>Are you sure you want to delete group: "{groups[groupId].name}"</p>
                   <p>Deleting a group will remove all of its logs!</p>
                 </div>
                 <div className={styles.actions}>
-                  <button onClick={() => deleteGroup(index)}>
+                  <button onClick={() => deleteGroup(groupId)}>
                     <Icon iconName="check"/>
                   </button>
-                  <button onClick={() => toggleDeleteGroup(index)}>
+                  <button onClick={() => toggleDeleteGroupOpen(groupId)}>
                     <Icon iconName="close"/>
                   </button>
                 </div>
               </div>
-              <div className={classnames(styles.deletingPanel, styles.fadeInPanel, { [styles.open]: group.adminPageDeleting })}>
+              <div className={classnames(styles.deletingPanel, styles.fadeInPanel, { [styles.open]: groups[groupId].deleteSaving })}>
                 <LoadingSpinner size={24} strokeWidth={1}/>
                 <p>Deleting...</p>
               </div>

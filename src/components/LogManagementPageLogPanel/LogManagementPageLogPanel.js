@@ -5,8 +5,8 @@ import { Icon } from '../../components';
 export default class LogManagementPageLogPanel extends Component {
   static propTypes = {
     groupName: PropTypes.string,
-    groupId: PropTypes.number.isRequired,
-    logId: PropTypes.number.isRequired,
+    groupId: PropTypes.string.isRequired,
+    logId: PropTypes.string.isRequired,
     log: PropTypes.object.isRequired
   };
 

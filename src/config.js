@@ -15,7 +15,7 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
   authEnabled: false,
-  releaseStage: 0,
+  releaseStage: 2,
   app: {
     title: 'Logger',
     description: 'A self-hosted application for remotely watching log files through a web UI.',

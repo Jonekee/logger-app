@@ -5,9 +5,8 @@ import Helmet from 'react-helmet';
 
 export default class LogPage extends Component {
   static propTypes = {
-    groupId: PropTypes.string,
-    logId: PropTypes.string,
-    log: PropTypes.object,
+    logId: PropTypes.string.isRequired,
+    log: PropTypes.object.isRequired,
     children: PropTypes.object.isRequired
   };
 
@@ -16,13 +15,13 @@ export default class LogPage extends Component {
   }
 
   render() {
-    const { groupId, logId, log } = this.props; // eslint-disable-line no-shadow
+    const { logId, log } = this.props; // eslint-disable-line no-shadow
 
 
     return (
       <section className={styles.logPage}>
         <Helmet title={log.name}/>
-        <LogPageHeader groupId={groupId} logId={logId} log={log}/>
+        <LogPageHeader logId={logId} log={log}/>
         {this.props.children}
       </section>
     );

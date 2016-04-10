@@ -3,7 +3,7 @@ import styles from './AppManagementPage.scss';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { ControlButton, Icon, DropDown, LoadingSpinner } from '../../components';
-import { editWebPort, editApiPort, editLogLevel, resetChanges, saveChanges } from '../../redux/modules/system';
+import { editWebPort, editApiPort, editLogLevel, resetChanges, saveChanges } from '../../redux/modules/appManagement';
 
 const logLevelOptions = [
   {

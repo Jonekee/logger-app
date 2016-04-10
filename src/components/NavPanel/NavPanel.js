@@ -8,9 +8,7 @@ import { toggleNavGroupOpen } from '../../redux/modules/groupz';
 
 @connect(
   state => ({
-    activeGroupOpen: state.appInterface.activeGroupNavOpen,
-    groupz: state.groupz.data,
-    logz: state.logz.data
+    activeGroupOpen: state.appInterface.activeGroupNavOpen
   }),
   { toggleActiveNavGroupOpen, toggleNavGroupOpen })
 export default class NavPanel extends Component {
@@ -19,8 +17,8 @@ export default class NavPanel extends Component {
     activeGroupOpen: PropTypes.bool,
     toggleNavGroupOpen: PropTypes.func,
     toggleActiveNavGroupOpen: PropTypes.func,
-    groupz: PropTypes.object.isRequired,
-    logz: PropTypes.object.isRequired
+    groups: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired
   };
 
   componentDidUpdate() {
@@ -38,7 +36,7 @@ export default class NavPanel extends Component {
   }
 
   render() {
-    const { authEnabled, activeGroupOpen, groupz, logz } = this.props;
+    const { authEnabled, activeGroupOpen, groups, logs } = this.props;
 
     /* Normalise both normal and active groups to format:
     {
@@ -60,17 +58,16 @@ export default class NavPanel extends Component {
     const navGroups = [];
     const activeLogs = [];
 
-    Object.keys(groupz).forEach((groupId) => {
-      const group = groupz[groupId];
-      const logs = [];
+    Object.keys(groups).forEach((groupId) => {
+      const group = groups[groupId];
+      const groupLogs = [];
 
       group.logs.forEach((logId) => {
-        const log = logz[logId];
+        const log = logs[logId];
 
         // Add log to group list
-        logs.push({
+        groupLogs.push({
           logId,
-          groupId,
           logName: log.name,
           logStatus: log.activeState,
           logHasNew: log.hasNew
@@ -80,7 +77,6 @@ export default class NavPanel extends Component {
         if (log.activeState !== 'INACTIVE') {
           activeLogs.push({
             logId,
-            groupId,
             logName: log.name,
             logStatus: log.activeState,
             logHasNew: log.hasNew
@@ -88,11 +84,11 @@ export default class NavPanel extends Component {
         }
       });
 
-      logs.sort((first, second) => (first.logName > second.logName));
+      groupLogs.sort((first, second) => (first.logName > second.logName));
 
       navGroups.push({
         groupId,
-        logs,
+        logs: groupLogs,
         groupName: group.name,
         groupNavOpen: group.navOpen
       });

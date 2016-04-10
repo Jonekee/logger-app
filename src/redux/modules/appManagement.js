@@ -1,20 +1,20 @@
-const LOAD = 'redux-example/system/LOAD';
-const LOAD_SUCCESS = 'redux-example/system/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/system/LOAD_FAIL';
-const EDIT_WEB_PORT = 'redux-example/system/EDIT_WEB_PORT';
-const EDIT_API_PORT = 'redux-example/system/EDIT_API_PORT';
-const EDIT_LOG_LEVEL = 'redux-example/system/EDIT_LOG_LEVEL';
-const RESET_CHANGES = 'redux-example/system/RESET_CHANGES';
-const SAVE = 'redux-example/system/SAVE';
-const SAVE_SUCCESS = 'redux-example/system/SAVE_SUCCESS';
-const SAVE_FAIL = 'redux-example/system/SAVE_FAIL';
-const CLEAR_ERROR = 'redux-example/system/CLEAR_ERROR';
+const LOAD = 'logger-app/appManagement/LOAD';
+const LOAD_SUCCESS = 'logger-app/appManagement/LOAD_SUCCESS';
+const LOAD_FAIL = 'logger-app/appManagement/LOAD_FAIL';
+const EDIT_WEB_PORT = 'logger-app/appManagement/EDIT_WEB_PORT';
+const EDIT_API_PORT = 'logger-app/appManagement/EDIT_API_PORT';
+const EDIT_LOG_LEVEL = 'logger-app/appManagement/EDIT_LOG_LEVEL';
+const RESET_CHANGES = 'logger-app/appManagement/RESET_CHANGES';
+const SAVE = 'logger-app/appManagement/SAVE';
+const SAVE_SUCCESS = 'logger-app/appManagement/SAVE_SUCCESS';
+const SAVE_FAIL = 'logger-app/appManagement/SAVE_FAIL';
+const CLEAR_ERROR = 'logger-app/appManagement/CLEAR_ERROR';
 
 const initialState = {
   loaded: false
 };
 
-export default function reducer(state = initialState, action = {}) {
+export default function appManagement(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {

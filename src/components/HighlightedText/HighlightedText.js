@@ -62,7 +62,7 @@ export default class HighlightedText extends Component {
       output = (
         <span>
           {splits.map((str, index) => {
-            return <span className={index % 2 ? styles.matchedText : null}>{str}</span>;
+            return <span key={index} className={index % 2 ? styles.matchedText : null}>{str}</span>;
           })}
         </span>
       );

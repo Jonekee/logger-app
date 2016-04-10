@@ -16,6 +16,7 @@ export default class LogGroupList extends Component {
      *  group name is the change, the later comparisons won't actually be made.
      */
     return this.props.listFilter !== nextProps.listFilter
+      || this.props.logs.length !== nextProps.logs.length
       || this.props.logs.reduce((prevValue, currLog, index) => {
         const nextLog = nextProps.logs[index];
         return prevValue

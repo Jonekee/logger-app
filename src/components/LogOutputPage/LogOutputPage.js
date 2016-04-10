@@ -1,23 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './LogOutputPage.scss';
 import { connect } from 'react-redux';
-import { setLogRead } from '../../redux/modules/groups';
+import { setLogRead } from '../../redux/modules/logz';
 
 @connect(
   null,
   { setLogRead })
 export default class LogOutputPage extends Component {
   static propTypes = {
-    groupId: PropTypes.string,
-    logId: PropTypes.string,
-    logData: PropTypes.array,
-    setLogRead: PropTypes.func,
-    scrollLocked: PropTypes.bool
+    logId: PropTypes.string.isRequired,
+    logData: PropTypes.array.isRequired,
+    setLogRead: PropTypes.func.isRequired,
+    scrollLocked: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
-    const { groupId, logId, setLogRead } = this.props; // eslint-disable-line no-shadow
-    setLogRead(groupId, logId);
+    const { logId, setLogRead } = this.props; // eslint-disable-line no-shadow
+    setLogRead(logId);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -25,19 +24,18 @@ export default class LogOutputPage extends Component {
      *  array is only ever changed by pushing to or reseting the whole array.
      *  Given this it is safe to simply check the array length.
      */
-    return this.props.groupId !== nextProps.groupId
-      || this.props.logId !== nextProps.logId
+    return this.props.logId !== nextProps.logId
       || this.props.scrollLocked !== nextProps.scrollLocked
       || this.props.logData.length !== nextProps.logData.length;
   }
 
   componentDidUpdate = () => {
     console.log('LogOutputPage:cDU');
-    const { groupId, logId, setLogRead, scrollLocked } = this.props; // eslint-disable-line no-shadow
+    const { logId, setLogRead, scrollLocked } = this.props; // eslint-disable-line no-shadow
     if (scrollLocked) {
       this.refs.scrollArea.scrollTop = this.refs.scrollArea.scrollHeight;
     }
-    setLogRead(groupId, logId);
+    setLogRead(logId);
   };
 
   render() {
