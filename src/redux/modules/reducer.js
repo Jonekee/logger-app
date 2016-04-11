@@ -3,9 +3,6 @@ import { routerStateReducer } from 'redux-router';
 
 import appInterface from './appInterface';
 import auth from './auth';
-import {reducer as form} from 'redux-form';
-import info from './info';
-import widgets from './widgets';
 import groups from './groups';
 import logs from './logs';
 import groupManagement from './groupManagement';
@@ -16,9 +13,6 @@ export default combineReducers({
   router: routerStateReducer,
   appInterface,
   auth,
-  form,
-  info,
-  widgets,
   groups,
   logs,
   groupManagement,

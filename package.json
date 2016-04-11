@@ -132,7 +132,6 @@
     "react-transform-catch-errors": "^1.0.0",
     "redbox-react": "^1.1.1",
     "redux": "^3.0.4",
-    "redux-form": "^3.0.12",
     "redux-router": "1.0.0-beta5",
     "scroll-behavior": "^0.3.0",
     "serialize-javascript": "^1.1.2",
