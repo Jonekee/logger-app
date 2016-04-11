@@ -4,6 +4,8 @@ var LoggingManager = require('logging-manager').Instance;
 LoggingManager.setLogLevel(process.env.NODE_ENV === 'production' ? 'ERROR' : 'TRACE');
 global.__CONFIG_FILE__ = './system.json';
 
+global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
+
 if (process.env.NODE_ENV !== 'production') {
   if (!require('piping')({
     hook: true,
