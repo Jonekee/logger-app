@@ -100,6 +100,10 @@ export default class GroupManagementPage extends Component {
                   </button>
                 </div>
               </div>
+              <div className={classnames(styles.savingPanel, styles.fadeInPanel, { [styles.open]: newGroupControls.savingNewGroup })}>
+                <LoadingSpinner size={24} strokeWidth={1}/>
+                <p>Creating...</p>
+              </div>
             </li>
             {groupIdsAlphabetically.map(groupId => <li key={groupId} className={styles.groupItem}>
               <div className={styles.basePanel}>
