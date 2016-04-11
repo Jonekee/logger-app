@@ -24,6 +24,10 @@ export default class Group extends Component {
     setGroupListFilter: PropTypes.func.isRequired
   };
 
+  componentDidUpdate() {
+    console.log('Group:cDU');
+  }
+
   render() {
     return !!this.props.group ? <GroupPage {...this.props}/> : <GroupNotFoundPage groupId={this.props.groupId}/>;
   }

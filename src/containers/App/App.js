@@ -32,16 +32,17 @@ export default class App extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log('New app props');
     if (!this.props.user && nextProps.user) {
-      console.log('User now valid');
       // login
       this.props.pushState(null, '/dashboard');
     } else if (this.props.user && !nextProps.user) {
-      console.log('User now not valid');
       // logout
       this.props.pushState(null, '/login');
     }
+  }
+
+  componentDidUpdate() {
+    console.log('App:cDU');
   }
 
   handleLogout = (event) => {
