@@ -10,6 +10,12 @@ export default class LoadingSpinner extends Component {
     strokeWidth: PropTypes.number
   };
 
+  shouldComponentUpdate(nextProps) {
+    // Should only update if icon name changes
+    return nextProps.size !== this.props.size
+      || nextProps.strokeWidth !== this.props.strokeWidth;
+  }
+
   componentDidUpdate() {
     console.log('LoadingSpinner:cDU');
   }
