@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './LogPageHeader.scss';
 import { ControlButton, Icon, DropDown } from '../../components';
 import { connect } from 'react-redux';
-import { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock } from '../../redux/modules/logz';
+import { toggleLogExtraActionsOpen, activateLog, pauseLog, resumeLog, deactivateLog, clearLogOutput, toggleScrollLock } from '../../redux/modules/logs';
 import { Link } from 'react-router';
 import { releaseStage } from '../../config';
 

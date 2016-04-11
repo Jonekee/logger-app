@@ -7,8 +7,8 @@ export default class DashboardPage extends Component {
   static propTypes = {
     dashboardListFilter: PropTypes.string.isRequired,
     setDashboardListFilter: PropTypes.func.isRequired,
-    groupz: PropTypes.object.isRequired,
-    logz: PropTypes.object.isRequired
+    groups: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired
   };
 
   componentDidUpdate() {
@@ -21,21 +21,21 @@ export default class DashboardPage extends Component {
   };
 
   render() {
-    const { dashboardListFilter, groupz, logz } = this.props;
+    const { dashboardListFilter, groups, logs } = this.props;
 
     const activeLogs = [];
     const groupLists = [];
 
 
-    Object.keys(groupz).forEach((groupId) => {
-      const group = groupz[groupId];
-      const logs = [];
+    Object.keys(groups).forEach((groupId) => {
+      const group = groups[groupId];
+      const groupLogs = [];
 
       group.logs.forEach((logId) => {
-        const log = logz[logId];
+        const log = logs[logId];
 
         // Add log to group list
-        logs.push({
+        groupLogs.push({
           logId,
           groupId,
           logName: log.name,
@@ -63,7 +63,7 @@ export default class DashboardPage extends Component {
 
       groupLists.push({
         groupId,
-        logs,
+        logs: groupLogs,
         listFilter: dashboardListFilter,
         groupName: group.name,
       });

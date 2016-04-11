@@ -1,6 +1,5 @@
 export getGroups from './getGroups';
-export getGroupz from './getGroupz';
-export getLogz from './getLogz';
+export getLogs from './getLogs';
 export getSystemSettings from './getSystemSettings';
 export saveSystemSettings from './saveSystemSettings';
 export saveGroupName from './saveGroupName';

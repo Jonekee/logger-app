@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { toggleEditNameOpen, toggleDeleteGroupOpen, setEditedName, saveGroupName, deleteGroup } from '../../redux/modules/groupz';
+import { toggleEditNameOpen, toggleDeleteGroupOpen, setEditedName, saveGroupName, deleteGroup } from '../../redux/modules/groups';
 import { setNewGroupName, toggleInputingNewGroup, createNewGroup } from '../../redux/modules/groupManagement';
 import { connect } from 'react-redux';
 import { GroupManagementPage } from '../../components';
 
 @connect(
   state => ({
-    groups: state.groupz.data,
+    groups: state.groups.data,
     newGroupControls: state.groupManagement
   }),
   { toggleEditNameOpen, toggleDeleteGroupOpen, setEditedName, saveGroupName, deleteGroup, setNewGroupName, toggleInputingNewGroup, createNewGroup })

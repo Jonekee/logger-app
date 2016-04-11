@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded as isGroupzLoaded, load as loadGroupz, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted } from '../../redux/modules/groupz';
-import { isLoaded as isLogzLoaded, load as loadLogz, addLineToLog } from '../../redux/modules/logz';
+import { isLoaded as isGroupsLoaded, load as loadGroups, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted } from '../../redux/modules/groups';
+import { isLoaded as isLogsLoaded, load as loadLogs, addLineToLog } from '../../redux/modules/logs';
 import {isLoaded as isSystemSettingsLoaded, load as loadSystemSettings, clearError as clearAppSettingsError} from '../../redux/modules/appManagement';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
@@ -10,11 +10,11 @@ import styles from './Dashboard.scss';
 
 function fetchData(getState, dispatch) {
   const promises = [];
-  if (!isGroupzLoaded(getState())) {
-    promises.push(dispatch(loadGroupz()));
+  if (!isGroupsLoaded(getState())) {
+    promises.push(dispatch(loadGroups()));
   }
-  if (!isLogzLoaded(getState())) {
-    promises.push(dispatch(loadLogz()));
+  if (!isLogsLoaded(getState())) {
+    promises.push(dispatch(loadLogs()));
   }
   if (!isSystemSettingsLoaded(getState())) {
     promises.push(dispatch(loadSystemSettings()));
@@ -26,8 +26,8 @@ function fetchData(getState, dispatch) {
 @connect(
   state => ({
     authEnabled: state.auth.enabled,
-    groups: state.groupz.data,
-    logs: state.logz.data,
+    groups: state.groups.data,
+    logs: state.logs.data,
     appSettingsError: state.appManagement.error
   }),
   { addLineToLog, clearAppSettingsError, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted })

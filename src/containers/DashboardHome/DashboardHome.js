@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { setDashboardListFilter } from '../../redux/modules/appInterface';
-import { isLoaded as groupsLoaded, load as loadGroups } from '../../redux/modules/groupz';
-import { isLoaded as logsLoaded, load as loadLogs } from '../../redux/modules/logz';
+import { isLoaded as groupsLoaded, load as loadGroups } from '../../redux/modules/groups';
+import { isLoaded as logsLoaded, load as loadLogs } from '../../redux/modules/logs';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
 import { DashboardPage } from '../../components';
@@ -21,16 +21,16 @@ function fetchData(getState, dispatch) {
 @connect(
   state => ({
     dashboardListFilter: state.appInterface.dashboardListFilter,
-    groupz: state.groupz.data,
-    logz: state.logz.data
+    groups: state.groups.data,
+    logs: state.logs.data
   }),
   { setDashboardListFilter })
 export default class DashboardHome extends Component {
   static propTypes = {
     dashboardListFilter: PropTypes.string,
     setDashboardListFilter: PropTypes.func,
-    groupz: PropTypes.object.isRequired,
-    logz: PropTypes.object.isRequired
+    groups: PropTypes.object.isRequired,
+    logs: PropTypes.object.isRequired
   };
 
   render() {

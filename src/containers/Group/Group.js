@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, setGroupListFilter, load as loadGroups } from '../../redux/modules/groupz';
+import { isLoaded, setGroupListFilter, load as loadGroups } from '../../redux/modules/groups';
 import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
 import { GroupPage, GroupNotFoundPage } from '../../components';
@@ -14,7 +14,7 @@ function fetchData(getState, dispatch) {
 @connect(
   state => ({
     groupId: state.router.params.groupId,
-    group: state.groupz.data[state.router.params.groupId]
+    group: state.groups.data[state.router.params.groupId]
   }),
   { setGroupListFilter })
 export default class Group extends Component {

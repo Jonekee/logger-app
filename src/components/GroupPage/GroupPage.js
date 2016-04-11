@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 
 @connect((state, props) => ({
-  logs: props.group.logs.reduce((prev, curr) => ({ ...prev, [curr]: state.logz.data[curr] }), {})
+  logs: props.group.logs.reduce((prev, curr) => ({ ...prev, [curr]: state.logs.data[curr] }), {})
 }))
 export default class GroupPage extends Component {
   static propTypes = {

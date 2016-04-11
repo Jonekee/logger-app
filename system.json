@@ -18,63 +18,7 @@
       "passhint": "its abc"
     }
   },
-  "groups": [
-    {
-      "name": "Actual Logs",
-      "logs": [
-        {
-          "name": "System Log",
-          "fname": "system.log",
-          "fpath": "/var/log/"
-        }
-      ]
-    },
-    {
-      "name": "Apache Logs",
-      "logs": [
-        {
-          "name": "Apache Access",
-          "fname": "access_log",
-          "fpath": "/var/log/apache2/"
-        },
-        {
-          "name": "Apache Error",
-          "fname": "error_log",
-          "fpath": "/var/log/apache2/"
-        }
-      ]
-    },
-    {
-      "name": "Empty Lists",
-      "logs": []
-    },
-    {
-      "name": "WebLogic Logs",
-      "logs": [
-        {
-          "name": "ManagedServer.log",
-          "fname": "ManagedServer.log",
-          "fpath": "/opt/projects/server/ms/logs/"
-        },
-        {
-          "name": "ContentServer.log",
-          "fname": "ContentServer.log",
-          "fpath": "/opt/projects/server/cs/logs/"
-        }
-      ]
-    },
-    {
-      "name": "Tomcat",
-      "logs": [
-        {
-          "name": "App Log",
-          "fname": "tomcat.out",
-          "fpath": "/opt/projects/server/appserver/logs/"
-        }
-      ]
-    }
-  ],
-  "groupz": {
+  "groups": {
     "1": {
       "name": "Actual Logs",
       "logs": [
@@ -106,7 +50,7 @@
       ]
     }
   },
-  "logz": {
+  "logs": {
     "1": {
       "name": "System Log",
       "fname": "system.log",

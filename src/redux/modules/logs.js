@@ -1,17 +1,17 @@
-const INITIAL_LOAD = 'logger-app/logz/INITIAL_LOAD';
-const INITIAL_LOAD_SUCCESS = 'logger-app/logz/INITIAL_LOAD_SUCCESS';
-const INITIAL_LOAD_FAIL = 'logger-app/logz/INITIAL_LOAD_FAIL';
+const INITIAL_LOAD = 'logger-app/logs/INITIAL_LOAD';
+const INITIAL_LOAD_SUCCESS = 'logger-app/logs/INITIAL_LOAD_SUCCESS';
+const INITIAL_LOAD_FAIL = 'logger-app/logs/INITIAL_LOAD_FAIL';
 
-const ACTIVATE_LOG = 'logger-app/logz/ACTIVATE_LOG';
-const PAUSE_LOG = 'logger-app/logz/PAUSE_LOG';
-const RESUME_LOG = 'logger-app/logz/RESUME_LOG';
-const DEACTIVATE_LOG = 'logger-app/logz/DEACTIVATE_LOG';
-const CLEAR_LOG_OUTPUT = 'logger-app/logz/CLEAR_LOG_OUTPUT';
-const TOGGLE_SCROLL_LOCK = 'logger-app/logz/TOGGLE_SCROLL_LOCK';
-const TOGGLE_LOG_EXTRA_ACTIONS_OPEN = 'logger-app/logz/TOGGLE_LOG_EXTRA_ACTIONS_OPEN';
+const ACTIVATE_LOG = 'logger-app/logs/ACTIVATE_LOG';
+const PAUSE_LOG = 'logger-app/logs/PAUSE_LOG';
+const RESUME_LOG = 'logger-app/logs/RESUME_LOG';
+const DEACTIVATE_LOG = 'logger-app/logs/DEACTIVATE_LOG';
+const CLEAR_LOG_OUTPUT = 'logger-app/logs/CLEAR_LOG_OUTPUT';
+const TOGGLE_SCROLL_LOCK = 'logger-app/logs/TOGGLE_SCROLL_LOCK';
+const TOGGLE_LOG_EXTRA_ACTIONS_OPEN = 'logger-app/logs/TOGGLE_LOG_EXTRA_ACTIONS_OPEN';
 
-const ADD_LINE_TO_LOG = 'logger-app/logz/ADD_LINE_TO_LOG';
-const SET_LOG_READ = 'logger-app/logz/SET_LOG_READ';
+const ADD_LINE_TO_LOG = 'logger-app/logs/ADD_LINE_TO_LOG';
+const SET_LOG_READ = 'logger-app/logs/SET_LOG_READ';
 
 const initialState = {
   loaded: false
@@ -87,7 +87,7 @@ const logReducer = (state, action) => {
   }
 };
 
-export default function logz(state = initialState, action = {}) {
+export default function logs(state = initialState, action = {}) {
   switch (action.type) {
     case INITIAL_LOAD:
       return {
@@ -135,13 +135,13 @@ export default function logz(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.logz && globalState.logz.loaded;
+  return globalState.logs && globalState.logs.loaded;
 }
 
 export function load() {
   return {
     types: [ INITIAL_LOAD, INITIAL_LOAD_SUCCESS, INITIAL_LOAD_FAIL ],
-    promise: (client) => client.get('/system/getLogz')
+    promise: (client) => client.get('/system/getLogs')
   };
 }
 

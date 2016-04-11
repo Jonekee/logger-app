@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, load as loadLogs } from '../../redux/modules/logz';
+import { isLoaded, load as loadLogs } from '../../redux/modules/logs';
 import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
 import { LogPage, LogNotFoundPage } from '../../components';
@@ -13,7 +13,7 @@ function fetchData(getState, dispatch) {
 @connectData(fetchData)
 @connect(
   state => ({
-    log: state.logz.data[state.router.params.logId],
+    log: state.logs.data[state.router.params.logId],
     logId: state.router.params.logId
   }))
 export default class Log extends Component {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, load as loadGroups } from '../../redux/modules/groupz';
+import { isLoaded, load as loadGroups } from '../../redux/modules/groups';
 import { setActiveGroupListFilter } from '../../redux/modules/appInterface';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
@@ -15,8 +15,8 @@ function fetchData(getState, dispatch) {
 @connect(
   state => ({
     activeGroupListFilter: state.appInterface.activeGroupListFilter,
-    groups: state.groupz.data,
-    logs: state.logz.data
+    groups: state.groups.data,
+    logs: state.logs.data
   }),
   { setActiveGroupListFilter })
 export default class ActiveGroup extends Component {

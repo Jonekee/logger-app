@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {isLoaded, load as loadGroups} from '../../redux/modules/groupz';
+import {isLoaded, load as loadGroups} from '../../redux/modules/groups';
 import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
 import { AnalysisPage } from '../../components';
@@ -14,7 +14,7 @@ function fetchData(getState, dispatch) {
 @connect(
   state => ({
     groupId: state.router.params.groupId,
-    groups: state.groupz.data,
+    groups: state.groups.data,
     logId: state.router.params.logId
   }))
 export default class Analysis extends Component {

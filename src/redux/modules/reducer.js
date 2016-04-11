@@ -6,8 +6,8 @@ import auth from './auth';
 import {reducer as form} from 'redux-form';
 import info from './info';
 import widgets from './widgets';
-import groupz from './groupz';
-import logz from './logz';
+import groups from './groups';
+import logs from './logs';
 import groupManagement from './groupManagement';
 import logManagement from './logManagement';
 import appManagement from './appManagement';
@@ -19,8 +19,8 @@ export default combineReducers({
   form,
   info,
   widgets,
-  groupz,
-  logz,
+  groups,
+  logs,
   groupManagement,
   logManagement,
   appManagement

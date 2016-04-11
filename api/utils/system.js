@@ -50,7 +50,12 @@ class SystemHelper {
         }
 
         if (!this.system.groups) {
-          this.system.groups = [];
+          this.system.groups = {};
+          configChanged = true;
+        }
+
+        if (!this.system.logs) {
+          this.system.logs = {};
           configChanged = true;
         }
 
@@ -91,12 +96,8 @@ class SystemHelper {
     return this.system.groups;
   };
 
-  getGroupz = () => {
-    return this.system.groupz;
-  };
-
-  getLogz = () => {
-    return this.system.logz;
+  getLogs = () => {
+    return this.system.logs;
   };
 
   checkForUser = (username) => {
@@ -113,7 +114,7 @@ class SystemHelper {
   };
 
   getLogFile = (logId) => {
-    const log = this.system.logz[logId];
+    const log = this.system.logs[logId];
     return log.fpath + log.fname;
   };
 
@@ -130,7 +131,7 @@ class SystemHelper {
 
   updateGroupName = (groupId, newName) => {
     LoggingManager.debug('SystemHelper', 'updateGroupName', `Updating group name using groupId: ${groupId} and newName: ${newName}`);
-    this.system.groupz[groupId].name = newName;
+    this.system.groups[groupId].name = newName;
     return this.saveConfigToDisk().then(() => {
       // Emit updated group to all sessions including the guy that updated the group
       this.io.emit('group:nameChange', { groupId, newName });
@@ -139,12 +140,12 @@ class SystemHelper {
 
   groupIdIsValid = (groupId) => {
     LoggingManager.debug('SystemHelper', 'groupIdIsValid', `Checking groupId: ${groupId}`);
-    return !!this.system.groupz[groupId];
+    return !!this.system.groups[groupId];
   }
 
   deleteGroup = (groupId) => {
     LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
-    delete this.system.groupz[groupId];
+    delete this.system.groups[groupId];
     return this.saveConfigToDisk().then(() => {
       // Emit deleted group to all sessions including the guy that deleted the group
       this.io.emit('group:groupDelete', { groupId });
@@ -153,11 +154,11 @@ class SystemHelper {
 
   createGroup = (newGroupName) => {
     // Get new ID:
-    const currentKeys = Object.keys(this.system.groupz).map(key => parseInt(key, 10)).sort((first, second) => first > second);
+    const currentKeys = Object.keys(this.system.groups).map(key => parseInt(key, 10)).sort((first, second) => first > second);
     const newGroupId = (currentKeys.pop() || 0) + 1;
 
     // Create group
-    this.system.groupz[newGroupId] = {
+    this.system.groups[newGroupId] = {
       name: newGroupName,
       logs: []
     };

@@ -1,27 +1,27 @@
-const INITIAL_LOAD = 'logger-app/groupz/INITIAL_LOAD';
-const INITIAL_LOAD_SUCCESS = 'logger-app/groupz/INITIAL_LOAD_SUCCESS';
-const INITIAL_LOAD_FAIL = 'logger-app/groupz/INITIAL_LOAD_FAIL';
+const INITIAL_LOAD = 'logger-app/groups/INITIAL_LOAD';
+const INITIAL_LOAD_SUCCESS = 'logger-app/groups/INITIAL_LOAD_SUCCESS';
+const INITIAL_LOAD_FAIL = 'logger-app/groups/INITIAL_LOAD_FAIL';
 
-const TOGGLE_NAV_GROUP_OPEN = 'logger-app/groupz/TOGGLE_NAV_GROUP_OPEN';
-const SET_GROUP_LIST_FILTER = 'logger-app/groupz/SET_GROUP_LIST_FILTER';
+const TOGGLE_NAV_GROUP_OPEN = 'logger-app/groups/TOGGLE_NAV_GROUP_OPEN';
+const SET_GROUP_LIST_FILTER = 'logger-app/groups/SET_GROUP_LIST_FILTER';
 
 // Group Management actions
 // Edit Group Name
-const TOGGLE_EDIT_NAME_OPEN = 'logger-app/groupz/TOGGLE_EDIT_NAME_OPEN';
-const SET_EDITED_NAME = 'logger-app/groupz/SET_EDITED_NAME';
-const SAVE_GROUP_NAME = 'logger-app/groupz/SAVE_GROUP_NAME';
-const SAVE_GROUP_NAME_SUCCESS = 'logger-app/groupz/SAVE_GROUP_NAME_SUCCESS';
-const SAVE_GROUP_NAME_FAIL = 'logger-app/groupz/SAVE_GROUP_NAME_FAIL';
+const TOGGLE_EDIT_NAME_OPEN = 'logger-app/groups/TOGGLE_EDIT_NAME_OPEN';
+const SET_EDITED_NAME = 'logger-app/groups/SET_EDITED_NAME';
+const SAVE_GROUP_NAME = 'logger-app/groups/SAVE_GROUP_NAME';
+const SAVE_GROUP_NAME_SUCCESS = 'logger-app/groups/SAVE_GROUP_NAME_SUCCESS';
+const SAVE_GROUP_NAME_FAIL = 'logger-app/groups/SAVE_GROUP_NAME_FAIL';
 // Delete Group
-const TOGGLE_DELETE_GROUP_OPEN = 'logger-app/groupz/TOGGLE_DELETE_GROUP_OPEN';
-const DELETE_GROUP = 'logger-app/groupz/DELETE_GROUP';
-const DELETE_GROUP_SUCCESS = 'logger-app/groupz/DELETE_GROUP_SUCCESS';
-const DELETE_GROUP_FAIL = 'logger-app/groupz/DELETE_GROUP_FAIL';
+const TOGGLE_DELETE_GROUP_OPEN = 'logger-app/groups/TOGGLE_DELETE_GROUP_OPEN';
+const DELETE_GROUP = 'logger-app/groups/DELETE_GROUP';
+const DELETE_GROUP_SUCCESS = 'logger-app/groups/DELETE_GROUP_SUCCESS';
+const DELETE_GROUP_FAIL = 'logger-app/groups/DELETE_GROUP_FAIL';
 
 // Socket Events
-const NEW_GROUP_EMITTED = 'logger-app/groupz/NEW_GROUP_EMITTED';
-const GROUP_NAME_CHANGE_EMITTED = 'logger-app/groupz/GROUP_NAME_CHANGE_EMITTED';
-const GROUP_DELETE_EMITTED = 'logger-app/groupz/GROUP_DELETE_EMITTED';
+const NEW_GROUP_EMITTED = 'logger-app/groups/NEW_GROUP_EMITTED';
+const GROUP_NAME_CHANGE_EMITTED = 'logger-app/groups/GROUP_NAME_CHANGE_EMITTED';
+const GROUP_DELETE_EMITTED = 'logger-app/groups/GROUP_DELETE_EMITTED';
 
 
 const initialState = {
@@ -107,7 +107,7 @@ const groupReducer = (state, action) => {
   }
 };
 
-export default function groupz(state = initialState, action = {}) {
+export default function groups(state = initialState, action = {}) {
   switch (action.type) {
     case INITIAL_LOAD:
       return {
@@ -172,13 +172,13 @@ export default function groupz(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.groupz && globalState.groupz.loaded;
+  return globalState.groups && globalState.groups.loaded;
 }
 
 export function load() {
   return {
     types: [ INITIAL_LOAD, INITIAL_LOAD_SUCCESS, INITIAL_LOAD_FAIL ],
-    promise: (client) => client.get('/system/getGroupz')
+    promise: (client) => client.get('/system/getGroups')
   };
 }
 

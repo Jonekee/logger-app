@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isLoaded, load as loadGroups } from '../../redux/modules/groupz';
+import { isLoaded, load as loadGroups } from '../../redux/modules/groups';
 import { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath } from '../../redux/modules/logManagement';
 import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
@@ -14,8 +14,8 @@ function fetchData(getState, dispatch) {
 @connectData(fetchData)
 @connect(
   state => ({
-    groups: state.groupz.data,
-    logs: state.logz.data,
+    groups: state.groups.data,
+    logs: state.logs.data,
     logManagementState: state.logManagement
   }),
   { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath })
