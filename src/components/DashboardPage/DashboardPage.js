@@ -59,7 +59,7 @@ export default class DashboardPage extends Component {
         }
       });
 
-      logs.sort((first, second) => (first.logName > second.logName));
+      groupLogs.sort((first, second) => (first.logName > second.logName));
 
       groupLists.push({
         groupId,
