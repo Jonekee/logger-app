@@ -1,10 +1,11 @@
 import SystemHelper from '../../utils/system';
 import { Instance as LoggingManager } from 'logging-manager';
+import devDelay from '../../utils/devDelay.js';
 
 
 export default function deleteGroup(req) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    return devDelay(2000).then(() => {
       const { groupId } = req.body;
 
       if (!groupId) {
@@ -36,6 +37,6 @@ export default function deleteGroup(req) {
           });
         });
       }
-    }, 2000);
+    });
   });
 }

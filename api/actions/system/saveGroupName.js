@@ -1,10 +1,11 @@
 import SystemHelper from '../../utils/system';
 import { Instance as LoggingManager } from 'logging-manager';
+import devDelay from '../../utils/devDelay.js';
 
 
 export default function saveGroupName(req) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    return devDelay(2000).then(() => {
       const { name, groupId } = req.body;
 
       if (!name || name.length > 15) {
@@ -29,6 +30,6 @@ export default function saveGroupName(req) {
           });
         });
       }
-    }, 2000);
+    });
   });
 }
