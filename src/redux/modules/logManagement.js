@@ -114,13 +114,15 @@ export function setNewLogPath(newLogPath) {
   };
 }
 
-export function createNewGroup(newLogName, groupId) {
+export function createNewLog(logName, groupId, logFile, logPath) {
   return {
     types: [ CREATE_NEW_LOG, CREATE_NEW_LOG_SUCCESS, CREATE_NEW_LOG_FAIL],
     promise: (client) => client.post('/system/createNewLog', {
       data: {
-        newLogName,
-        groupId
+        logName,
+        groupId,
+        logFile,
+        logPath
       }
     }),
   };

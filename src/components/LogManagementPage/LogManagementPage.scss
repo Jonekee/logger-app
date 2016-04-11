@@ -184,6 +184,17 @@
     }
   }
 
+  .savingPanel, .deletingPanel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      font-size: 16px;
+      margin-left: 5px;
+    }
+  }
+
   .selectStyling {
     display: block;
     width: 188px;

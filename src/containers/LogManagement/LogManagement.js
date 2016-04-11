@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { isLoaded, load as loadGroups } from '../../redux/modules/groups';
-import { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath } from '../../redux/modules/logManagement';
+import { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog } from '../../redux/modules/logManagement';
 import connectData from '../../helpers/connectData';
 import {connect} from 'react-redux';
 import { LogManagementPage } from '../../components';
@@ -18,7 +18,7 @@ function fetchData(getState, dispatch) {
     logs: state.logs.data,
     logManagementState: state.logManagement
   }),
-  { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath })
+  { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog })
 export default class LogManagement extends Component {
   static propTypes = {
     groups: PropTypes.object.isRequired,

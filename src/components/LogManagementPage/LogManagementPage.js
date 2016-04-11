@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './LogManagementPage.scss';
 import Helmet from 'react-helmet';
 import classnames from 'classnames';
-import { Icon, LogManagementPageLogPanel, DropDown } from '../../components';
+import { Icon, LogManagementPageLogPanel, DropDown, LoadingSpinner } from '../../components';
 
 export default class LogManagementPage extends Component {
   static propTypes = {
@@ -14,7 +14,8 @@ export default class LogManagementPage extends Component {
     setNewLogName: PropTypes.func.isRequired,
     setNewLogGroup: PropTypes.func.isRequired,
     setNewLogFile: PropTypes.func.isRequired,
-    setNewLogPath: PropTypes.func.isRequired
+    setNewLogPath: PropTypes.func.isRequired,
+    createNewLog: PropTypes.func.isRequired
   };
 
   componentDidUpdate() {
@@ -22,7 +23,7 @@ export default class LogManagementPage extends Component {
   }
 
   render() {
-    const { groups, logs, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath } = this.props;
+    const { groups, logs, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog } = this.props;
 
     const fullLogList = [];
 
@@ -78,19 +79,25 @@ export default class LogManagementPage extends Component {
             </button>
             <div className={classnames(styles.formContainer, styles.fadeInPanel)}>
               <div className={styles.lhs}>
-                <input type="text" placeholder="New log name" maxLength="15" value={logManagementState.newLogName} onChange={(event) => setNewLogName(event.target.value)} />
-                <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: logManagementState.newLogGroup === '-1' })} options={groupOptionsList} initialValue={logManagementState.newLogGroup} onChange={(event) => setNewLogGroup(event.target.value)} />
-                <input type="text" placeholder="File name" maxLength="30" value={logManagementState.newLogFile} onChange={(event) => setNewLogFile(event.target.value)} />
-                <input type="text" placeholder="File location" maxLength="30" value={logManagementState.newLogPath} onChange={(event) => setNewLogPath(event.target.value)} />
+                <form onSubmit={(event) => { createNewLog(logManagementState.newLogName, logManagementState.newLogGroup, logManagementState.newLogFile, logManagementState.newLogPath); event.preventDefault(); return false; }}>
+                  <input type="text" placeholder="New log name" maxLength="15" value={logManagementState.newLogName} onChange={(event) => setNewLogName(event.target.value)} />
+                  <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: logManagementState.newLogGroup === '-1' })} options={groupOptionsList} initialValue={logManagementState.newLogGroup} onChange={(event) => setNewLogGroup(event.target.value)} />
+                  <input type="text" placeholder="File name" maxLength="30" value={logManagementState.newLogFile} onChange={(event) => setNewLogFile(event.target.value)} />
+                  <input type="text" placeholder="File location" maxLength="30" value={logManagementState.newLogPath} onChange={(event) => setNewLogPath(event.target.value)} />
+                </form>
               </div>
               <div className={styles.actions}>
-                <button onClick={() => {}}>
+                <button onClick={() => createNewLog(logManagementState.newLogName, logManagementState.newLogGroup, logManagementState.newLogFile, logManagementState.newLogPath)}>
                   <Icon iconName="check"/>
                 </button>
                 <button onClick={() => toggleInputingNewGroup()}>
                   <Icon iconName="close"/>
                 </button>
               </div>
+            </div>
+            <div className={classnames(styles.savingPanel, styles.fadeInPanel, { [styles.open]: logManagementState.savingNewLog })}>
+              <LoadingSpinner size={24} strokeWidth={1}/>
+              <p>Creating...</p>
             </div>
           </div>
           <div className={styles.listContainer}>
