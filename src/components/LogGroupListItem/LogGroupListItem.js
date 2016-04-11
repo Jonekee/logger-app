@@ -53,8 +53,8 @@ export default class LogGroupListItem extends Component {
         <Link to={'/dashboard/log/' + logId}>
           <i className={colorClass}></i>
           <div>
-            <p><HighlightedText text={logName} matchText={listFilter}/></p>
-            <p><HighlightedText text={logFilePath + logFileName} matchText={listFilter}/></p>
+            <p>{listFilter ? <HighlightedText text={logName} matchText={listFilter}/> : <span>{logName}</span>}</p>
+            <p>{listFilter ? <HighlightedText text={logFilePath + logFileName} matchText={listFilter}/> : <span>{logFilePath + logFileName}</span>}</p>
           </div>
         </Link>
       </li>
