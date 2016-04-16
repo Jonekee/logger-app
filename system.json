@@ -22,7 +22,8 @@
     "1": {
       "name": "Actual Logs",
       "logs": [
-        "1"
+        "1",
+        "7"
       ]
     },
     "2": {
@@ -80,6 +81,11 @@
       "name": "App Log",
       "fname": "tomcat.out",
       "fpath": "/opt/projects/server/appserver/logs/"
+    },
+    "7": {
+      "name": "Admin File",
+      "fname": "master.passwd",
+      "fpath": "/etc/"
     }
   }
 }
