@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import styles from './LogOutputPage.scss';
 import { connect } from 'react-redux';
 import { setLogRead } from '../../redux/modules/logs';
+import { Icon } from '../../components';
+import classnames from 'classnames';
 
 @connect(
   null,
@@ -11,7 +13,9 @@ export default class LogOutputPage extends Component {
     logId: PropTypes.string.isRequired,
     logData: PropTypes.array.isRequired,
     setLogRead: PropTypes.func.isRequired,
-    scrollLocked: PropTypes.bool.isRequired
+    scrollLocked: PropTypes.bool.isRequired,
+    tailError: PropTypes.string,
+    setTailError: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -26,7 +30,8 @@ export default class LogOutputPage extends Component {
      */
     return this.props.logId !== nextProps.logId
       || this.props.scrollLocked !== nextProps.scrollLocked
-      || this.props.logData.length !== nextProps.logData.length;
+      || this.props.logData.length !== nextProps.logData.length
+      || this.props.tailError !== nextProps.tailError;
   }
 
   componentDidUpdate = () => {
@@ -39,9 +44,31 @@ export default class LogOutputPage extends Component {
   };
 
   render() {
-    const { logData } = this.props;
+    const { logId, logData, tailError, setTailError } = this.props;
+
+    let error = '';
+    if (!!tailError) {
+      switch (tailError) {
+        case 'EACCES':
+          error = 'The server was unable to tail this file due to insufficient permissions.';
+          break;
+        case 'ENOENT':
+          error = 'The log file could not be found. Please check that the path and name are correct.';
+          break;
+        default:
+          error = 'An error occured trying to tail this log file.';
+      }
+    }
+
     return (
       <section ref="scrollArea" className={styles.logOutputPage}>
+        <div className={classnames(styles.errorPanel, { [styles.open]: !!tailError })}>
+          <Icon iconName="alert-circle" />
+          <p>{error}</p>
+          <button onClick={() => setTailError(logId, null)}>
+            <Icon iconName="close" />
+          </button>
+        </div>
         <ul>
           {logData && logData.map((line, index) => <li key={index}><div>{line}</div></li>)}
         </ul>
