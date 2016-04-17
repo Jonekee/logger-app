@@ -88,7 +88,7 @@ class SystemHelper {
       });
   };
 
-  getSystemSettings = () => {
+  getAppSettings = () => {
     return this.system.app;
   };
 

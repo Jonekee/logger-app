@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { isLoaded as isGroupsLoaded, load as loadGroups, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted } from '../../redux/modules/groups';
 import { isLoaded as isLogsLoaded, load as loadLogs, addLineToLog, setTailError } from '../../redux/modules/logs';
 import { newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
-import {isLoaded as isSystemSettingsLoaded, load as loadSystemSettings, clearError as clearAppSettingsError} from '../../redux/modules/appManagement';
+import {isLoaded as isAppSettingsLoaded, load as loadAppSettings, clearError as clearAppSettingsError} from '../../redux/modules/appManagement';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
 import { NavPanel, ErrorPanel } from '../../components';
@@ -17,8 +17,8 @@ function fetchData(getState, dispatch) {
   if (!isLogsLoaded(getState())) {
     promises.push(dispatch(loadLogs()));
   }
-  if (!isSystemSettingsLoaded(getState())) {
-    promises.push(dispatch(loadSystemSettings()));
+  if (!isAppSettingsLoaded(getState())) {
+    promises.push(dispatch(loadAppSettings()));
   }
   return Promise.all(promises);
 }
