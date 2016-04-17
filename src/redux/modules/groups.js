@@ -22,6 +22,7 @@ const DELETE_GROUP_FAIL = 'logger-app/groups/DELETE_GROUP_FAIL';
 const NEW_GROUP_EMITTED = 'logger-app/groups/NEW_GROUP_EMITTED';
 const GROUP_NAME_CHANGE_EMITTED = 'logger-app/groups/GROUP_NAME_CHANGE_EMITTED';
 const GROUP_DELETE_EMITTED = 'logger-app/groups/GROUP_DELETE_EMITTED';
+import { NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
 
 
 const initialState = {
@@ -94,13 +95,25 @@ const groupReducer = (state, action) => {
     case DELETE_GROUP_FAIL:
       return {
         ...state,
-        deleteGroupOpen: false,
         deleteSaving: false
       };
     case GROUP_NAME_CHANGE_EMITTED:
       return {
         ...state,
         name: action.newName
+      };
+    case NEW_LOG_EMITTED:
+      return {
+        ...state,
+        logs: [
+          ...state.logs,
+          action.newLogId
+        ]
+      };
+    case LOG_DELETE_EMITTED:
+      return {
+        ...state,
+        logs: state.logs.filter(logId => logId !== action.logId)
       };
     default:
       return state;
@@ -159,6 +172,8 @@ export default function groups(state = initialState, action = {}) {
     case DELETE_GROUP:
     case DELETE_GROUP_FAIL:
     case GROUP_NAME_CHANGE_EMITTED:
+    case NEW_LOG_EMITTED:
+    case LOG_DELETE_EMITTED:
       return {
         ...state,
         data: {

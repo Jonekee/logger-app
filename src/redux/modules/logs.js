@@ -12,6 +12,32 @@ const TOGGLE_LOG_EXTRA_ACTIONS_OPEN = 'logger-app/logs/TOGGLE_LOG_EXTRA_ACTIONS_
 
 const ADD_LINE_TO_LOG = 'logger-app/logs/ADD_LINE_TO_LOG';
 const SET_LOG_READ = 'logger-app/logs/SET_LOG_READ';
+const SET_TAIL_ERROR = 'logger-app/logs/SET_TAIL_ERROR';
+
+// Log Management actions
+// Edit Group Name
+const TOGGLE_EDIT_OPEN = 'logger-app/logs/TOGGLE_EDIT_OPEN';
+const SET_EDITED_NAME = 'logger-app/logs/SET_EDITED_NAME';
+const SET_EDITED_GROUP = 'logger-app/logs/SET_EDITED_GROUP';
+const SET_EDITED_FILE = 'logger-app/logs/SET_EDITED_FILE';
+const SET_EDITED_PATH = 'logger-app/logs/SET_EDITED_PATH';
+/* eslint-disable */
+const SAVE_LOG_CHANGES = 'logger-app/logs/SAVE_LOG_CHANGES';
+const SAVE_LOG_CHANGES_SUCCESS = 'logger-app/logs/SAVE_LOG_CHANGES_SUCCESS';
+const SAVE_LOG_CHANGES_FAIL = 'logger-app/logs/SAVE_LOG_CHANGES_FAIL';
+/* eslint-enable */
+
+// Delete Group
+const TOGGLE_DELETE_LOG_OPEN = 'logger-app/logs/TOGGLE_DELETE_LOG_OPEN';
+const DELETE_LOG = 'logger-app/logs/DELETE_LOG';
+const DELETE_LOG_SUCCESS = 'logger-app/logs/DELETE_LOG_SUCCESS';
+const DELETE_LOG_FAIL = 'logger-app/logs/DELETE_LOG_FAIL';
+
+// Socket Events
+import { NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
+/* eslint-disable */
+const LOG_NAME_CHANGE_EMITTED = 'logger-app/logs/LOG_NAME_CHANGE_EMITTED';
+/* eslint-enable */
 
 const initialState = {
   loaded: false
@@ -25,7 +51,16 @@ const applyDefaultLogValues = (log) => ({
   activeState: 'INACTIVE',
   hasNew: false,
   scrollLocked: true,
-  logLevelMapping: null
+  logLevelMapping: null,
+  tailError: null,
+  // Log Management Page Variables
+  editPanelOpen: false,
+  editedName: false,
+  editedGroup: '-1',
+  editedFile: false,
+  editedPath: false,
+  deletePanelOpen: false,
+  deleteSaving: false
 });
 
 const logReducer = (state, action) => {
@@ -33,7 +68,8 @@ const logReducer = (state, action) => {
     case ACTIVATE_LOG:
       return {
         ...state,
-        activeState: 'ACTIVE'
+        activeState: 'ACTIVE',
+        tailError: null
       };
     case PAUSE_LOG:
       return {
@@ -82,6 +118,52 @@ const logReducer = (state, action) => {
         ...state,
         hasNew: false
       };
+    case SET_TAIL_ERROR:
+      return {
+        ...state,
+        activeState: 'INACTIVE',
+        tailError: action.tailError
+      };
+    case TOGGLE_EDIT_OPEN:
+      return {
+        ...state,
+        editPanelOpen: !state.editPanelOpen
+      };
+    case SET_EDITED_NAME:
+      return {
+        ...state,
+        editedName: action.editedName
+      };
+    case SET_EDITED_GROUP:
+      return {
+        ...state,
+        editedGroup: action.editedGroup
+      };
+    case SET_EDITED_FILE:
+      return {
+        ...state,
+        editedFile: action.editedFile
+      };
+    case SET_EDITED_PATH:
+      return {
+        ...state,
+        editedPath: action.editedPath
+      };
+    case TOGGLE_DELETE_LOG_OPEN:
+      return {
+        ...state,
+        deletePanelOpen: !state.deletePanelOpen
+      };
+    case DELETE_LOG:
+      return {
+        ...state,
+        deleteSaving: true
+      };
+    case DELETE_LOG_FAIL:
+      return {
+        ...state,
+        deleteSaving: false
+      };
     default:
       return state;
   }
@@ -113,6 +195,24 @@ export default function logs(state = initialState, action = {}) {
         data: null,
         error: action.error
       };
+    case NEW_LOG_EMITTED:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.newLogId]: applyDefaultLogValues({
+            name: action.logName,
+            fname: action.logFile,
+            fpath: action.logPath
+          })
+        }
+      };
+    case LOG_DELETE_EMITTED:
+      const {[action.logId]: omit, ...others} = state.data;
+      return {
+        ...state,
+        data: others
+      };
     case ACTIVATE_LOG:
     case PAUSE_LOG:
     case RESUME_LOG:
@@ -122,6 +222,15 @@ export default function logs(state = initialState, action = {}) {
     case TOGGLE_LOG_EXTRA_ACTIONS_OPEN:
     case ADD_LINE_TO_LOG:
     case SET_LOG_READ:
+    case SET_TAIL_ERROR:
+    case TOGGLE_EDIT_OPEN:
+    case SET_EDITED_NAME:
+    case SET_EDITED_GROUP:
+    case SET_EDITED_FILE:
+    case SET_EDITED_PATH:
+    case TOGGLE_DELETE_LOG_OPEN:
+    case DELETE_LOG:
+    case DELETE_LOG_FAIL:
       return {
         ...state,
         data: {
@@ -205,6 +314,41 @@ export function addLineToLog(logId, newLine) {
 export function setLogRead(logId) {
   return {
     type: SET_LOG_READ,
+    logId
+  };
+}
+
+export function setTailError(logId, tailError) {
+  return {
+    type: SET_TAIL_ERROR,
+    logId,
+    tailError
+  };
+}
+
+export function toggleEditOpen(logId) {
+  return {
+    type: TOGGLE_EDIT_OPEN,
+    logId
+  };
+}
+
+export function toggleDeleteLogOpen(logId) {
+  return {
+    type: TOGGLE_DELETE_LOG_OPEN,
+    logId
+  };
+}
+
+export function deleteLog(groupId, logId) {
+  return {
+    types: [DELETE_LOG, DELETE_LOG_SUCCESS, DELETE_LOG_FAIL],
+    promise: (client) => client.post('/system/deleteLog', {
+      data: {
+        groupId,
+        logId
+      }
+    }),
     logId
   };
 }
