@@ -151,7 +151,7 @@ export default class AppManagementPage extends Component {
             </li>
           </ul>
           <p className={styles.helpMeParagraph}>This application is currently in a stage of base feature development. This means that many decisions are still to be made or finalised and everything is open to improvement.</p>
-          <p className={styles.helpMeParagraph}>As a one-man team with little scope for user testing, any feedback you have would be greatly appreciated. Feel free to raise an issue on the <a href="https://github.com/logger-app/logger-app" target="_blank">GitHub repo</a>.</p>
+          <p className={styles.helpMeParagraph}>As a one-man team with little scope for user testing, any feedback you have would be greatly appreciated. Feel free to raise an issue or PR on the <a href="https://github.com/logger-app/logger-app" target="_blank">GitHub repo</a>.</p>
         </section>
       </section>
     );
