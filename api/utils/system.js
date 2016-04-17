@@ -72,7 +72,7 @@ class SystemHelper {
   }
 
   setSocketIo = (io) => {
-    this.io = io;
+    this.socketio = io;
   };
 
   saveConfigToDisk = () => {
@@ -134,7 +134,7 @@ class SystemHelper {
     this.system.groups[groupId].name = newName;
     return this.saveConfigToDisk().then(() => {
       // Emit updated group to all sessions including the guy that updated the group
-      this.io.emit('group:nameChange', { groupId, newName });
+      this.socketio.emit('group:nameChange', { groupId, newName });
     });
   };
 
@@ -143,19 +143,27 @@ class SystemHelper {
     return !!this.system.groups[groupId];
   }
 
+  logIdIsValid = (logId) => {
+    LoggingManager.debug('SystemHelper', 'logIdIsValid', `Checking logId: ${logId}`);
+    return !!this.system.logs[logId];
+  }
+
   deleteGroup = (groupId) => {
     LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
     delete this.system.groups[groupId];
     return this.saveConfigToDisk().then(() => {
       // Emit deleted group to all sessions including the guy that deleted the group
-      this.io.emit('group:groupDelete', { groupId });
+      this.socketio.emit('group:groupDelete', { groupId });
     });
   }
 
   createGroup = (newGroupName) => {
+    LoggingManager.debug('SystemHelper', 'createGroup', `Creating new group using name: ${newGroupName}`);
+
     // Get new ID:
     const currentKeys = Object.keys(this.system.groups).map(key => parseInt(key, 10)).sort((first, second) => first > second);
     const newGroupId = (currentKeys.pop() || 0) + 1;
+    LoggingManager.debug('SystemHelper', 'createGroup', `Allocated group ID: ${newGroupId}`);
 
     // Create group
     this.system.groups[newGroupId] = {
@@ -164,9 +172,41 @@ class SystemHelper {
     };
     return this.saveConfigToDisk().then(() => {
       // Emit new group to all sessions including the guy that created the group
-      this.io.emit('group:newGroup', { newGroupId, newGroupName });
+      this.socketio.emit('group:newGroup', { newGroupId, newGroupName });
     });
   }
+
+  createLog = (logName, groupId, logFile, logPath) => {
+    LoggingManager.debug('SystemHelper', 'createLog', `Creating log using: ${logName} ${groupId} ${logFile} ${logPath}`);
+
+    // Get new ID:
+    const currentKeys = Object.keys(this.system.logs).map(key => parseInt(key, 10)).sort((first, second) => first > second);
+    const newLogId = (currentKeys.pop() || 0) + 1;
+    LoggingManager.debug('SystemHelper', 'createGroup', `Allocated log ID: ${newLogId}`);
+
+    // Create log
+    this.system.logs[newLogId] = {
+      name: logName,
+      fname: logFile,
+      fpath: logPath
+    };
+    // Add reference in group
+    this.system.groups[groupId].logs.push(`${newLogId}`);
+    return this.saveConfigToDisk().then(() => {
+      // Emit new log to all sessions including the guy that created the log
+      this.socketio.emit('log:newLog', { newLogId, logName, groupId, logFile, logPath });
+    });
+  };
+
+  deleteLog = (groupId, logId) => {
+    LoggingManager.debug('SystemHelper', 'deleteLog', `Deleting log using groupId: ${groupId} and logId: ${logId}`);
+    delete this.system.logs[logId];
+    this.system.groups[groupId].logs = this.system.groups[groupId].logs.filter(filterLogId => filterLogId !== logId);
+    return this.saveConfigToDisk().then(() => {
+      // Emit deleted log to all sessions including the guy that deleted the log
+      this.socketio.emit('log:logDelete', { groupId, logId });
+    });
+  };
 }
 
 const instance = new SystemHelper();

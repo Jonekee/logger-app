@@ -45,7 +45,7 @@ export default function createNewLog(req) {
         });
       } else {
         LoggingManager.debug('System', 'createNewLog', `Creating group using name: ${logName}`);
-        SystemHelper.createLog(logName)
+        SystemHelper.createLog(logName, groupId, logFile, logPath)
         .then((newLogId) => {
           resolve({
             newLogId
