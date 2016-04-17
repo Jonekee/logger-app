@@ -141,12 +141,12 @@ class SystemHelper {
   groupIdIsValid = (groupId) => {
     LoggingManager.debug('SystemHelper', 'groupIdIsValid', `Checking groupId: ${groupId}`);
     return !!this.system.groups[groupId];
-  }
+  };
 
   logIdIsValid = (logId) => {
     LoggingManager.debug('SystemHelper', 'logIdIsValid', `Checking logId: ${logId}`);
     return !!this.system.logs[logId];
-  }
+  };
 
   deleteGroup = (groupId) => {
     LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
@@ -155,7 +155,7 @@ class SystemHelper {
       // Emit deleted group to all sessions including the guy that deleted the group
       this.socketio.emit('group:groupDelete', { groupId });
     });
-  }
+  };
 
   createGroup = (newGroupName) => {
     LoggingManager.debug('SystemHelper', 'createGroup', `Creating new group using name: ${newGroupName}`);
@@ -174,7 +174,7 @@ class SystemHelper {
       // Emit new group to all sessions including the guy that created the group
       this.socketio.emit('group:newGroup', { newGroupId, newGroupName });
     });
-  }
+  };
 
   createLog = (logName, groupId, logFile, logPath) => {
     LoggingManager.debug('SystemHelper', 'createLog', `Creating log using: ${logName} ${groupId} ${logFile} ${logPath}`);
