@@ -30,21 +30,21 @@ export default function createNewLog(req) {
           errorReason: `No log file name was passed to create request.`
         });
       } else if (!logPath) {
-        LoggingManager.debug('System', 'createNewLog', 'Blank log path name passed.');
+        LoggingManager.debug('System', 'createNewLog', 'Blank log path passed.');
         reject({
           status: 400,
           errorField: 'newLogPath',
-          errorReason: `No log path name was passed to create request.`
+          errorReason: `No log path was passed to create request.`
         });
       } else if (logName > 15) {
-        LoggingManager.debug('System', 'createNewLog', `Invalid group name passed: ${logName}`);
+        LoggingManager.debug('System', 'createNewLog', `Invalid log name passed: ${logName}`);
         reject({
           status: 400,
           errorField: 'newLogName',
           errorReason: `The log name "${logName}" is invalid. It must be 15 characters or less.`
         });
       } else {
-        LoggingManager.debug('System', 'createNewLog', `Creating group using name: ${logName}`);
+        LoggingManager.debug('System', 'createNewLog', `Creating group using: ${logName} ${groupId} ${logFile} ${logPath}`);
         SystemHelper.createLog(logName, groupId, logFile, logPath)
         .then((newLogId) => {
           resolve({
