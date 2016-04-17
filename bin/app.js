@@ -10,11 +10,12 @@ var defaultAPIPort = 3030;
 var defaultLogLevel = 'ERROR';
 
 program
-  .version('0.8.0')
+  .version('1.0.0')
   .option('-p, --port [port]', 'Port to run webserver on.')
   .option('-a, --apiport [apiport]', 'Port to run API server on.')
   .option('-l, --loglevel [loglevel]', 'Log level to output.')
   .option('-c, --config [config]', 'Config file for app and system.')
+  .option('-n, --newconfig [newconfig]', 'Create a new config file at the give path and name.')
   .parse(process.argv);
 
 
@@ -36,12 +37,52 @@ If command line argument ports or log level were passed, override config file
 var config;
 var configFile;
 
+if (!!program.newconfig) {
+  LoggingManager.system('APP', 'main', 'Creating new config file at location: ' + program.newconfig);
+
+  // Create from template
+  var configTemplate = {
+    app: {
+      webport: 8080,
+      apiport: 3030,
+      loglevel: 'ERROR',
+      fakeWebSockets: false
+    },
+    groups: {},
+    logs: {}
+  };
+
+  try {
+    var fd = fs.openSync(program.newconfig, 'wx');
+    fs.writeSync(fd, JSON.stringify(configTemplate, null, 2), 'utf-8');
+  } catch (error) {
+    if (!!error && !!error.code) {
+      // Tailor output to error code
+      if (error.code === 'EEXIST') {
+        LoggingManager.fatal('APP', 'main', 'Error: That file already exists. (' + error.code + ')');
+      } else if (error.code === 'ENOENT') {
+        LoggingManager.fatal('APP', 'main', 'Error: The containing folder could not be found. (' + error.code + ')');
+      } else {
+        LoggingManager.fatal('APP', 'main', 'Error: An unexpected error occured when trying to create the new config file. (' + error.code + ')');
+      }
+    } else {
+      LoggingManager.fatal('APP', 'main', 'Error: An unexpected error occured when trying to create the new config file.');
+      LoggingManager.fatal('APP', 'main', error);
+    }
+    process.exit(1);
+  }
+
+  LoggingManager.system('APP', 'main', 'New config file created, to use run the command with --config ' + program.newconfig);
+  process.exit(0);
+}
+
 if (!!program.config) {
-  LoggingManager.system('APP', 'main', 'Using custom config file');
+  LoggingManager.system('APP', 'main', 'Using config file: ' + program.config);
   configFile = program.config;
 } else {
-  LoggingManager.system('APP', 'main', 'Using pre-packaged config file');
-  configFile = path.join(__dirname, '..', 'system.json');
+  LoggingManager.fatal('APP', 'main', 'Error: No config file specified!');
+  LoggingManager.fatal('APP', 'main', 'Use --config [file] to specify a config file or --newconfig [file] to create one.');
+  process.exit(1);
 }
 
 // Set configFile reference for use by the servers later on
@@ -53,7 +94,7 @@ LoggingManager.system('APP', 'main', 'Reading config file: ' + configFile);
 try {
   config = fs.readFileSync(configFile, { encoding: 'utf8' });
 } catch (error) {
-  LoggingManager.fatal('APP', 'main', 'Failed to read config file.');
+  LoggingManager.fatal('APP', 'main', 'Error: Failed to read config file.');
   LoggingManager.fatal('APP', 'main', error);
   process.exit(1);
 }

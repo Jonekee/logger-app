@@ -28,15 +28,13 @@ You can access the app settings through the web UI. There you can change various
 So if you don't want to have to manually edit any config, start the app, make your changes through the UI and then restart the app for them to take effect.
 *Note:* Only port value changes need an app restart.
 
-### 2. Pre-packaged config file
+### 2. External config file
 
-When installed the app comes with a default config file, stored in the root NPM module folder. This file is called `system.json`. This file is automatically used by the app if no command-line override is given. You can manually make your config changes here and restart the app for them to take effect. If any essential properties are missing from this file then they will be created with default values on startup.
+You must use the command-line parameter `--config [file]` or `-c [file]` to specify specific config file to be used. This must be a JSON file and can be stored anywhere that the app process has access to. If any essential properties are missing from this file they will be created with default values on startup.
 
-### 3. External config file
+If you need to create a new config file you can generate one using the command `--newconfig [file]` or `-n [file]`.
 
-You can use the command-line parameter `--config [file]` or `-c [file]` to specify specific config file to be used instead to the pre-packaged file. This file should contain the same properties as the pre-packaged file, so take a copy of that if you need to create one. This must be a JSON file and can be stored anywhere that the app process has access to. If any essential properties are missing from this file then they will be created with default values on startup.
-
-### 4. Command-line overrides
+### 3. Command-line overrides
 
 You can override app config values by passing command line arguments, either `--port [port]` and `--apiport [apiport]` or `-p [port]` and `-a [apiport]`. These settings can be used along side a config file but will always override the values found there.
 
