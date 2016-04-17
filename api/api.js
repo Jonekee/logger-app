@@ -101,10 +101,14 @@ if (config.apiPort) {
 
     socket.on('attachLogListener', data => {
       LoggingManager.trace('API', 'main', 'SOCKET attachLogListener: ' + JSON.stringify(data));
-      TailHelper.attachListener(io, socket, data.logId);
-      socketSessions[socket.id].push({
-        logId: data.logId
-      });
+      const error = TailHelper.attachListener(io, socket, data.logId);
+      if (!error) {
+        socketSessions[socket.id].push({
+          logId: data.logId
+        });
+      } else {
+        socket.emit('tail:failure', { ...error, ...data });
+      }
     });
 
     socket.on('detachLogListener', data => {

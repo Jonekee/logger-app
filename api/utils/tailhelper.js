@@ -9,7 +9,17 @@ export default {
     const file = SystemHelper.getLogFile(logId);
     if (!activeSessions[file]) {
       LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for file: ' + file);
-      const tailer = new Tail(file);
+
+      let tailer;
+      try {
+        tailer = new Tail(file);
+      } catch (error) {
+        LoggingManager.error('TailHelper', 'attachListener', `Cannot tail file: ${file}`);
+        LoggingManager.error('TailHelper', 'attachListener', `Error code: ${error.code}`);
+        return {
+          errorCode: error.code
+        };
+      }
 
       tailer.on('error', error => {
         LoggingManager.debug('TailHelper', 'tailerOnError', 'For file: ' + file + ' - ' + error);
@@ -27,10 +37,13 @@ export default {
         listeners: 0,
         tailer
       };
+
     }
 
     activeSessions[file].listeners++;
     socket.join('listenerFor_' + file);
+
+    return null;
   },
   detachListener(socket, logId) {
     const file = SystemHelper.getLogFile(logId);
