@@ -34,7 +34,7 @@ const DELETE_LOG_SUCCESS = 'logger-app/logs/DELETE_LOG_SUCCESS';
 const DELETE_LOG_FAIL = 'logger-app/logs/DELETE_LOG_FAIL';
 
 // Socket Events
-import { NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
+import { GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
 /* eslint-disable */
 const LOG_NAME_CHANGE_EMITTED = 'logger-app/logs/LOG_NAME_CHANGE_EMITTED';
 /* eslint-enable */
@@ -212,6 +212,16 @@ export default function logs(state = initialState, action = {}) {
       return {
         ...state,
         data: others
+      };
+    case GROUP_DELETE_EMITTED:
+      let { ...savedLogs } = state.data;
+      action.logIds.forEach(logId => {
+        const {[logId]: omitLog, ...nextSavedLogs} = savedLogs;
+        savedLogs = nextSavedLogs;
+      });
+      return {
+        ...state,
+        data: savedLogs
       };
     case ACTIVATE_LOG:
     case PAUSE_LOG:

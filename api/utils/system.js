@@ -150,10 +150,15 @@ class SystemHelper {
 
   deleteGroup = (groupId) => {
     LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
+    const logIds = this.system.groups[groupId].logs;
+    this.system.groups[groupId].logs.forEach(logId => {
+      delete this.system.logs[logId];
+    });
     delete this.system.groups[groupId];
     return this.saveConfigToDisk().then(() => {
       // Emit deleted group to all sessions including the guy that deleted the group
-      this.socketio.emit('group:groupDelete', { groupId });
+      LoggingManager.debug('SystemHelper', 'deleteGroup', `Emitting delete group for: ${groupId}`);
+      this.socketio.emit('group:groupDelete', { groupId, logIds });
     });
   };
 
