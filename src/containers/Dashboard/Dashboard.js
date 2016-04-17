@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { isLoaded as isGroupsLoaded, load as loadGroups, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted } from '../../redux/modules/groups';
-import { isLoaded as isLogsLoaded, load as loadLogs, addLineToLog } from '../../redux/modules/logs';
+import { isLoaded as isLogsLoaded, load as loadLogs, addLineToLog, setTailError } from '../../redux/modules/logs';
+import { newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
 import {isLoaded as isSystemSettingsLoaded, load as loadSystemSettings, clearError as clearAppSettingsError} from '../../redux/modules/appManagement';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
@@ -30,7 +31,7 @@ function fetchData(getState, dispatch) {
     logs: state.logs.data,
     appSettingsError: state.appManagement.error
   }),
-  { addLineToLog, clearAppSettingsError, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted })
+  { addLineToLog, clearAppSettingsError, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, setTailError })
 export default class Dashboard extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -42,7 +43,10 @@ export default class Dashboard extends Component {
     groups: PropTypes.object.isRequired,
     logs: PropTypes.object.isRequired,
     appSettingsError: PropTypes.array,
-    clearAppSettingsError: PropTypes.func.isRequired
+    clearAppSettingsError: PropTypes.func.isRequired,
+    newLogEmitted: PropTypes.func.isRequired,
+    logDeleteEmitted: PropTypes.func.isRequired,
+    setTailError: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -63,6 +67,19 @@ export default class Dashboard extends Component {
 
     socket.on('group:groupDelete', data => {
       this.props.groupDeleteEmitted(data.groupId, data.groupName);
+    });
+
+    socket.on('log:newLog', data => {
+      // Wrapping ids in template string to make sure they are used as strings
+      this.props.newLogEmitted(`${data.newLogId}`, data.logName, `${data.groupId}`, data.logFile, data.logPath);
+    });
+
+    socket.on('log:logDelete', data => {
+      this.props.logDeleteEmitted(data.groupId, data.logId);
+    });
+
+    socket.on('tail:failure', data => {
+      this.props.setTailError(data.logId, data.errorCode);
     });
   }
 
