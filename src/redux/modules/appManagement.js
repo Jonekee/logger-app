@@ -110,7 +110,7 @@ export default function appManagement(state = initialState, action = {}) {
 }
 
 export function isLoaded(globalState) {
-  return globalState.system && globalState.system.loaded;
+  return globalState.appManagement && globalState.appManagement.loaded;
 }
 
 export function load() {
