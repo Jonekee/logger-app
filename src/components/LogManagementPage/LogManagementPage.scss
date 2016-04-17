@@ -60,10 +60,15 @@
 
   li {
     display: block;
-    background: #eee;
+
+    & > div {
+      background: #eee;
+    }
 
     &:nth-of-type(2n) {
-      background: #f9f9f9;
+      & > div {
+        background: #f9f9f9;
+      }
     }
   }
 
@@ -131,6 +136,10 @@
       display: flex;
       flex-direction: row;
 
+      form {
+        margin-right: 24px;
+      }
+
       div:first-of-type {
         flex-grow: 1;
       }
@@ -162,7 +171,7 @@
 
       input {
         &:not(:first-of-type) {
-          width: 360px;
+          width: 100%;
         }
       }
 
