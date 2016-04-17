@@ -28,6 +28,7 @@ export default class LogManagementPage extends Component {
     const { groups, logs, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog, toggleDeleteLogOpen, deleteLog } = this.props;
 
     const fullLogList = [];
+    let groupIdsAlphabetically;
 
     const groupOptionsList = [{
       text: 'Select a group',
@@ -49,16 +50,22 @@ export default class LogManagementPage extends Component {
             groupId
           });
         });
+      } else {
+        // Sort log IDs alphabetically by log name
+        groups[groupId].logs = groups[groupId].logs
+          .map(logId => ({ logId, name: logs[logId].name }))
+          .sort((first, second) => (first.name > second.name))
+          .map(obj => obj.logId);
       }
     });
 
-    const groupIdsAlphabetically = Object.keys(groups)
-      .map(groupId => ({ groupId, name: groups[groupId].name }))
-      .sort((first, second) => (first.name > second.name))
-      .map(obj => obj.groupId);
-
     if (!logManagementState.sortByGroup) {
       fullLogList.sort((first, second) => (first.name > second.name));
+    } else {
+      groupIdsAlphabetically = Object.keys(groups)
+       .map(groupId => ({ groupId, name: groups[groupId].name }))
+       .sort((first, second) => (first.name > second.name))
+       .map(obj => obj.groupId);
     }
 
     return (
