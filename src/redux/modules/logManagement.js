@@ -14,7 +14,9 @@ const initialState = {
   savingNewLog: false,
   errorSavingNewLog: false,
   newLogName: '',
-  newLogGroup: '-1'
+  newLogGroup: '-1',
+  newLogFile: '',
+  newLogPath: ''
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -61,7 +63,10 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         inputingNewLog: false,
         savingNewLog: false,
-        newLogName: ''
+        newLogName: '',
+        newLogGroup: '-1',
+        newLogFile: '',
+        newLogPath: ''
       };
     case CREATE_NEW_LOG_FAIL:
       return {
