@@ -88,7 +88,7 @@ export default class GroupManagementPage extends Component {
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: newGroupControls.inputingNewGroup })}>
                 <div className={styles.lhs}>
                   <form onSubmit={(event) => { createNewGroup(newGroupControls.newGroupName); event.preventDefault(); return false; }}>
-                    <input type="text" maxLength="15" placeholder="New group name" className={classnames({ [styles.invalid]: newGroupControls.errorSavingNewGroup })} value={newGroupControls.newGroupName} onChange={(event) => setNewGroupName(event.target.value)} />
+                    <input type="text" placeholder="New group name" maxLength="15" className={classnames({ [styles.invalid]: newGroupControls.errorSavingNewGroup })} value={newGroupControls.newGroupName} onChange={(event) => setNewGroupName(event.target.value)} />
                   </form>
                 </div>
                 <div className={styles.actions}>
@@ -123,7 +123,7 @@ export default class GroupManagementPage extends Component {
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: groups[groupId].editNameOpen })}>
                 <div className={styles.lhs}>
                   <form onSubmit={(event) => { saveGroupName(groupId, groups[groupId].editedName); event.preventDefault(); return false; }}>
-                    <input type="text" maxLength="15" placeholder="Group name" className={classnames({ [styles.invalid]: groups[groupId].editedNameHasError })} value={groups[groupId].editedName} onChange={(event) => setEditedName(groupId, event.target.value)}/>
+                    <input type="text" placeholder="Group name" maxLength="15" className={classnames({ [styles.invalid]: groups[groupId].editedNameHasError })} value={groups[groupId].editedName} onChange={(event) => setEditedName(groupId, event.target.value)}/>
                   </form>
                 </div>
                 <div className={styles.actions}>
