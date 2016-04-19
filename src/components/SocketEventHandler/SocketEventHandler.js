@@ -42,7 +42,7 @@ export default class SocketEventHandler extends Component {
   newGroupEmitted = (data) => this.props.newGroupEmitted(data.newGroupId, data.newGroupName);
   groupNameChangeEmitted = (data) => this.props.groupNameChangeEmitted(data.groupId, data.newName, data.oldName);
   groupDeleteEmitted = (data) => this.props.groupDeleteEmitted(data.groupId, data.logIds, data.groupName);
-  newLogEmitted = (data) => this.props.newLogEmitted(`${data.newLogId}`, data.logName, `${data.groupId}`, data.logFile, data.logPath);
+  newLogEmitted = (data) => this.props.newLogEmitted(`${data.newLogId}`, data.logName, `${data.groupId}`, data.logFile, data.logPath, data.groupName);
   logDeleteEmitted = (data) => this.props.logDeleteEmitted(data.groupId, data.logId);
 
   render() {

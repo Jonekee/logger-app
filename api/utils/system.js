@@ -199,9 +199,10 @@ class SystemHelper {
     };
     // Add reference in group
     this.system.groups[groupId].logs.push(`${newLogId}`);
+    const groupName = this.system.groups[groupId].name;
     return this.saveConfigToDisk().then(() => {
       // Emit new log to all sessions including the guy that created the log
-      this.socketio.emit('log:newLog', { newLogId, logName, groupId, logFile, logPath });
+      this.socketio.emit('log:newLog', { newLogId, logName, groupId, logFile, logPath, groupName });
     });
   };
 

@@ -31,14 +31,15 @@ export function groupDeleteEmitted(groupId, logIds, groupName) {
   };
 }
 
-export function newLogEmitted(newLogId, logName, groupId, logFile, logPath) {
+export function newLogEmitted(newLogId, logName, groupId, logFile, logPath, groupName) {
   return {
     type: NEW_LOG_EMITTED,
     newLogId,
     logName,
     groupId,
     logFile,
-    logPath
+    logPath,
+    groupName
   };
 }
 
