@@ -23,5 +23,7 @@ export LogPageHeader from './LogPageHeader/LogPageHeader';
 export NavPanel from './NavPanel/NavPanel';
 export NavPanelGroup from './NavPanelGroup/NavPanelGroup';
 export NavPanelGroupItem from './NavPanelGroupItem/NavPanelGroupItem';
+export Notification from './Notification/Notification';
+export NotificationArea from './NotificationArea/NotificationArea';
 export SocketEventHandler from './SocketEventHandler/SocketEventHandler';
 export SvgStore from './SvgStore/SvgStore';

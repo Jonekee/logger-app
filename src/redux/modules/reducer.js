@@ -5,6 +5,7 @@ import appInterface from './appInterface';
 import auth from './auth';
 import groups from './groups';
 import logs from './logs';
+import notifications from './notifications';
 import groupManagement from './groupManagement';
 import logManagement from './logManagement';
 import appManagement from './appManagement';
@@ -15,6 +16,7 @@ export default combineReducers({
   auth,
   groups,
   logs,
+  notifications,
   groupManagement,
   logManagement,
   appManagement

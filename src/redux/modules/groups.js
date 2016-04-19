@@ -20,8 +20,7 @@ const DELETE_GROUP_FAIL = 'logger-app/groups/DELETE_GROUP_FAIL';
 
 // Socket Events
 const NEW_GROUP_EMITTED = 'logger-app/groups/NEW_GROUP_EMITTED';
-const GROUP_NAME_CHANGE_EMITTED = 'logger-app/groups/GROUP_NAME_CHANGE_EMITTED';
-import { GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
+import { GROUP_NAME_CHANGE_EMITTED, GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
 
 
 const initialState = {

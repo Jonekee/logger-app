@@ -4,7 +4,7 @@ import { isLoaded as isLogsLoaded, load as loadLogs } from '../../redux/modules/
 import { isLoaded as isAppSettingsLoaded, load as loadAppSettings, clearError as clearAppSettingsError } from '../../redux/modules/appManagement';
 import connectData from '../../helpers/connectData';
 import { connect } from 'react-redux';
-import { NavPanel, ErrorPanel, SocketEventHandler } from '../../components';
+import { NavPanel, NotificationArea, SocketEventHandler } from '../../components';
 import styles from './Dashboard.scss';
 
 
@@ -48,8 +48,8 @@ export default class Dashboard extends Component {
         <SocketEventHandler />
         <NavPanel authEnabled={authEnabled} groups={groups} logs={logs} />
         <main>
-          <ErrorPanel appSettingsError={appSettingsError} clearAppSettingsError={clearAppSettingsError}/>
           {this.props.children}
+          <NotificationArea/>
         </main>
       </div>
     );
