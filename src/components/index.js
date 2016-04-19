@@ -5,7 +5,6 @@ export AppManagementPage from './AppManagementPage/AppManagementPage';
 export ControlButton from './ControlButton/ControlButton';
 export DashboardPage from './DashboardPage/DashboardPage';
 export DropDown from './DropDown/DropDown';
-export ErrorPanel from './ErrorPanel/ErrorPanel';
 export GroupManagementPage from './GroupManagementPage/GroupManagementPage';
 export GroupNotFoundPage from './GroupNotFoundPage/GroupNotFoundPage';
 export GroupPage from './GroupPage/GroupPage';
