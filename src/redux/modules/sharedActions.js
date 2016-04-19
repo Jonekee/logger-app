@@ -43,10 +43,12 @@ export function newLogEmitted(newLogId, logName, groupId, logFile, logPath, grou
   };
 }
 
-export function logDeleteEmitted(groupId, logId) {
+export function logDeleteEmitted(groupId, logId, logName, groupName) {
   return {
     type: LOG_DELETE_EMITTED,
     groupId,
-    logId
+    logId,
+    logName,
+    groupName
   };
 }
