@@ -1,5 +1,7 @@
 .logManagementPageLogPanel {
   position: relative;
+  min-height: 58px;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
   .basePanel {
     box-sizing: border-box;
@@ -75,6 +77,96 @@
     p {
       font-size: 16px;
       margin-left: 5px;
+    }
+  }
+
+  .formContainer {
+    display: flex;
+    flex-direction: row;
+
+    form {
+      margin-right: 24px;
+    }
+
+    div:first-of-type {
+      flex-grow: 1;
+    }
+
+    select, input {
+      box-sizing: border-box;
+      background: none;
+      border: none;
+      border-bottom: 1px solid #777;
+      padding: 4px;
+      display: block;
+      margin-bottom: 8px;
+      width: 188px;
+
+      &.invalid {
+        border-color: #F44336;
+      }
+    }
+
+    select {
+      appearance:none;
+      border-radius: 0px;
+      font-size: 15px;
+
+      &.default {
+        color: #a9a9a9;
+      }
+    }
+
+    input {
+      &:not(:first-of-type) {
+        width: 100%;
+      }
+    }
+
+    .actions {
+      button {
+        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+        svg {
+          padding: 6px;
+          width: 16px;
+          height: 16px;
+        }
+
+        &:hover {
+          background: #ddd;
+        }
+      }
+    }
+  }
+
+  .selectStyling {
+    display: block;
+    width: 188px;
+    border: none;
+
+    &.placeholderColour select {
+      color: #a9a9a9;
+    }
+
+    select {
+      line-height: 20px;
+    }
+
+    svg {
+      width: 10px;
+      right: 6px;
+      top: 10px;
+    }
+  }
+
+  &.formOpen {
+    min-height: 167px;
+
+    .formContainer {
+      pointer-events: all;
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }

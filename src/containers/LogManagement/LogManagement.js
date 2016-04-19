@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog } from '../../redux/modules/logManagement';
-import { toggleDeleteLogOpen, deleteLog } from '../../redux/modules/logs';
 import {connect} from 'react-redux';
 import { LogManagementPage } from '../../components';
 
@@ -10,7 +9,7 @@ import { LogManagementPage } from '../../components';
     logs: state.logs.data,
     logManagementState: state.logManagement
   }),
-  { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog, toggleDeleteLogOpen, deleteLog })
+  { toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog })
 export default class LogManagement extends Component {
   static propTypes = {
     groups: PropTypes.object.isRequired,
@@ -21,9 +20,7 @@ export default class LogManagement extends Component {
     setNewLogName: PropTypes.func.isRequired,
     setNewLogGroup: PropTypes.func.isRequired,
     setNewLogFile: PropTypes.func.isRequired,
-    setNewLogPath: PropTypes.func.isRequired,
-    toggleDeleteLogOpen: PropTypes.func.isRequired,
-    deleteLog: PropTypes.func.isRequired
+    setNewLogPath: PropTypes.func.isRequired
   };
 
   render() {

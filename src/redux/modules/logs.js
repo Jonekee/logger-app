@@ -21,11 +21,9 @@ const SET_EDITED_NAME = 'logger-app/logs/SET_EDITED_NAME';
 const SET_EDITED_GROUP = 'logger-app/logs/SET_EDITED_GROUP';
 const SET_EDITED_FILE = 'logger-app/logs/SET_EDITED_FILE';
 const SET_EDITED_PATH = 'logger-app/logs/SET_EDITED_PATH';
-/* eslint-disable */
 const SAVE_LOG_CHANGES = 'logger-app/logs/SAVE_LOG_CHANGES';
 const SAVE_LOG_CHANGES_SUCCESS = 'logger-app/logs/SAVE_LOG_CHANGES_SUCCESS';
 const SAVE_LOG_CHANGES_FAIL = 'logger-app/logs/SAVE_LOG_CHANGES_FAIL';
-/* eslint-enable */
 
 // Delete Group
 const TOGGLE_DELETE_LOG_OPEN = 'logger-app/logs/TOGGLE_DELETE_LOG_OPEN';
@@ -35,9 +33,6 @@ const DELETE_LOG_FAIL = 'logger-app/logs/DELETE_LOG_FAIL';
 
 // Socket Events
 import { GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
-/* eslint-disable */
-const LOG_NAME_CHANGE_EMITTED = 'logger-app/logs/LOG_NAME_CHANGE_EMITTED';
-/* eslint-enable */
 
 const initialState = {
   loaded: false
@@ -55,10 +50,11 @@ const applyDefaultLogValues = (log) => ({
   tailError: null,
   // Log Management Page Variables
   editPanelOpen: false,
-  editedName: false,
-  editedGroup: '-1',
-  editedFile: false,
-  editedPath: false,
+  editedName: log.name,
+  editedGroup: null,
+  editedFile: log.fname,
+  editedPath: log.fpath,
+  editSaving: false,
   deletePanelOpen: false,
   deleteSaving: false
 });
@@ -339,6 +335,54 @@ export function setTailError(logId, tailError) {
 export function toggleEditOpen(logId) {
   return {
     type: TOGGLE_EDIT_OPEN,
+    logId
+  };
+}
+
+export function setEditedName(logId, editedName) {
+  return {
+    type: SET_EDITED_NAME,
+    logId,
+    editedName
+  };
+}
+
+export function setEditedGroup(logId, editedGroup) {
+  return {
+    type: SET_EDITED_GROUP,
+    logId,
+    editedGroup
+  };
+}
+
+export function setEditedPath(logId, editedPath) {
+  return {
+    type: SET_EDITED_PATH,
+    logId,
+    editedPath
+  };
+}
+
+export function setEditedFile(logId, editedFile) {
+  return {
+    type: SET_EDITED_FILE,
+    logId,
+    editedFile
+  };
+}
+
+export function saveLogChanges(logId, editedName, editedGroup, editedFile, editedPath) {
+  return {
+    types: [SAVE_LOG_CHANGES, SAVE_LOG_CHANGES_SUCCESS, SAVE_LOG_CHANGES_FAIL],
+    promise: (client) => client.post('/system/saveLogChanges', {
+      data: {
+        logId,
+        editedName,
+        editedGroup,
+        editedFile,
+        editedPath
+      }
+    }),
     logId
   };
 }

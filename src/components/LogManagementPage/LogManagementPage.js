@@ -15,9 +15,7 @@ export default class LogManagementPage extends Component {
     setNewLogGroup: PropTypes.func.isRequired,
     setNewLogFile: PropTypes.func.isRequired,
     setNewLogPath: PropTypes.func.isRequired,
-    createNewLog: PropTypes.func.isRequired,
-    deleteLog: PropTypes.func.isRequired,
-    toggleDeleteLogOpen: PropTypes.func.isRequired
+    createNewLog: PropTypes.func.isRequired
   };
 
   componentDidUpdate() {
@@ -25,7 +23,7 @@ export default class LogManagementPage extends Component {
   }
 
   render() {
-    const { groups, logs, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog, toggleDeleteLogOpen, deleteLog } = this.props;
+    const { groups, logs, logManagementState, toggleSortByGroup, toggleInputingNewGroup, setNewLogName, setNewLogGroup, setNewLogFile, setNewLogPath, createNewLog } = this.props;
 
     const fullLogList = [];
     let groupIdsAlphabetically;
@@ -116,7 +114,7 @@ export default class LogManagementPage extends Component {
                   <h3>{groups[groupId].name}</h3>
                   <ol>
                     {groups[groupId].logs.length > 0
-                      ? groups[groupId].logs.map(logId => (<li key={logId}><LogManagementPageLogPanel groupId={groupId} logId={logId} log={logs[logId]} toggleDeleteLogOpen={toggleDeleteLogOpen} deleteLog={deleteLog}/></li>))
+                      ? groups[groupId].logs.map(logId => (<li key={logId}><LogManagementPageLogPanel groupId={groupId} logId={logId} log={logs[logId]} groupOptionsList={groupOptionsList}/></li>))
                       : (
                         <li className={styles.noLogsLine}><p>There are no logs in this group</p></li>
                       )
@@ -126,7 +124,7 @@ export default class LogManagementPage extends Component {
               ))
               : (
                 <ol className={styles.singleList}>
-                  {fullLogList.map(log => (<li key={log.logId}><LogManagementPageLogPanel groupName={groups[log.groupId].name} groupId={log.groupId} logId={log.logId} log={log} toggleDeleteLogOpen={toggleDeleteLogOpen} deleteLog={deleteLog}/></li>))}
+                  {fullLogList.map(log => (<li key={log.logId}><LogManagementPageLogPanel groupName={groups[log.groupId].name} groupId={log.groupId} logId={log.logId} log={log} groupOptionsList={groupOptionsList}/></li>))}
                 </ol>
               )
             }
