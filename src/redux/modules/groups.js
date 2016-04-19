@@ -19,8 +19,7 @@ const DELETE_GROUP_SUCCESS = 'logger-app/groups/DELETE_GROUP_SUCCESS';
 const DELETE_GROUP_FAIL = 'logger-app/groups/DELETE_GROUP_FAIL';
 
 // Socket Events
-const NEW_GROUP_EMITTED = 'logger-app/groups/NEW_GROUP_EMITTED';
-import { GROUP_NAME_CHANGE_EMITTED, GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
+import { NEW_GROUP_EMITTED, GROUP_NAME_CHANGE_EMITTED, GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
 
 
 const initialState = {
@@ -254,21 +253,5 @@ export function deleteGroup(groupId) {
       }
     }),
     groupId
-  };
-}
-
-export function newGroupEmitted(newGroupId, newGroupName) {
-  return {
-    type: NEW_GROUP_EMITTED,
-    newGroupId,
-    newGroupName
-  };
-}
-
-export function groupNameChangeEmitted(groupId, newName) {
-  return {
-    type: GROUP_NAME_CHANGE_EMITTED,
-    groupId,
-    newName
   };
 }

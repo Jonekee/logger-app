@@ -1,8 +1,7 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { newGroupEmitted } from '../../redux/modules/groups';
 import { addLineToLog, setTailError } from '../../redux/modules/logs';
-import { groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
+import { newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
 
 @connect(null, { addLineToLog, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, setTailError })
 export default class SocketEventHandler extends Component {
