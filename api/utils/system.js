@@ -130,11 +130,12 @@ class SystemHelper {
   };
 
   updateGroupName = (groupId, newName) => {
-    LoggingManager.debug('SystemHelper', 'updateGroupName', `Updating group name using groupId: ${groupId} and newName: ${newName}`);
+    const oldName = this.system.groups[groupId].name;
+    LoggingManager.debug('SystemHelper', 'updateGroupName', `Updating group name using groupId: ${groupId} from "${oldName}" to newName: ${newName}`);
     this.system.groups[groupId].name = newName;
     return this.saveConfigToDisk().then(() => {
       // Emit updated group to all sessions including the guy that updated the group
-      this.socketio.emit('group:nameChange', { groupId, newName });
+      this.socketio.emit('group:nameChange', { groupId, newName, oldName });
     });
   };
 
@@ -150,6 +151,7 @@ class SystemHelper {
 
   deleteGroup = (groupId) => {
     LoggingManager.debug('SystemHelper', 'deleteGroup', `Deleting group using groupId: ${groupId}`);
+    const groupName = this.system.groups[groupId].name;
     const logIds = this.system.groups[groupId].logs;
     this.system.groups[groupId].logs.forEach(logId => {
       delete this.system.logs[logId];
@@ -158,7 +160,7 @@ class SystemHelper {
     return this.saveConfigToDisk().then(() => {
       // Emit deleted group to all sessions including the guy that deleted the group
       LoggingManager.debug('SystemHelper', 'deleteGroup', `Emitting delete group for: ${groupId}`);
-      this.socketio.emit('group:groupDelete', { groupId, logIds });
+      this.socketio.emit('group:groupDelete', { groupId, logIds, groupName });
     });
   };
 

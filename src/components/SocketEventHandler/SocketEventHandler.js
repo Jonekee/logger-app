@@ -1,8 +1,8 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { newGroupEmitted, groupNameChangeEmitted } from '../../redux/modules/groups';
+import { newGroupEmitted } from '../../redux/modules/groups';
 import { addLineToLog, setTailError } from '../../redux/modules/logs';
-import { groupDeleteEmitted, newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
+import { groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
 
 @connect(null, { addLineToLog, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, setTailError })
 export default class SocketEventHandler extends Component {
@@ -41,8 +41,8 @@ export default class SocketEventHandler extends Component {
   setTailError = (data) => this.props.setTailError(data.logId, data.errorCode);
   addLineToLog = (data) => this.props.addLineToLog(data.logId, data.newLine);
   newGroupEmitted = (data) => this.props.newGroupEmitted(data.newGroupId, data.newGroupName);
-  groupNameChangeEmitted = (data) => this.props.groupNameChangeEmitted(data.groupId, data.newName);
-  groupDeleteEmitted = (data) => this.props.groupDeleteEmitted(data.groupId, data.logIds);
+  groupNameChangeEmitted = (data) => this.props.groupNameChangeEmitted(data.groupId, data.newName, data.oldName);
+  groupDeleteEmitted = (data) => this.props.groupDeleteEmitted(data.groupId, data.logIds, data.groupName);
   newLogEmitted = (data) => this.props.newLogEmitted(`${data.newLogId}`, data.logName, `${data.groupId}`, data.logFile, data.logPath);
   logDeleteEmitted = (data) => this.props.logDeleteEmitted(data.groupId, data.logId);
 
