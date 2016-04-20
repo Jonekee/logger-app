@@ -14,12 +14,12 @@
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom;
   opacity: 1;
-  height: 0px;
   min-height: 44px;
 
   p {
     flex-grow: 1;
     font-size: 14px;
+    margin: 4px 0;
   }
 
   svg {
