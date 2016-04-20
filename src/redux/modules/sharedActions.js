@@ -1,9 +1,17 @@
-export const NEW_GROUP_EMITTED = 'logger-app/groups/NEW_GROUP_EMITTED';
-export const GROUP_NAME_CHANGE_EMITTED = 'logger-app/groups/GROUP_NAME_CHANGE_EMITTED';
+// Socket events
+export const NEW_GROUP_EMITTED = 'logger-app/sharedActions/NEW_GROUP_EMITTED';
+export const GROUP_NAME_CHANGE_EMITTED = 'logger-app/sharedActions/GROUP_NAME_CHANGE_EMITTED';
 export const GROUP_DELETE_EMITTED = 'logger-app/sharedActions/GROUP_DELETE_EMITTED';
 export const NEW_LOG_EMITTED = 'logger-app/sharedActions/NEW_LOG_EMITTED';
 export const LOG_DELETE_EMITTED = 'logger-app/sharedActions/LOG_DELETE_EMITTED';
 
+// API events
+export const CREATE_NEW_GROUP_FAIL = 'logger-app/sharedActions/CREATE_NEW_GROUP_FAIL';
+export const SAVE_GROUP_NAME_FAIL = 'logger-app/sharedActions/SAVE_GROUP_NAME_FAIL';
+export const DELETE_GROUP_FAIL = 'logger-app/sharedActions/DELETE_GROUP_FAIL';
+// App Management events
+export const APP_MANAGMENT_SAVE_SUCCESS = 'logger-app/sharedActions/SAVE_SUCCESS';
+export const APP_MANAGMENT_SAVE_FAIL = 'logger-app/sharedActions/SAVE_FAIL';
 
 export function newGroupEmitted(newGroupId, newGroupName) {
   return {

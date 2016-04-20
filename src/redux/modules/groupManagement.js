@@ -1,8 +1,9 @@
 const SET_NEW_GROUP_NAME = 'logger-app/groupManagement/SET_NEW_GROUP_NAME';
 const TOGGLE_INPUTING_NEW_GROUP = 'logger-app/groupManagement/TOGGLE_INPUTING_NEW_GROUP';
 const CREATE_NEW_GROUP = 'logger-app/groupManagement/CREATE_NEW_GROUP';
-const CREATE_NEW_GROUP_FAIL = 'logger-app/groupManagement/CREATE_NEW_GROUP_FAIL';
 const CREATE_NEW_GROUP_SUCCESS = 'logger-app/groupManagement/CREATE_NEW_GROUP_SUCCESS';
+
+import { CREATE_NEW_GROUP_FAIL } from './sharedActions.js';
 
 const initialState = {
   inputingNewGroup: false,

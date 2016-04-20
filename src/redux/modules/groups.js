@@ -11,15 +11,21 @@ const TOGGLE_EDIT_NAME_OPEN = 'logger-app/groups/TOGGLE_EDIT_NAME_OPEN';
 const SET_EDITED_NAME = 'logger-app/groups/SET_EDITED_NAME';
 const SAVE_GROUP_NAME = 'logger-app/groups/SAVE_GROUP_NAME';
 const SAVE_GROUP_NAME_SUCCESS = 'logger-app/groups/SAVE_GROUP_NAME_SUCCESS';
-const SAVE_GROUP_NAME_FAIL = 'logger-app/groups/SAVE_GROUP_NAME_FAIL';
 // Delete Group
 const TOGGLE_DELETE_GROUP_OPEN = 'logger-app/groups/TOGGLE_DELETE_GROUP_OPEN';
 const DELETE_GROUP = 'logger-app/groups/DELETE_GROUP';
 const DELETE_GROUP_SUCCESS = 'logger-app/groups/DELETE_GROUP_SUCCESS';
-const DELETE_GROUP_FAIL = 'logger-app/groups/DELETE_GROUP_FAIL';
 
-// Socket Events
-import { NEW_GROUP_EMITTED, GROUP_NAME_CHANGE_EMITTED, GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
+// Shared Socket and API Events
+import {
+  NEW_GROUP_EMITTED,
+  GROUP_NAME_CHANGE_EMITTED,
+  GROUP_DELETE_EMITTED,
+  NEW_LOG_EMITTED,
+  LOG_DELETE_EMITTED,
+  SAVE_GROUP_NAME_FAIL,
+  DELETE_GROUP_FAIL
+} from './sharedActions.js';
 
 
 const initialState = {

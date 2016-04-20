@@ -5,10 +5,13 @@ const EDIT_WEB_PORT = 'logger-app/appManagement/EDIT_WEB_PORT';
 const EDIT_API_PORT = 'logger-app/appManagement/EDIT_API_PORT';
 const EDIT_LOG_LEVEL = 'logger-app/appManagement/EDIT_LOG_LEVEL';
 const RESET_CHANGES = 'logger-app/appManagement/RESET_CHANGES';
-const SAVE = 'logger-app/appManagement/SAVE';
-const SAVE_SUCCESS = 'logger-app/appManagement/SAVE_SUCCESS';
-const SAVE_FAIL = 'logger-app/appManagement/SAVE_FAIL';
+const APP_MANAGMENT_SAVE = 'logger-app/appManagement/SAVE';
 const CLEAR_ERROR = 'logger-app/appManagement/CLEAR_ERROR';
+
+import {
+  APP_MANAGMENT_SAVE_SUCCESS,
+  APP_MANAGMENT_SAVE_FAIL
+} from './sharedActions.js';
 
 const initialState = {
   loaded: false
@@ -76,18 +79,18 @@ export default function appManagement(state = initialState, action = {}) {
           editableLogLevel: state.data.loglevel
         }
       };
-    case SAVE:
+    case APP_MANAGMENT_SAVE:
       return {
         ...state,
         saving: true
       };
-    case SAVE_FAIL:
+    case APP_MANAGMENT_SAVE_FAIL:
       return {
         ...state,
         saving: false,
         error: action.error
       };
-    case SAVE_SUCCESS:
+    case APP_MANAGMENT_SAVE_SUCCESS:
       return {
         ...state,
         saving: false,
@@ -149,7 +152,7 @@ export function resetChanges() {
 
 export function saveChanges(newWebPort, newApiPort, newLogLevel) {
   return {
-    types: [SAVE, SAVE_SUCCESS, SAVE_FAIL],
+    types: [APP_MANAGMENT_SAVE, APP_MANAGMENT_SAVE_SUCCESS, APP_MANAGMENT_SAVE_FAIL],
     promise: (client) => client.post('/system/saveSystemSettings', {
       data: {
         newWebPort,
