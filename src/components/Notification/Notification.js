@@ -66,7 +66,7 @@ export default class Notification extends Component {
 
   closeNotification = () => {
     this.setState({ isClosing: true });
-    setTimeout(() => clearNotification(this.props.position), 500);
+    setTimeout(() => this.props.clearNotification(this.props.position), 500);
   }
 
   render() {

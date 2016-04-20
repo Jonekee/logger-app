@@ -3,7 +3,7 @@ import { Notification } from '../../components';
 import styles from './NotificationArea.scss';
 import { connect } from 'react-redux';
 
-@connect(state => ({ notifications: state.notifications }))
+@connect(state => ({ notifications: state.notifications.list }))
 export default class NotificationArea extends Component {
   static propTypes = {
     notifications: PropTypes.array.isRequired
@@ -22,7 +22,7 @@ export default class NotificationArea extends Component {
 
     return (
       <div className={styles.notificationArea}>
-        {notifications.map((notification, index) => <Notification key={index} notification={notification} position={index}/>)}
+        {notifications.map((notification, index) => <Notification key={notification.id} notification={notification} position={index}/>)}
       </div>
     );
   }
