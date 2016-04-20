@@ -87,7 +87,7 @@ export default class Notification extends Component {
     const endBorderRadius = displayedProgress < 99 ? 0 : (displayedProgress - 99) * 4;
 
     return (
-      <div className={cname} onMouseEnter={this.pauseProgress} onMouseLeave={this.startProgress}>
+      <div className={cname} onMouseEnter={notification.type === 'INFO' && this.pauseProgress} onMouseLeave={notification.type === 'INFO' && this.startProgress}>
         <p>{notification.message}</p>
         <button onClick={this.closeNotification}>
           <Icon iconName="close" />
