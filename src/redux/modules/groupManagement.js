@@ -69,5 +69,6 @@ export function createNewGroup(newGroupName) {
         newGroupName
       }
     }),
+    newGroupName
   };
 }

@@ -70,7 +70,7 @@ export default function notifications(state = initialState, action = {}) {
         ...state,
         {
           type: 'ERROR',
-          'message': `Failed to create new group "${action.groupName}". ${action.errorReason}`
+          'message': `Failed to create new group "${action.newGroupName}". ${action.error.errorReason}`
         }
       ];
     case SAVE_GROUP_NAME_FAIL:

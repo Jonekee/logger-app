@@ -15,12 +15,12 @@ export default function createNewGroup(req) {
           errorField: 'newGroupName',
           errorReason: `No group name was passed to create request.`
         });
-      } else if (newGroupName > 15) {
+      } else if (newGroupName.length > 15) {
         LoggingManager.debug('System', 'createNewGroup', `Invalid group name passed: ${newGroupName}`);
         reject({
           status: 400,
           errorField: 'newGroupName',
-          errorReason: `The group name "${newGroupName}" is invalid. It must be 15 characters or less.`
+          errorReason: `The group name is invalid. It must be 15 characters or less.`
         });
       } else {
         LoggingManager.debug('System', 'createNewGroup', `Creating group using name: ${newGroupName}`);
