@@ -78,7 +78,7 @@ export default function notifications(state = initialState, action = {}) {
         ...state,
         {
           type: 'ERROR',
-          'message': `Failed to save new group name "${action.newGroupName}" for group "${action.groupName}". ${action.errorReason}`
+          'message': `Failed to save new group name "${action.newGroupName}" for group "${action.groupName}". ${action.error.errorReason}`
         }
       ];
     case DELETE_GROUP_FAIL:

@@ -6,22 +6,29 @@ import devDelay from '../../utils/devDelay.js';
 export default function saveGroupName(req) {
   return new Promise((resolve, reject) => {
     return devDelay(2000).then(() => {
-      const { name, groupId } = req.body;
+      const { newGroupName, groupId } = req.body;
 
-      if (!name || name.length > 15) {
-        LoggingManager.debug('System', 'saveGroupName', 'Invalid group name passed: ' + name);
+      if (!newGroupName) {
+        LoggingManager.debug('System', 'saveGroupName', 'Blank group name passed.');
+        reject({
+          status: 400,
+          errorField: 'newGroupName',
+          errorReason: `No group name was passed to edit request.`
+        });
+      } else if (newGroupName.length > 15) {
+        LoggingManager.debug('System', 'saveGroupName', 'Invalid group name passed: ' + newGroupName);
         reject({
           status: 400,
           errorField: 'groupName',
-          errorReason: `The group name "${name}" is invalid. It\'s length must be between 1 and 15 characters.`
+          errorReason: `The group name is invalid. It must be 15 characters or less.`
         });
       } else {
-        LoggingManager.debug('System', 'saveGroupName', `Updating group name using groupId: ${groupId} with new name ${name}`);
-        SystemHelper.updateGroupName(groupId, name)
+        LoggingManager.debug('System', 'saveGroupName', `Updating group name using groupId: ${groupId} with new name ${newGroupName}`);
+        SystemHelper.updateGroupName(groupId, newGroupName)
         .then(() => {
           resolve();
         }, (error) => {
-          LoggingManager.error('System', 'saveGroupName', `Error occured saving group name change for groupId: ${groupId} with new name ${name}`);
+          LoggingManager.error('System', 'saveGroupName', `Error occured saving group name change for groupId: ${groupId} with new name ${newGroupName}`);
           LoggingManager.error('System', 'saveGroupName', error);
           reject({
             status: 500,

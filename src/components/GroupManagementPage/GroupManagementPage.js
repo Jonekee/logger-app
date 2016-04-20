@@ -122,12 +122,12 @@ export default class GroupManagementPage extends Component {
               </div>
               <div className={classnames(styles.editNamePanel, styles.fadeInPanel, { [styles.open]: groups[groupId].editNameOpen })}>
                 <div className={styles.lhs}>
-                  <form onSubmit={(event) => { saveGroupName(groupId, groups[groupId].editedName); event.preventDefault(); return false; }}>
+                  <form onSubmit={(event) => { saveGroupName(groupId, groups[groupId].editedName, groups[groupId].name); event.preventDefault(); return false; }}>
                     <input type="text" placeholder="Group name" maxLength="15" className={classnames({ [styles.invalid]: groups[groupId].editedNameHasError })} value={groups[groupId].editedName} onChange={(event) => setEditedName(groupId, event.target.value)}/>
                   </form>
                 </div>
                 <div className={styles.actions}>
-                  <button onClick={() => saveGroupName(groupId, groups[groupId].editedName)}>
+                  <button onClick={() => saveGroupName(groupId, groups[groupId].editedName, groups[groupId].name)}>
                     <Icon iconName="check"/>
                   </button>
                   <button onClick={() => toggleEditNameOpen(groupId)}>

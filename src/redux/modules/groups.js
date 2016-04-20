@@ -230,16 +230,18 @@ export function setEditedName(groupId, name) {
   };
 }
 
-export function saveGroupName(groupId, name) {
+export function saveGroupName(groupId, newGroupName, groupName) {
   return {
     types: [SAVE_GROUP_NAME, SAVE_GROUP_NAME_SUCCESS, SAVE_GROUP_NAME_FAIL],
     promise: (client) => client.post('/system/saveGroupName', {
       data: {
         groupId,
-        name
+        newGroupName
       }
     }),
-    groupId
+    groupId,
+    newGroupName,
+    groupName
   };
 }
 
