@@ -250,7 +250,7 @@ export function toggleDeleteGroupOpen(groupId) {
   };
 }
 
-export function deleteGroup(groupId) {
+export function deleteGroup(groupId, groupName) {
   return {
     types: [DELETE_GROUP, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAIL],
     promise: (client) => client.post('/system/deleteGroup', {
@@ -258,6 +258,7 @@ export function deleteGroup(groupId) {
         groupId
       }
     }),
-    groupId
+    groupId,
+    groupName
   };
 }

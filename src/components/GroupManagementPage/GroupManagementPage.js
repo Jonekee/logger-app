@@ -145,7 +145,7 @@ export default class GroupManagementPage extends Component {
                   <p>Deleting a group will remove all of its logs!</p>
                 </div>
                 <div className={styles.actions}>
-                  <button onClick={() => deleteGroup(groupId)}>
+                  <button onClick={() => deleteGroup(groupId, groups[groupId].name)}>
                     <Icon iconName="check"/>
                   </button>
                   <button onClick={() => toggleDeleteGroupOpen(groupId)}>
