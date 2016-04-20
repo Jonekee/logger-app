@@ -86,7 +86,7 @@ export default function notifications(state = initialState, action = {}) {
         ...state,
         {
           type: 'ERROR',
-          'message': `Failed to delete group "${action.groupName}". ${action.errorReason}`
+          'message': `Failed to delete group "${action.groupName}". ${action.error.errorReason}`
         }
       ];
     case APP_MANAGMENT_SAVE_SUCCESS:
