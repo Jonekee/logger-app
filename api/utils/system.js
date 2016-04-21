@@ -113,6 +113,10 @@ class SystemHelper {
     });
   };
 
+  getLogNameById = (logId) => {
+    return this.system.logs[logId].name;
+  };
+
   getLogFile = (logId) => {
     const log = this.system.logs[logId];
     return log.fpath + log.fname;

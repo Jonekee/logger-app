@@ -16,8 +16,19 @@ export default {
       } catch (error) {
         LoggingManager.error('TailHelper', 'attachListener', `Cannot tail file: ${file}`);
         LoggingManager.error('TailHelper', 'attachListener', `Error code: ${error.code}`);
+
+        let reason;
+        if (error.code === 'EACCES') {
+          reason = `The server was unable to tail log "${SystemHelper.getLogNameById(logId)}" due to insufficient permissions.`;
+        } else if (error.code === 'ENOENT') {
+          reason = `The log file for "${SystemHelper.getLogNameById(logId)}" could not be found. Please check that the path and name are correct.`;
+        } else {
+          reason = `An error occured trying to tail log "${SystemHelper.getLogNameById(logId)}".`;
+        }
+
         return {
-          errorCode: error.code
+          errorCode: error.code,
+          errorReason: reason
         };
       }
 
