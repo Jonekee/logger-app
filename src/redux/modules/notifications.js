@@ -10,6 +10,7 @@ import {
   CREATE_NEW_GROUP_FAIL,
   SAVE_GROUP_NAME_FAIL,
   DELETE_GROUP_FAIL,
+  DELETE_LOG_FAIL,
   // App Management
   APP_MANAGMENT_SAVE_SUCCESS,
   APP_MANAGMENT_SAVE_FAIL
@@ -137,6 +138,18 @@ export default function notifications(state = initialState, action = {}) {
             id: state.nextId,
             type: 'ERROR',
             'message': `Failed to delete group "${action.groupName}". ${action.error.errorReason}`
+          }
+        ]
+      };
+    case DELETE_LOG_FAIL:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'ERROR',
+            'message': `Failed to delete log "${action.logName}". ${action.error.errorReason}`
           }
         ]
       };

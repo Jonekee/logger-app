@@ -28,14 +28,14 @@ const SAVE_LOG_CHANGES_FAIL = 'logger-app/logs/SAVE_LOG_CHANGES_FAIL';
 const TOGGLE_DELETE_LOG_OPEN = 'logger-app/logs/TOGGLE_DELETE_LOG_OPEN';
 const DELETE_LOG = 'logger-app/logs/DELETE_LOG';
 const DELETE_LOG_SUCCESS = 'logger-app/logs/DELETE_LOG_SUCCESS';
-const DELETE_LOG_FAIL = 'logger-app/logs/DELETE_LOG_FAIL';
 
 // Socket Events
 import {
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
   LOG_DELETE_EMITTED,
-  TAIL_ERROR_EMITTED
+  TAIL_ERROR_EMITTED,
+  DELETE_LOG_FAIL
 } from './sharedActions.js';
 
 const initialState = {
@@ -389,7 +389,7 @@ export function toggleDeleteLogOpen(logId) {
   };
 }
 
-export function deleteLog(groupId, logId) {
+export function deleteLog(groupId, logId, logName) {
   return {
     types: [DELETE_LOG, DELETE_LOG_SUCCESS, DELETE_LOG_FAIL],
     promise: (client) => client.post('/system/deleteLog', {
@@ -398,6 +398,7 @@ export function deleteLog(groupId, logId) {
         logId
       }
     }),
-    logId
+    logId,
+    logName
   };
 }

@@ -93,7 +93,7 @@ export default class LogManagementPageLogPanel extends Component {
             <p>Are you sure you want to delete log: "{log.name}"</p>
           </div>
           <div className={styles.actions}>
-            <button onClick={() => deleteLog(groupId, logId)}>
+            <button onClick={() => deleteLog(groupId, logId, log.name)}>
               <Icon iconName="check"/>
             </button>
             <button onClick={() => toggleDeleteLogOpen(logId)}>
