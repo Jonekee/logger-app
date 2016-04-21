@@ -15,6 +15,7 @@
   transform-origin: bottom;
   opacity: 1;
   min-height: 44px;
+  overflow: inherit;
 
   p {
     flex-grow: 1;
@@ -42,7 +43,9 @@
     transform: scaleY(0);
     opacity: 0;
     min-height: 0px;
-    margin-top: -16px;
+    margin-top: 0;
+    height: 0px;
+    padding: 0px 16px;
   }
 
   &.errorPanel {
