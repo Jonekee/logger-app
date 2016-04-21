@@ -20,7 +20,7 @@ export default function deleteLog(req) {
         reject({
           status: 400,
           errorField: 'logId',
-          errorReason: `No log Id was passed to log delete request.`
+          errorReason: `No log ID was passed to log delete request.`
         });
       } else if (!SystemHelper.groupIdIsValid(groupId)) {
         LoggingManager.debug('System', 'deleteLog', 'Invalid group ID passed: ' + groupId);
