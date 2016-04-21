@@ -5,6 +5,7 @@ import {
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
   LOG_DELETE_EMITTED,
+  TAIL_ERROR_EMITTED,
   // API fails
   CREATE_NEW_GROUP_FAIL,
   SAVE_GROUP_NAME_FAIL,
@@ -88,6 +89,18 @@ export default function notifications(state = initialState, action = {}) {
             id: state.nextId,
             type: 'INFO',
             'message': `Log "${action.logName}" has been deleted from group "${action.groupName}"`
+          }
+        ]
+      };
+    case TAIL_ERROR_EMITTED:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'ERROR',
+            'message': `${action.errorReason} (${action.errorCode})`
           }
         ]
       };

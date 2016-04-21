@@ -12,7 +12,6 @@ const TOGGLE_LOG_EXTRA_ACTIONS_OPEN = 'logger-app/logs/TOGGLE_LOG_EXTRA_ACTIONS_
 
 const ADD_LINE_TO_LOG = 'logger-app/logs/ADD_LINE_TO_LOG';
 const SET_LOG_READ = 'logger-app/logs/SET_LOG_READ';
-const SET_TAIL_ERROR = 'logger-app/logs/SET_TAIL_ERROR';
 
 // Log Management actions
 // Edit Group Name
@@ -32,7 +31,12 @@ const DELETE_LOG_SUCCESS = 'logger-app/logs/DELETE_LOG_SUCCESS';
 const DELETE_LOG_FAIL = 'logger-app/logs/DELETE_LOG_FAIL';
 
 // Socket Events
-import { GROUP_DELETE_EMITTED, NEW_LOG_EMITTED, LOG_DELETE_EMITTED } from './sharedActions.js';
+import {
+  GROUP_DELETE_EMITTED,
+  NEW_LOG_EMITTED,
+  LOG_DELETE_EMITTED,
+  TAIL_ERROR_EMITTED
+} from './sharedActions.js';
 
 const initialState = {
   loaded: false
@@ -114,11 +118,10 @@ const logReducer = (state, action) => {
         ...state,
         hasNew: false
       };
-    case SET_TAIL_ERROR:
+    case TAIL_ERROR_EMITTED:
       return {
         ...state,
-        activeState: 'INACTIVE',
-        tailError: action.tailError
+        activeState: 'INACTIVE'
       };
     case TOGGLE_EDIT_OPEN:
       return {
@@ -228,7 +231,7 @@ export default function logs(state = initialState, action = {}) {
     case TOGGLE_LOG_EXTRA_ACTIONS_OPEN:
     case ADD_LINE_TO_LOG:
     case SET_LOG_READ:
-    case SET_TAIL_ERROR:
+    case TAIL_ERROR_EMITTED:
     case TOGGLE_EDIT_OPEN:
     case SET_EDITED_NAME:
     case SET_EDITED_GROUP:
@@ -321,14 +324,6 @@ export function setLogRead(logId) {
   return {
     type: SET_LOG_READ,
     logId
-  };
-}
-
-export function setTailError(logId, tailError) {
-  return {
-    type: SET_TAIL_ERROR,
-    logId,
-    tailError
   };
 }
 

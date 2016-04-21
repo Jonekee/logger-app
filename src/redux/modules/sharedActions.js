@@ -4,6 +4,7 @@ export const GROUP_NAME_CHANGE_EMITTED = 'logger-app/sharedActions/GROUP_NAME_CH
 export const GROUP_DELETE_EMITTED = 'logger-app/sharedActions/GROUP_DELETE_EMITTED';
 export const NEW_LOG_EMITTED = 'logger-app/sharedActions/NEW_LOG_EMITTED';
 export const LOG_DELETE_EMITTED = 'logger-app/sharedActions/LOG_DELETE_EMITTED';
+export const TAIL_ERROR_EMITTED = 'logger-app/sharedActions/TAIL_ERROR_EMITTED';
 
 // API events
 export const CREATE_NEW_GROUP_FAIL = 'logger-app/sharedActions/CREATE_NEW_GROUP_FAIL';
@@ -58,5 +59,14 @@ export function logDeleteEmitted(groupId, logId, logName, groupName) {
     logId,
     logName,
     groupName
+  };
+}
+
+export function tailErrorEmitted(logId, errorReason, errorCode) {
+  return {
+    type: TAIL_ERROR_EMITTED,
+    logId,
+    errorReason,
+    errorCode
   };
 }

@@ -1,9 +1,9 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addLineToLog, setTailError } from '../../redux/modules/logs';
-import { newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted } from '../../redux/modules/sharedActions';
+import { addLineToLog } from '../../redux/modules/logs';
+import { newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, tailErrorEmitted } from '../../redux/modules/sharedActions';
 
-@connect(null, { addLineToLog, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, setTailError })
+@connect(null, { addLineToLog, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, tailErrorEmitted })
 export default class SocketEventHandler extends Component {
   static propTypes = {
     addLineToLog: PropTypes.func.isRequired,
@@ -12,7 +12,7 @@ export default class SocketEventHandler extends Component {
     groupDeleteEmitted: PropTypes.func.isRequired,
     newLogEmitted: PropTypes.func.isRequired,
     logDeleteEmitted: PropTypes.func.isRequired,
-    setTailError: PropTypes.func.isRequired
+    tailErrorEmitted: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -37,7 +37,7 @@ export default class SocketEventHandler extends Component {
     socket.removeListener('log:logDelete', this.logDeleteEmitted);
   }
 
-  setTailError = (data) => this.props.setTailError(data.logId, data.errorCode);
+  setTailError = (data) => this.props.tailErrorEmitted(data.logId, data.errorReason, data.errorCode);
   addLineToLog = (data) => this.props.addLineToLog(data.logId, data.newLine);
   newGroupEmitted = (data) => this.props.newGroupEmitted(data.newGroupId, data.newGroupName);
   groupNameChangeEmitted = (data) => this.props.groupNameChangeEmitted(data.groupId, data.newName, data.oldName);
