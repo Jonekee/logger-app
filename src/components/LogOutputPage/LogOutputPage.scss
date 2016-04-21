@@ -16,46 +16,4 @@
       font-size: 14px;
     }
   }
-
-  .errorPanel {
-    position: absolute;
-    width: 100%;
-    min-height: 80px;
-    background: #F44336;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    top: -80px;
-    padding: 20px;
-    box-sizing: border-box;
-    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-
-    svg {
-      height: 40px;
-      fill: #fff;
-    }
-
-    & > svg {
-      margin-right: 10px;
-    }
-
-    p {
-      flex-grow: 1;
-      margin-right: 15px;
-    }
-
-    button {
-      margin: -5px;
-      padding: 5px;
-      display: flex;
-
-      &:hover {
-        background: #E53935;
-      }
-    }
-
-    &.open {
-      top: 0px;
-    }
-  }
 }
