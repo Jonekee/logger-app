@@ -12,6 +12,7 @@ export const CREATE_NEW_GROUP_FAIL = 'logger-app/sharedActions/CREATE_NEW_GROUP_
 export const SAVE_GROUP_NAME_FAIL = 'logger-app/sharedActions/SAVE_GROUP_NAME_FAIL';
 export const DELETE_GROUP_FAIL = 'logger-app/sharedActions/DELETE_GROUP_FAIL';
 // Log Management
+export const CREATE_NEW_LOG_FAIL = 'logger-app/sharedActions/CREATE_NEW_LOG_FAIL';
 export const DELETE_LOG_FAIL = 'logger-app/sharedActions/DELETE_LOG_FAIL';
 // App Management
 export const APP_MANAGMENT_SAVE_SUCCESS = 'logger-app/sharedActions/SAVE_SUCCESS';
