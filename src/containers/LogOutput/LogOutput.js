@@ -19,8 +19,7 @@ function fetchData(getState, dispatch) {
 export default class LogOutput extends Component {
   static propTypes = {
     log: PropTypes.object.isRequired,
-    logId: PropTypes.string.isRequired,
-    setTailError: PropTypes.func.isRequired
+    logId: PropTypes.string.isRequired
   };
 
   render() {
