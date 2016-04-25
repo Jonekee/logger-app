@@ -6,7 +6,6 @@ const EDIT_API_PORT = 'logger-app/appManagement/EDIT_API_PORT';
 const EDIT_LOG_LEVEL = 'logger-app/appManagement/EDIT_LOG_LEVEL';
 const RESET_CHANGES = 'logger-app/appManagement/RESET_CHANGES';
 const APP_MANAGMENT_SAVE = 'logger-app/appManagement/SAVE';
-const CLEAR_ERROR = 'logger-app/appManagement/CLEAR_ERROR';
 
 import {
   APP_MANAGMENT_SAVE_SUCCESS,
@@ -87,8 +86,7 @@ export default function appManagement(state = initialState, action = {}) {
     case APP_MANAGMENT_SAVE_FAIL:
       return {
         ...state,
-        saving: false,
-        error: action.error
+        saving: false
       };
     case APP_MANAGMENT_SAVE_SUCCESS:
       return {
@@ -99,13 +97,7 @@ export default function appManagement(state = initialState, action = {}) {
           webport: state.data.editableWebPort,
           apiport: state.data.editableApiPort,
           loglevel: state.data.editableLogLevel
-        },
-        error: null
-      };
-    case CLEAR_ERROR:
-      return {
-        ...state,
-        error: null
+        }
       };
     default:
       return state;
@@ -160,11 +152,5 @@ export function saveChanges(newWebPort, newApiPort, newLogLevel) {
         newLogLevel
       }
     })
-  };
-}
-
-export function clearError() {
-  return {
-    type: CLEAR_ERROR
   };
 }
