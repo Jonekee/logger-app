@@ -114,7 +114,7 @@ export default function notifications(state = initialState, action = {}) {
           {
             id: state.nextId,
             type: 'ERROR',
-            'message': `Failed to create new group "${action.newGroupName}". ${action.error.errorReason}`
+            'message': `Failed to create new group". ${action.error.errorReason}`
           }
         ]
       };
