@@ -173,7 +173,7 @@ export default function notifications(state = initialState, action = {}) {
           ...state.list,
           {
             id: state.nextId,
-            type: 'ERROR',
+            type: 'INFO',
             'message': 'App settings changes saved successfully. Restart the app for any port changes to take effect.'
           }
         ]
