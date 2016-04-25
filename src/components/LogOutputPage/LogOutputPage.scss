@@ -6,6 +6,15 @@
   padding: 14px 0;
   position: relative;
 
+  ol:first-of-type {
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    text-align: right;
+    border-right: 1px solid #fff;
+    padding-right: 6px;
+  }
+
   li {
     display: block;
 

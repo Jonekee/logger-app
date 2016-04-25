@@ -42,9 +42,12 @@ export default class LogOutputPage extends Component {
     const { logData } = this.props;
     return (
       <section ref="scrollArea" className={styles.logOutputPage}>
-        <ul>
+        <ol>
+          {logData.map((line, index) => <li key={index}>{index}</li>)}
+        </ol>
+        <ol style={{ paddingLeft: `${(logData.length.toString().length * 8) + 15}px` }}>
           {logData && logData.map((line, index) => <li key={index}><div>{line}</div></li>)}
-        </ul>
+        </ol>
       </section>
     );
   }
