@@ -4,6 +4,7 @@ import {
   GROUP_NAME_CHANGE_EMITTED,
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
+  LOG_NAME_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
   TAIL_ERROR_EMITTED,
   // API fails
@@ -151,6 +152,18 @@ export default function notifications(state = initialState, action = {}) {
             id: state.nextId,
             type: 'ERROR',
             'message': `Failed to create new log. ${action.error.errorReason}`
+          }
+        ]
+      };
+    case LOG_NAME_CHANGE_EMITTED:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'INFO',
+            'message': `Log "${action.oldName}" has been renamed "${action.newName}"`
           }
         ]
       };

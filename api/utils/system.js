@@ -233,7 +233,7 @@ class SystemHelper {
     return this.saveConfigToDisk().then(() => {
       // Emit log changes to all sessions including the guy that edited the log
       if (oldName !== editedName) {
-        this.socketio.emit('log:nameChange', { logId, editedName, oldName });
+        this.socketio.emit('log:nameChange', { logId, newName: editedName, oldName });
       }
     });
   };

@@ -33,6 +33,7 @@ const DELETE_LOG_SUCCESS = 'logger-app/logs/DELETE_LOG_SUCCESS';
 import {
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
+  LOG_NAME_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
   TAIL_ERROR_EMITTED,
   DELETE_LOG_FAIL
@@ -163,6 +164,11 @@ const logReducer = (state, action) => {
         ...state,
         deleteSaving: false
       };
+    case LOG_NAME_CHANGE_EMITTED:
+      return {
+        ...state,
+        name: action.newName
+      };
     default:
       return state;
   }
@@ -240,6 +246,7 @@ export default function logs(state = initialState, action = {}) {
     case TOGGLE_DELETE_LOG_OPEN:
     case DELETE_LOG:
     case DELETE_LOG_FAIL:
+    case LOG_NAME_CHANGE_EMITTED:
       return {
         ...state,
         data: {
