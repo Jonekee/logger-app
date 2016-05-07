@@ -221,6 +221,22 @@ class SystemHelper {
       this.socketio.emit('log:logDelete', { groupId, logId, logName, groupName });
     });
   };
+
+  updateLog = (logId, oldGroupId, editedName) => {
+    LoggingManager.debug('SystemHelper', 'updateLog', `Editing log using log ID: ${logId}`);
+
+    const oldName = this.system.logs[logId].name;
+    if (oldName !== editedName) {
+      this.system.logs[logId].name = editedName;
+    }
+
+    return this.saveConfigToDisk().then(() => {
+      // Emit log changes to all sessions including the guy that edited the log
+      if (oldName !== editedName) {
+        this.socketio.emit('log:nameChange', { logId, editedName, oldName });
+      }
+    });
+  };
 }
 
 const instance = new SystemHelper();
