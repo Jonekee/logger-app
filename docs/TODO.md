@@ -40,9 +40,18 @@ Syntax highlighting (with management through UI)
 ### Essential
 
 1. **Edit Log form API**
+   1. Edit Name
+   2. Edit Group
+   3. Edit File
+   4. Edit Path
+
+
 2. **Channel all async events through a new notifications redux state**
    1. Successes:
-        1. Edit log
+        1. Edit log name
+        2. Edited log group
+        3. Edited log file
+        4. Edited log path
 
    2. Fails:
       1. Edit log
