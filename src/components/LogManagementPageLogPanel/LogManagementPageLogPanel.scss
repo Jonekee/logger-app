@@ -4,7 +4,6 @@
   transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
   .basePanel {
-    box-sizing: border-box;
     min-height: 58px;
     padding: 12px;
     display: flex;
@@ -37,8 +36,8 @@
 
     svg {
       padding: 6px;
-      width: 16px;
-      height: 16px;
+      width: 28px;
+      height: 28px;
     }
 
     &:hover {
@@ -55,7 +54,6 @@
     width: 100%;
     height: 100%;
     top: 0;
-    box-sizing: border-box;
     background: inherit;
     pointer-events: none;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -93,7 +91,6 @@
     }
 
     select, input {
-      box-sizing: border-box;
       background: none;
       border: none;
       border-bottom: 1px solid #777;
@@ -129,8 +126,8 @@
 
         svg {
           padding: 6px;
-          width: 16px;
-          height: 16px;
+          width: 28px;
+          height: 28px;
         }
 
         &:hover {
