@@ -6,7 +6,7 @@ import devDelay from '../../utils/devDelay.js';
 export default function saveLogChanges(req) {
   return new Promise((resolve, reject) => {
     return devDelay(2000).then(() => {
-      const { logId, oldGroupId, editedName, editedGroupId, editedFile, logPath } = req.body;
+      const { logId, oldGroupId, editedName, editedGroupId, editedFile, editedPath } = req.body;
 
       if (!editedName) {
         LoggingManager.debug('System', 'saveLogChanges', 'Blank log name passed.');
@@ -43,23 +43,23 @@ export default function saveLogChanges(req) {
           errorField: 'newLogFile',
           errorReason: `The log file name "${editedFile}" is invalid. It must be 1000 characters or less.`
         });
-      } else if (!logPath) {
+      } else if (!editedPath) {
         LoggingManager.debug('System', 'saveLogChanges', 'Blank log path passed.');
         reject({
           status: 400,
           errorField: 'newLogPath',
           errorReason: `No log file path was passed to edit log request.`
         });
-      } else if (logPath.length > 1000) {
-        LoggingManager.debug('System', 'saveLogChanges', `Invalid log file path passed: ${logPath}`);
+      } else if (editedPath.length > 1000) {
+        LoggingManager.debug('System', 'saveLogChanges', `Invalid log file path passed: ${editedPath}`);
         reject({
           status: 400,
           errorField: 'newLogPath',
-          errorReason: `The log file path "${logPath}" is invalid. It must be 1000 characters or less.`
+          errorReason: `The log file path "${editedPath}" is invalid. It must be 1000 characters or less.`
         });
       } else {
         LoggingManager.debug('System', 'saveLogChanges', `Editing log with ID: ${logId}`);
-        SystemHelper.updateLog(logId, oldGroupId, editedName, editedGroupId, editedFile, logPath)
+        SystemHelper.updateLog(logId, oldGroupId, editedName, editedGroupId, editedFile, editedPath)
         .then(() => {
           resolve();
         }, (error) => {
