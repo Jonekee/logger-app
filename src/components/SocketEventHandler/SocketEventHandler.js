@@ -1,9 +1,24 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { addLineToLog } from '../../redux/modules/logs';
-import { newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, tailErrorEmitted } from '../../redux/modules/sharedActions';
+import {
+  newGroupEmitted,
+  groupNameChangeEmitted,
+  groupDeleteEmitted,
+  newLogEmitted,
+  logDeleteEmitted,
+  tailErrorEmitted
+} from '../../redux/modules/sharedActions';
 
-@connect(null, { addLineToLog, newGroupEmitted, groupNameChangeEmitted, groupDeleteEmitted, newLogEmitted, logDeleteEmitted, tailErrorEmitted })
+@connect(null, {
+  addLineToLog,
+  newGroupEmitted,
+  groupNameChangeEmitted,
+  groupDeleteEmitted,
+  newLogEmitted,
+  logDeleteEmitted,
+  tailErrorEmitted
+})
 export default class SocketEventHandler extends Component {
   static propTypes = {
     addLineToLog: PropTypes.func.isRequired,
