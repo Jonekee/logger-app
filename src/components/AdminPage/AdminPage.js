@@ -19,42 +19,37 @@ export default class AdminPage extends Component {
           <div className={styles.row}>
             <h2>Settings</h2>
           </div>
-          {releaseStage > 1
-            ? (
-              <div className={styles.row}>
-                <nav>
-                  <ul>
+          <div className={styles.row}>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/dashboard/settings/groups" activeClassName={styles.active}>Groups</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/settings/logs" activeClassName={styles.active}>Logs</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/settings/app" activeClassName={styles.active}>App</Link>
+                </li>
+                {releaseStage > 0
+                  ? (
                     <li>
-                      <Link to="/dashboard/settings/groups" activeClassName={styles.active}>Groups</Link>
+                      <Link to="/dashboard/admin/users" activeClassName={styles.active}>Users</Link>
                     </li>
+                  )
+                  : null
+                }
+                {releaseStage > 2
+                  ? (
                     <li>
-                      <Link to="/dashboard/settings/logs" activeClassName={styles.active}>Logs</Link>
+                      <Link to="/dashboard/admin/syntax" activeClassName={styles.active}>Syntax</Link>
                     </li>
-                    <li>
-                      <Link to="/dashboard/settings/app" activeClassName={styles.active}>App</Link>
-                    </li>
-                    {releaseStage > 2
-                      ? (
-                        <li>
-                          <Link to="/dashboard/admin/users" activeClassName={styles.active}>Users</Link>
-                        </li>
-                      )
-                      : null
-                    }
-                    {releaseStage > 3
-                      ? (
-                        <li>
-                          <Link to="/dashboard/admin/syntax" activeClassName={styles.active}>Syntax</Link>
-                        </li>
-                      )
-                      : null
-                    }
-                  </ul>
-                </nav>
-              </div>
-            )
-            : null
-          }
+                  )
+                  : null
+                }
+              </ul>
+            </nav>
+          </div>
         </header>
         {this.props.children}
       </section>
