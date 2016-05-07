@@ -6,4 +6,5 @@ export getAppSettings from './getAppSettings';
 export getGroups from './getGroups';
 export getLogs from './getLogs';
 export saveGroupName from './saveGroupName';
+export saveLogChanges from './saveLogChanges';
 export saveSystemSettings from './saveSystemSettings';
