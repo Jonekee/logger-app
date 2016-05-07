@@ -14,7 +14,7 @@ class TailHelper {
   attachListener = (io, socket, logId) => {
     const file = SystemHelper.getLogFile(logId);
     if (!this.activeSessions[logId]) {
-      LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for file: ' + file);
+      LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for logId: ' + logId);
 
       let tailer;
       try {
@@ -44,7 +44,7 @@ class TailHelper {
 
       tailer.on('line', data => {
         LoggingManager.trace('TailHelper', 'tailerOnLine', 'For file: ' + file + ' - ' + data);
-        io.to('listenerFor_' + file).emit('lineUpdate', {
+        io.to('listenerFor_' + logId).emit('lineUpdate', {
           logId,
           newLine: data
         });
@@ -58,14 +58,13 @@ class TailHelper {
     }
 
     this.activeSessions[logId].listeners++;
-    socket.join('listenerFor_' + file);
+    socket.join('listenerFor_' + logId);
 
     return null;
   }
 
   detachListener(socket, logId) {
-    const file = SystemHelper.getLogFile(logId);
-    LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for: ' + file);
+    LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for logId: ' + logId);
 
     if (!!this.activeSessions[logId] && this.activeSessions[logId].listeners === 1) {
       LoggingManager.debug('TailHelper', 'detachListener', 'Destroying watcher entry');
@@ -75,13 +74,12 @@ class TailHelper {
       this.activeSessions[logId].listeners -= 1;
     }
 
-    socket.leave('listenerFor_' + file);
+    socket.leave('listenerFor_' + logId);
   }
 
   killListener(logId) {
     // This function will detach all active listeners and clear the Tailer when a log is deleted
-    const file = SystemHelper.getLogFile(logId);
-    LoggingManager.debug('TailHelper', 'killListener', 'Killing listener for: ' + file);
+    LoggingManager.debug('TailHelper', 'killListener', 'Killing listener for logId: ' + logId);
 
     if (!!this.activeSessions[logId]) {
       // Kill the tailer so no more lines trigger
@@ -89,7 +87,7 @@ class TailHelper {
       delete(this.activeSessions[logId]);
       LoggingManager.trace('TailHelper', 'killListener', 'Tailer removed');
       // Remove all sockets from the room
-      Object.keys(this.io.sockets.adapter.rooms['listenerFor_' + file].sockets).forEach(socketId => this.io.sockets.connected[socketId].leave('listenerFor_' + file));
+      Object.keys(this.io.sockets.adapter.rooms['listenerFor_' + logId].sockets).forEach(socketId => this.io.sockets.connected[socketId].leave('listenerFor_' + logId));
       LoggingManager.trace('TailHelper', 'killListener', 'Room cleared');
     } else {
       LoggingManager.trace('TailHelper', 'killListener', 'Log was not active');
