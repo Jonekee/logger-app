@@ -26,7 +26,6 @@ export default function createNewGroup(req) {
         LoggingManager.debug('System', 'createNewGroup', `Creating group using name: ${newGroupName}`);
         SystemHelper.createGroup(newGroupName)
         .then((newGroupId) => {
-          console.log('NGID:' + newGroupId);
           resolve({
             newGroupId
           });
