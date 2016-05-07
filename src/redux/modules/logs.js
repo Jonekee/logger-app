@@ -366,14 +366,15 @@ export function setEditedFile(logId, editedFile) {
   };
 }
 
-export function saveLogChanges(logId, editedName, editedGroup, editedFile, editedPath) {
+export function saveLogChanges(logId, oldGroupId, editedName, editedGroupId, editedFile, editedPath) {
   return {
     types: [SAVE_LOG_CHANGES, SAVE_LOG_CHANGES_SUCCESS, SAVE_LOG_CHANGES_FAIL],
     promise: (client) => client.post('/system/saveLogChanges', {
       data: {
         logId,
+        oldGroupId,
         editedName,
-        editedGroup,
+        editedGroupId,
         editedFile,
         editedPath
       }
