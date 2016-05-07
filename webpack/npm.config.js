@@ -1,3 +1,4 @@
+/* eslint vars-on-top:0 no-var:0 */
 require('babel-polyfill');
 
 // Webpack config for creating the production bundle.

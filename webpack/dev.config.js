@@ -1,3 +1,4 @@
+/* eslint vars-on-top:0,no-var:0,id-length:0 */
 require('babel-polyfill');
 
 // Webpack config for development
@@ -6,7 +7,7 @@ var path = require('path');
 var webpack = require('webpack');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var host = (process.env.HOST || 'localhost');
-var port = parseInt(process.env.PORT) + 1 || 3002;
+var port = parseInt(process.env.PORT, 10) + 1 || 3002;
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');

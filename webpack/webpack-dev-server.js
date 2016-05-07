@@ -1,3 +1,4 @@
+/* eslint no-var:0 */
 var Express = require('express');
 var webpack = require('webpack');
 
