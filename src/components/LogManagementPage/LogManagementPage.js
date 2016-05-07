@@ -83,8 +83,8 @@ export default class LogManagementPage extends Component {
                 <form onSubmit={(event) => { createNewLog(logManagementState.newLogName, logManagementState.newLogGroup, logManagementState.newLogFile, logManagementState.newLogPath); event.preventDefault(); return false; }}>
                   <input type="text" placeholder="New log name" maxLength="15" value={logManagementState.newLogName} onChange={(event) => setNewLogName(event.target.value)} />
                   <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: logManagementState.newLogGroup === '-1' })} options={groupOptionsList} initialValue={logManagementState.newLogGroup} onChange={(event) => setNewLogGroup(event.target.value)} />
-                  <input type="text" placeholder="File name" maxLength="30" value={logManagementState.newLogFile} onChange={(event) => setNewLogFile(event.target.value)} />
-                  <input type="text" placeholder="File location" maxLength="30" value={logManagementState.newLogPath} onChange={(event) => setNewLogPath(event.target.value)} />
+                  <input type="text" placeholder="File name" maxLength="1000" value={logManagementState.newLogFile} onChange={(event) => setNewLogFile(event.target.value)} />
+                  <input type="text" placeholder="File location" maxLength="1000" value={logManagementState.newLogPath} onChange={(event) => setNewLogPath(event.target.value)} />
                 </form>
               </div>
               <div className={styles.actions}>

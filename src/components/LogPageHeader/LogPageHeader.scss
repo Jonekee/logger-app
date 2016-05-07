@@ -42,6 +42,9 @@
     font-size: 14px;
     font-weight: 300;
     flex: 1 1 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   div.rhs {
@@ -93,7 +96,6 @@
     a {
       font-size: 16px;
       width: 120px;
-      box-sizing: border-box;
       padding: 0 24px 4px;
       border-bottom: 4px solid transparent;
       margin-bottom: -1px;

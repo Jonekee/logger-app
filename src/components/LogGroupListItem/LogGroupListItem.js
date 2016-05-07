@@ -54,7 +54,7 @@ export default class LogGroupListItem extends Component {
           <i className={colorClass}></i>
           <div>
             <p>{listFilter ? <HighlightedText text={logName} matchText={listFilter}/> : <span>{logName}</span>}</p>
-            <p>{listFilter ? <HighlightedText text={logFilePath + logFileName} matchText={listFilter}/> : <span>{logFilePath + logFileName}</span>}</p>
+            <p title={logFilePath + logFileName}>{listFilter ? <HighlightedText text={logFilePath + logFileName} matchText={listFilter}/> : <span>{logFilePath + logFileName}</span>}</p>
           </div>
         </Link>
       </li>

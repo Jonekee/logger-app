@@ -43,6 +43,7 @@
   div {
     flex: 1 1 auto;
     padding: 12px 8px;
+    overflow: hidden;
   }
 
   p {
@@ -51,6 +52,9 @@
 
     &:last-of-type {
       font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

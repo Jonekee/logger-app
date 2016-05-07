@@ -43,12 +43,12 @@ export default function createNewLog(req) {
           errorField: 'newLogFile',
           errorReason: `No log file name was passed to create log request.`
         });
-      } else if (logFile.length > 100) {
+      } else if (logFile.length > 1000) {
         LoggingManager.debug('System', 'createNewLog', `Invalid log file passed: ${logFile}`);
         reject({
           status: 400,
           errorField: 'newLogFile',
-          errorReason: `The log file name "${logFile}" is invalid. It must be 100 characters or less.`
+          errorReason: `The log file name "${logFile}" is invalid. It must be 1000 characters or less.`
         });
       } else if (!logPath) {
         LoggingManager.debug('System', 'createNewLog', 'Blank log path passed.');
@@ -57,12 +57,12 @@ export default function createNewLog(req) {
           errorField: 'newLogPath',
           errorReason: `No log file path was passed to create log request.`
         });
-      } else if (logPath.length > 200) {
+      } else if (logPath.length > 1000) {
         LoggingManager.debug('System', 'createNewLog', `Invalid log file path passed: ${logPath}`);
         reject({
           status: 400,
           errorField: 'newLogPath',
-          errorReason: `The log file path "${logPath}" is invalid. It must be 200 characters or less.`
+          errorReason: `The log file path "${logPath}" is invalid. It must be 1000 characters or less.`
         });
       } else {
         LoggingManager.debug('System', 'createNewLog', `Creating group using: ${logName} ${groupId} ${logFile} ${logPath}`);

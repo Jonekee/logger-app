@@ -53,7 +53,11 @@ export default class LogManagementPageLogPanel extends Component {
             <p>{log.name}</p>
             <p>
               <span>File:</span>
-              <span>{log.fpath + log.fname}</span>
+              <span title={log.fname}>{log.fname}</span>
+            </p>
+            <p>
+              <span>Path:</span>
+              <span title={log.fpath}>{log.fpath}</span>
             </p>
             {groupName && (<p><span>Group:</span><span>{groupName}</span></p>)}
           </div>
@@ -71,8 +75,8 @@ export default class LogManagementPageLogPanel extends Component {
             <form onSubmit={(event) => { saveLogChanges(logId, log.editedName, log.editedGroup, log.editedFile, log.editedPath); event.preventDefault(); return false; }}>
               <input type="text" placeholder="New log name" maxLength="15" value={log.editedName} onChange={(event) => setEditedName(event.target.value)} />
               <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: log.editedGroup === '-1' })} options={groupOptionsList} initialValue={log.editedGroup || groupId} onChange={(event) => setEditedGroup(logId, event.target.value)} />
-              <input type="text" placeholder="File name" maxLength="30" value={log.editedFile} onChange={(event) => setEditedFile(event.target.value)} />
-              <input type="text" placeholder="File location" maxLength="30" value={log.editedPath} onChange={(event) => setEditedPath(event.target.value)} />
+              <input type="text" placeholder="File name" maxLength="1000" value={log.editedFile} onChange={(event) => setEditedFile(event.target.value)} />
+              <input type="text" placeholder="File location" maxLength="1000" value={log.editedPath} onChange={(event) => setEditedPath(event.target.value)} />
             </form>
           </div>
           <div className={styles.actions}>

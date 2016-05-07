@@ -111,7 +111,7 @@ export default class LogPageHeader extends Component {
           </div>
         </div>
         <div className={styles.row + (releaseStage < 3 ? ' ' + styles.earlyReleaseStyle : '')}>
-          <h3>{log.fpath + log.fname}</h3>
+          <h3 title={log.fpath + log.fname}>{log.fpath + log.fname}</h3>
           {releaseStage > 2
             ? (
               <div className={styles.rhs}>
