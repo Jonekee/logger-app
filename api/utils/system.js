@@ -84,7 +84,7 @@ class SystemHelper {
       .catch((error) => {
         LoggingManager.fatal('SystemHelper', 'saveConfigToDisk', 'Failed to write file to disk');
         LoggingManager.fatal('SystemHelper', 'saveConfigToDisk', error);
-        process.exit(1);
+        return Promise.reject(error);
       });
   };
 
