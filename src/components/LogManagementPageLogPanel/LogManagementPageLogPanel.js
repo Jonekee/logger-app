@@ -73,10 +73,10 @@ export default class LogManagementPageLogPanel extends Component {
         <div className={classnames(styles.formContainer, styles.fadeInPanel, { [styles.open]: log.editPanelOpen })}>
           <div className={styles.lhs}>
             <form onSubmit={(event) => { saveLogChanges(logId, log.editedName, log.editedGroup, log.editedFile, log.editedPath); event.preventDefault(); return false; }}>
-              <input type="text" placeholder="New log name" maxLength="15" value={log.editedName} onChange={(event) => setEditedName(event.target.value)} />
+              <input type="text" placeholder="New log name" maxLength="15" value={log.editedName} onChange={(event) => setEditedName(logId, event.target.value)} />
               <DropDown customClassName={classnames(styles.selectStyling, { [styles.placeholderColour]: log.editedGroup === '-1' })} options={groupOptionsList} initialValue={log.editedGroup || groupId} onChange={(event) => setEditedGroup(logId, event.target.value)} />
-              <input type="text" placeholder="File name" maxLength="1000" value={log.editedFile} onChange={(event) => setEditedFile(event.target.value)} />
-              <input type="text" placeholder="File location" maxLength="1000" value={log.editedPath} onChange={(event) => setEditedPath(event.target.value)} />
+              <input type="text" placeholder="File name" maxLength="1000" value={log.editedFile} onChange={(event) => setEditedFile(logId, event.target.value)} />
+              <input type="text" placeholder="File location" maxLength="1000" value={log.editedPath} onChange={(event) => setEditedPath(logId, event.target.value)} />
             </form>
           </div>
           <div className={styles.actions}>
