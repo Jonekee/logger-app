@@ -40,14 +40,14 @@ export default class NavPanelGroup extends Component {
 
   render() {
     const { groupId, groupName, groupNavOpen, toggleNavOpen, logs } = this.props; // eslint-disable-line no-shadow
-    const listContentsHeight = logs.length * 28 || 19; // ##BADCODE Hard coded styling related value, the OR is for when the log list is empty and 'No logs' is shown
+    const listContentsHeight = logs.length * 30 || 19; // ##BADCODE Hard coded styling related value, the OR is for when the log list is empty and 'No logs' is shown
     const currHeight = (groupNavOpen ? listContentsHeight : '0') + 'px';
     return (
       <section className={styles.navPanelGroup}>
         <header>
           <div>
             <Link to={!groupId ? '/dashboard/active' : '/dashboard/group/' + groupId}>
-              <h3>{groupName}</h3>
+              <h3 title={groupName}>{groupName}</h3>
             </Link>
           </div>
           <button onClick={toggleNavOpen} className={groupNavOpen ? '' : styles.closed}>

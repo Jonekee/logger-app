@@ -11,6 +11,7 @@
 
   i {
     display: inline-block;
+    vertical-align: middle;
     margin-right: 5px;
     border-radius: 5px;
     height: 10px;
@@ -37,5 +38,11 @@
   span {
     font-weight: 100;
     font-size: 13px;
+    max-width: calc(100% - 15px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
   }
 }

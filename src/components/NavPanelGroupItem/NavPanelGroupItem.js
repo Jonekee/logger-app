@@ -25,24 +25,29 @@ export default class NavPanelGroupItem extends Component {
   render() {
     const { logId, logName, logStatus, logHasNew, isVisible } = this.props;
     let colorClass;
+    let activeTitle;
     switch (logStatus) {
       case 'ACTIVE':
         colorClass = logHasNew ? styles.active : styles.idle;
+        activeTitle = logHasNew ? 'Has updates' : 'Watching for updates';
         break;
       case 'PAUSED':
         colorClass = styles.paused;
+        activeTitle = 'Updating paused';
         break;
       case 'INACTIVE_WITH_OUTPUT':
         colorClass = styles.hasOutput;
+        activeTitle = 'Inactive with output';
         break;
       default:
         colorClass = '';
+        activeTitle = 'Inactive';
         break;
     }
 
     return (
       <li className={styles.navPanelGroupItem}>
-        <Link to={'/dashboard/log/' + logId} tabIndex={isVisible ? '0' : '-1'}>
+        <Link to={'/dashboard/log/' + logId} tabIndex={isVisible ? '0' : '-1'} title={`${logName} - ${activeTitle}`}>
           <i className={colorClass}></i>
           <span>{logName}</span>
         </Link>
