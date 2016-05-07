@@ -13,7 +13,7 @@ class TailHelper {
 
   attachListener = (io, socket, logId) => {
     const file = SystemHelper.getLogFile(logId);
-    if (!this.activeSessions[file]) {
+    if (!this.activeSessions[logId]) {
       LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for file: ' + file);
 
       let tailer;
@@ -50,14 +50,14 @@ class TailHelper {
         });
       });
 
-      this.activeSessions[file] = {
+      this.activeSessions[logId] = {
         listeners: 0,
         tailer
       };
 
     }
 
-    this.activeSessions[file].listeners++;
+    this.activeSessions[logId].listeners++;
     socket.join('listenerFor_' + file);
 
     return null;
@@ -67,12 +67,12 @@ class TailHelper {
     const file = SystemHelper.getLogFile(logId);
     LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for: ' + file);
 
-    if (!!this.activeSessions[file] && this.activeSessions[file].listeners === 1) {
+    if (!!this.activeSessions[logId] && this.activeSessions[logId].listeners === 1) {
       LoggingManager.debug('TailHelper', 'detachListener', 'Destroying watcher entry');
-      this.activeSessions[file].tailer.unwatch();
-      delete(this.activeSessions[file]);
+      this.activeSessions[logId].tailer.unwatch();
+      delete(this.activeSessions[logId]);
     } else {
-      this.activeSessions[file].listeners -= 1;
+      this.activeSessions[logId].listeners -= 1;
     }
 
     socket.leave('listenerFor_' + file);
@@ -83,10 +83,10 @@ class TailHelper {
     const file = SystemHelper.getLogFile(logId);
     LoggingManager.debug('TailHelper', 'killListener', 'Killing listener for: ' + file);
 
-    if (!!this.activeSessions[file]) {
+    if (!!this.activeSessions[logId]) {
       // Kill the tailer so no more lines trigger
-      this.activeSessions[file].tailer.unwatch();
-      delete(this.activeSessions[file]);
+      this.activeSessions[logId].tailer.unwatch();
+      delete(this.activeSessions[logId]);
       LoggingManager.trace('TailHelper', 'killListener', 'Tailer removed');
       // Remove all sockets from the room
       Object.keys(this.io.sockets.adapter.rooms['listenerFor_' + file].sockets).forEach(socketId => this.io.sockets.connected[socketId].leave('listenerFor_' + file));
