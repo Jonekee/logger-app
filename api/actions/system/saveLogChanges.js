@@ -22,14 +22,7 @@ export default function saveLogChanges(req) {
           errorField: 'newLogName',
           errorReason: `The log name "${editedName}" is invalid. It must be 15 characters or less.`
         });
-      } else if (editedGroupId === '-1') {
-        LoggingManager.debug('System', 'saveLogChanges', 'Default group ID passed.');
-        reject({
-          status: 400,
-          errorField: 'newLogFile',
-          errorReason: `No group was passed to edit log request.`
-        });
-      } else if (!SystemHelper.groupIdIsValid(editedGroupId)) {
+      } else if (editedGroupId && !SystemHelper.groupIdIsValid(editedGroupId)) {
         LoggingManager.debug('System', 'saveLogChanges', 'Invalid group ID passed.');
         reject({
           status: 400,
