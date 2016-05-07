@@ -21,6 +21,7 @@ const io = new SocketIo(server);
 io.path('/ws');
 
 SystemHelper.setSocketIo(io);
+TailHelper.setSocketIo(io);
 
 app.use(session({
   secret: 'react and redux rule!!!!',

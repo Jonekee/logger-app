@@ -2,12 +2,18 @@ import { Tail } from 'tail';
 import SystemHelper from './system.js';
 import { Instance as LoggingManager } from 'logging-manager';
 
-const activeSessions = {};
+class TailHelper {
+  constructor() {
+    this.activeSessions = {};
+  }
 
-export default {
-  attachListener(io, socket, logId) {
+  setSocketIo(io) {
+    this.io = io;
+  }
+
+  attachListener = (io, socket, logId) => {
     const file = SystemHelper.getLogFile(logId);
-    if (!activeSessions[file]) {
+    if (!this.activeSessions[file]) {
       LoggingManager.debug('TailHelper', 'attachListener', 'Creating new session for file: ' + file);
 
       let tailer;
@@ -44,34 +50,53 @@ export default {
         });
       });
 
-      activeSessions[file] = {
+      this.activeSessions[file] = {
         listeners: 0,
         tailer
       };
 
     }
 
-    activeSessions[file].listeners++;
+    this.activeSessions[file].listeners++;
     socket.join('listenerFor_' + file);
 
     return null;
-  },
+  }
+
   detachListener(socket, logId) {
     const file = SystemHelper.getLogFile(logId);
     LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for: ' + file);
 
-    if (!!activeSessions[file] && activeSessions[file].listeners === 1) {
+    if (!!this.activeSessions[file] && this.activeSessions[file].listeners === 1) {
       LoggingManager.debug('TailHelper', 'detachListener', 'Destroying watcher entry');
-      activeSessions[file].tailer.unwatch();
-      delete(activeSessions[file]);
+      this.activeSessions[file].tailer.unwatch();
+      delete(this.activeSessions[file]);
     } else {
-      activeSessions[file].listeners -= 1;
+      this.activeSessions[file].listeners -= 1;
     }
 
     socket.leave('listenerFor_' + file);
   }
-};
 
-// const instance = new TailHelper();
+  killListener(logId) {
+    // This function will detach all active listeners and clear the Tailer when a log is deleted
+    const file = SystemHelper.getLogFile(logId);
+    LoggingManager.debug('TailHelper', 'killListener', 'Killing listener for: ' + file);
 
-// export default instance;
+    if (!!this.activeSessions[file]) {
+      // Kill the tailer so no more lines trigger
+      this.activeSessions[file].tailer.unwatch();
+      delete(this.activeSessions[file]);
+      LoggingManager.trace('TailHelper', 'killListener', 'Tailer removed');
+      // Remove all sockets from the room
+      Object.keys(this.io.sockets.adapter.rooms['listenerFor_' + file].sockets).forEach(socketId => this.io.sockets.connected[socketId].leave('listenerFor_' + file));
+      LoggingManager.trace('TailHelper', 'killListener', 'Room cleared');
+    } else {
+      LoggingManager.trace('TailHelper', 'killListener', 'Log was not active');
+    }
+  }
+}
+
+const instance = new TailHelper();
+
+export default instance;

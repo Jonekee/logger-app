@@ -18,13 +18,14 @@ function fetchData(getState, dispatch) {
   }))
 export default class LogOutput extends Component {
   static propTypes = {
-    log: PropTypes.object.isRequired,
-    logId: PropTypes.string.isRequired
+    // Can't be `isRequired` because the logId dissappears when the log is remotely deleted
+    log: PropTypes.object,
+    logId: PropTypes.string
   };
 
   render() {
     const { log, logId } = this.props;
 
-    return <LogOutputPage logId={logId} logData={log.logData} scrollLocked={log.scrollLocked}/>;
+    return !!logId && !!log && <LogOutputPage logId={logId} logData={log.logData} scrollLocked={log.scrollLocked}/>;
   }
 }

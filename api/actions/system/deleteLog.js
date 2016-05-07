@@ -1,4 +1,5 @@
 import SystemHelper from '../../utils/system';
+import TailHelper from '../../utils/tailhelper';
 import { Instance as LoggingManager } from 'logging-manager';
 import devDelay from '../../utils/devDelay.js';
 
@@ -38,6 +39,7 @@ export default function deleteLog(req) {
         });
       } else {
         LoggingManager.debug('System', 'deleteLog', `Deleting log using groupId ${groupId} and logId ${logId}`);
+        TailHelper.killListener(logId);
         SystemHelper.deleteLog(groupId, logId)
         .then(() => {
           resolve();
