@@ -56,7 +56,7 @@ Syntax highlighting (with management through UI)
 
    2. ~~Fails:~~
       1. ~~Edit log error~~
-4. **Notifcations causing unmounted setState error**
+4. ~~Notifcations causing unmounted setState error~~
 5. ~~Kill listeners for a Log when it is deleted (test current behaviour)~~
 6. ~~Base active Tailer sessions on ID not file~~
 7. ~~Base socket rooms on log ID~~
@@ -67,7 +67,7 @@ Syntax highlighting (with management through UI)
     2. ~~Log name: 15~~
     3. ~~Log file: 1000~~
     4. ~~Log path: 1000~~
-11. **Test what happens when a log file's permissions are changed or it is moved while being watched**
+11. ~~Test what happens when a log file's permissions are changed or it is moved while being watched~~
 
 
 ### Extras
@@ -148,6 +148,10 @@ Syntax highlighting (with management through UI)
 - Auto-update with changes made to config file manually
   - Make this an optional App Setting
   - Either watch for changes or detect using polling
+
+
+- Rewrite node-tail for simpler es6 version
+  - This will allow me to solve the error thrown when a log is deleted while active
 
 
 
