@@ -7,9 +7,9 @@ class TailHelper {
     this.activeSessions = {};
   }
 
-  setSocketIo(io) {
+  setSocketIo = (io) => {
     this.io = io;
-  }
+  };
 
   attachListener = (io, socket, logId) => {
     const file = SystemHelper.getLogFile(logId);
@@ -61,9 +61,9 @@ class TailHelper {
     socket.join('listenerFor_' + logId);
 
     return null;
-  }
+  };
 
-  detachListener(socket, logId) {
+  detachListener = (socket, logId) => {
     LoggingManager.debug('TailHelper', 'detachListener', 'Detaching listener for logId: ' + logId);
 
     if (!!this.activeSessions[logId] && this.activeSessions[logId].listeners === 1) {
@@ -75,9 +75,9 @@ class TailHelper {
     }
 
     socket.leave('listenerFor_' + logId);
-  }
+  };
 
-  killListener(logId) {
+  killListener = (logId) => {
     // This function will detach all active listeners and clear the Tailer when a log is deleted
     LoggingManager.debug('TailHelper', 'killListener', 'Killing listener for logId: ' + logId);
 
@@ -92,7 +92,7 @@ class TailHelper {
     } else {
       LoggingManager.trace('TailHelper', 'killListener', 'Log was not active');
     }
-  }
+  };
 }
 
 const instance = new TailHelper();
