@@ -5,6 +5,7 @@ import {
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
   LOG_NAME_CHANGE_EMITTED,
+  LOG_GROUP_CHANGE_EMITTED,
   LOG_FILE_CHANGE_EMITTED,
   LOG_PATH_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
@@ -166,6 +167,18 @@ export default function notifications(state = initialState, action = {}) {
             id: state.nextId,
             type: 'INFO',
             'message': `Log "${action.oldName}" has been renamed "${action.newName}"`
+          }
+        ]
+      };
+    case LOG_GROUP_CHANGE_EMITTED:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'INFO',
+            'message': `Log "${action.logName}" has been moved from group "${action.oldGroupName}" to "${action.newGroupName}"`
           }
         ]
       };
