@@ -39,33 +39,35 @@ Syntax highlighting (with management through UI)
 
 ### Essential
 
-1. **Edit Log form API**
-   1. Edit Name
-   2. Edit Group
-   3. Edit File
-   4. Edit Path
+1. ~~Edit Log form API~~
+   1. ~~Edit Name~~
+   2. ~~Edit Group~~
+   3. ~~Edit File~~
+   4. ~~Edit Path~~
 
 
-2. **Channel all async events through a new notifications redux state**
-   1. Successes:
-        1. Edit log name
-        2. Edited log group
-        3. Edited log file
-        4. Edited log path
+2. ~~Add saving panel to log management panel~~
+3. ~~Channel all async events through a new notifications redux state~~
+   1. ~~Successes:~~
+        1. ~~Edit log name~~
+        2. ~~Edited log group~~
+        3. ~~Edited log file~~
+        4. ~~Edited log path~~
 
-   2. Fails:
-      1. Edit log
-3. ~~Kill listeners for a Log when it is deleted (test current behaviour)~~
-4. ~~Base active Tailer sessions on ID not file~~
-5. ~~Base socket rooms on log ID~~
-6. ~~Try moving or changing permissions on the config file while server is running, may need to protect against this~~
-7. ~~Make file name and path a reasonable length and protect against overflow~~
-8. ~~Correct user input max lengths~~
-   1. ~~Group name: 15~~
-   2. ~~Log name: 15~~
-   3. ~~Log file: 1000~~
-   4. ~~Log path: 1000~~
-9. Test what happens when a log file's permissions are changed or it is moved while being watched
+   2. ~~Fails:~~
+      1. ~~Edit log error~~
+4. **Notifcations causing unmounted setState error**
+5. ~~Kill listeners for a Log when it is deleted (test current behaviour)~~
+6. ~~Base active Tailer sessions on ID not file~~
+7. ~~Base socket rooms on log ID~~
+8. ~~Try moving or changing permissions on the config file while server is running, may need to protect against this~~
+9. ~~Make file name and path a reasonable length and protect against overflow~~
+10. ~~Correct user input max lengths~~
+    1. ~~Group name: 15~~
+    2. ~~Log name: 15~~
+    3. ~~Log file: 1000~~
+    4. ~~Log path: 1000~~
+11. **Test what happens when a log file's permissions are changed or it is moved while being watched**
 
 
 ### Extras
