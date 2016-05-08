@@ -143,6 +143,11 @@ Syntax highlighting (with management through UI)
 
 - Disconnect all button on Dashboard page.
 - Safe deletes, i.e. only deletign log once listeners have disconnected
+- Auto-update with changes made to config file manually
+  - Make this an optional App Setting
+  - Either watch for changes or detect using polling
+
+
 
 
 
