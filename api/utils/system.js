@@ -222,18 +222,33 @@ class SystemHelper {
     });
   };
 
-  updateLog = (logId, oldGroupId, editedName) => {
+  updateLog = (logId, oldGroupId, editedName, editedGroupId, editedFile, editedPath) => {
     LoggingManager.debug('SystemHelper', 'updateLog', `Editing log using log ID: ${logId}`);
 
     const oldName = this.system.logs[logId].name;
+    const oldFile = this.system.logs[logId].fname;
+    const oldPath = this.system.logs[logId].fpath;
+
     if (oldName !== editedName) {
       this.system.logs[logId].name = editedName;
+    }
+    if (oldFile !== editedFile) {
+      this.system.logs[logId].fname = editedFile;
+    }
+    if (oldPath !== editedPath) {
+      this.system.logs[logId].fpath = editedPath;
     }
 
     return this.saveConfigToDisk().then(() => {
       // Emit log changes to all sessions including the guy that edited the log
       if (oldName !== editedName) {
         this.socketio.emit('log:nameChange', { logId, newName: editedName, oldName });
+      }
+      if (oldFile !== editedFile) {
+        this.socketio.emit('log:fileChange', { logId, logName: editedName, newFile: editedFile, oldFile });
+      }
+      if (oldPath !== editedPath) {
+        this.socketio.emit('log:pathChange', { logId, logName: editedName, newPath: editedPath, oldPath });
       }
     });
   };
