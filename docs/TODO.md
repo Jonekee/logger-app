@@ -109,7 +109,8 @@ Syntax highlighting (with management through UI)
 
 ### Medium
 
-- Get consistency across use of `.isRequired` on props.
+- Get consistency across use of `.isRequired` on props
+- Investigate max file and path lengths
 
 ### Large
 
