@@ -69,13 +69,15 @@ export function logNameChangeEmitted(logId, newName, oldName) {
   };
 }
 
-export function logGroupChangeEmitted(logId, logName, newGroupName, oldGroupName) {
+export function logGroupChangeEmitted(logId, logName, newGroupName, oldGroupName, newGroupId, oldGroupId) {
   return {
     type: LOG_GROUP_CHANGE_EMITTED,
     logId,
     logName,
     newGroupName,
-    oldGroupName
+    oldGroupName,
+    newGroupId,
+    oldGroupId
   };
 }
 

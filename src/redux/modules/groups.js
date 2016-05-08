@@ -22,6 +22,7 @@ import {
   GROUP_NAME_CHANGE_EMITTED,
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
+  LOG_GROUP_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
   SAVE_GROUP_NAME_FAIL,
   DELETE_GROUP_FAIL
@@ -162,6 +163,24 @@ export default function groups(state = initialState, action = {}) {
         data: {
           ...state.data,
           [action.newGroupId]: applyDefaultGroupValues({ name: action.newGroupName, logs: [] })
+        }
+      };
+    case LOG_GROUP_CHANGE_EMITTED:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.oldGroupId]: {
+            ...state.data[action.oldGroupId],
+            logs: state.data[action.oldGroupId].logs.filter(id => id !== action.logId)
+          },
+          [action.newGroupId]: {
+            ...state.data[action.newGroupId],
+            logs: [
+              ...state.data[action.newGroupId].logs,
+              action.logId
+            ]
+          }
         }
       };
     case TOGGLE_NAV_GROUP_OPEN:
