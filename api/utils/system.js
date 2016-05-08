@@ -255,7 +255,7 @@ class SystemHelper {
         this.socketio.emit('log:nameChange', { logId, newName: editedName, oldName });
       }
       if (oldGroupId !== editedGroupId) {
-        this.socketio.emit('log:groupChange', { logId, logName: editedName, newGroupName, oldGroupName });
+        this.socketio.emit('log:groupChange', { logId, logName: editedName, newGroupName, oldGroupName, newGroupId: editedGroupId, oldGroupId });
       }
       if (oldFile !== editedFile) {
         this.socketio.emit('log:fileChange', { logId, logName: editedName, newFile: editedFile, oldFile });
