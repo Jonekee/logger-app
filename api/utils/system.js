@@ -235,10 +235,11 @@ class SystemHelper {
     if (oldName !== editedName) {
       this.system.logs[logId].name = editedName;
     }
-    if (oldGroupId !== editedGroupId) {
+    if (editedGroupId && (oldGroupId !== editedGroupId)) {
+      // Save names for notification
       oldGroupName = this.system.groups[oldGroupId].name;
       newGroupName = this.system.groups[editedGroupId].name;
-
+      // Make config changes
       this.system.groups[oldGroupId].logs = this.system.groups[oldGroupId].logs.filter(id => id !== logId);
       this.system.groups[editedGroupId].logs.push(logId);
     }
@@ -254,7 +255,7 @@ class SystemHelper {
       if (oldName !== editedName) {
         this.socketio.emit('log:nameChange', { logId, newName: editedName, oldName });
       }
-      if (oldGroupId !== editedGroupId) {
+      if (editedGroupId && (oldGroupId !== editedGroupId)) {
         this.socketio.emit('log:groupChange', { logId, logName: editedName, newGroupName, oldGroupName, newGroupId: editedGroupId, oldGroupId });
       }
       if (oldFile !== editedFile) {
