@@ -229,8 +229,18 @@ class SystemHelper {
     const oldFile = this.system.logs[logId].fname;
     const oldPath = this.system.logs[logId].fpath;
 
+    let oldGroupName;
+    let newGroupName;
+
     if (oldName !== editedName) {
       this.system.logs[logId].name = editedName;
+    }
+    if (oldGroupId !== editedGroupId) {
+      oldGroupName = this.system.groups[oldGroupId].name;
+      newGroupName = this.system.groups[editedGroupId].name;
+
+      this.system.groups[oldGroupId].logs = this.system.groups[oldGroupId].logs.filter(id => id !== logId);
+      this.system.groups[editedGroupId].logs.push(logId);
     }
     if (oldFile !== editedFile) {
       this.system.logs[logId].fname = editedFile;
@@ -243,6 +253,9 @@ class SystemHelper {
       // Emit log changes to all sessions including the guy that edited the log
       if (oldName !== editedName) {
         this.socketio.emit('log:nameChange', { logId, newName: editedName, oldName });
+      }
+      if (oldGroupId !== editedGroupId) {
+        this.socketio.emit('log:groupChange', { logId, logName: editedName, newGroupName, oldGroupName });
       }
       if (oldFile !== editedFile) {
         this.socketio.emit('log:fileChange', { logId, logName: editedName, newFile: editedFile, oldFile });
