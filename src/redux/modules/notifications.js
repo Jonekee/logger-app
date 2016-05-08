@@ -5,6 +5,8 @@ import {
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
   LOG_NAME_CHANGE_EMITTED,
+  LOG_FILE_CHANGE_EMITTED,
+  LOG_PATH_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
   TAIL_ERROR_EMITTED,
   // API fails
@@ -164,6 +166,30 @@ export default function notifications(state = initialState, action = {}) {
             id: state.nextId,
             type: 'INFO',
             'message': `Log "${action.oldName}" has been renamed "${action.newName}"`
+          }
+        ]
+      };
+    case LOG_FILE_CHANGE_EMITTED:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'INFO',
+            'message': `Log file for "${action.logName}" has changed from "${action.oldFile}" to "${action.newFile}"`
+          }
+        ]
+      };
+    case LOG_PATH_CHANGE_EMITTED:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'INFO',
+            'message': `Log path for "${action.logName}" has changed from "${action.oldPath}" to "${action.newPath}"`
           }
         ]
       };
