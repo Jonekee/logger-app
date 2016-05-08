@@ -50,18 +50,21 @@ export default class Notification extends Component {
   };
 
   startProgress = () => {
-    const duration = 20000; // 10s
-    const steps = 1200; // 1200 = 60fps
-    const intervalId = setInterval(() => {
-      if (this.state.progress < 1) {
-        this.setState({ progress: this.state.progress + (1 / steps) });
-      } else {
-        // Clear panel
-        clearInterval(this.state.intervalId);
-        this.closeNotification();
-      }
-    }, duration / steps);
-    this.setState({ intervalId }); // eslint-disable-line
+    if (!this.state.intervalId) {
+      const duration = 20000; // 10s
+      const steps = 1200; // 1200 = 60fps
+      const intervalId = setInterval(() => {
+        if (this.state.progress < 1) {
+          this.setState({ progress: this.state.progress + (1 / steps) });
+        } else {
+          // Clear panel
+          clearInterval(this.state.intervalId);
+          this.setState({ intervalId: null });
+          this.closeNotification();
+        }
+      }, duration / steps);
+      this.setState({ intervalId });
+    }
   };
 
   closeNotification = () => {
