@@ -70,7 +70,7 @@ export default class Notification extends Component {
   closeNotification = () => {
     this.setState({ isClosing: true });
     setTimeout(() => this.props.clearNotification(this.props.position), 500);
-  }
+  };
 
   render() {
     const { notification } = this.props; // eslint-disable-line
