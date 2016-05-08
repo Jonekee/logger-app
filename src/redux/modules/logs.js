@@ -34,6 +34,8 @@ import {
   GROUP_DELETE_EMITTED,
   NEW_LOG_EMITTED,
   LOG_NAME_CHANGE_EMITTED,
+  LOG_FILE_CHANGE_EMITTED,
+  LOG_PATH_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
   TAIL_ERROR_EMITTED,
   DELETE_LOG_FAIL
@@ -169,6 +171,16 @@ const logReducer = (state, action) => {
         ...state,
         name: action.newName
       };
+    case LOG_FILE_CHANGE_EMITTED:
+      return {
+        ...state,
+        fname: action.newFile
+      };
+    case LOG_PATH_CHANGE_EMITTED:
+      return {
+        ...state,
+        fpath: action.newPath
+      };
     default:
       return state;
   }
@@ -247,6 +259,8 @@ export default function logs(state = initialState, action = {}) {
     case DELETE_LOG:
     case DELETE_LOG_FAIL:
     case LOG_NAME_CHANGE_EMITTED:
+    case LOG_FILE_CHANGE_EMITTED:
+    case LOG_PATH_CHANGE_EMITTED:
       return {
         ...state,
         data: {
