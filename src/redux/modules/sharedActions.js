@@ -5,6 +5,8 @@ export const GROUP_DELETE_EMITTED = 'logger-app/sharedActions/GROUP_DELETE_EMITT
 export const NEW_LOG_EMITTED = 'logger-app/sharedActions/NEW_LOG_EMITTED';
 export const LOG_DELETE_EMITTED = 'logger-app/sharedActions/LOG_DELETE_EMITTED';
 export const LOG_NAME_CHANGE_EMITTED = 'logger-app/sharedActions/LOG_NAME_CHANGE_EMITTED';
+export const LOG_FILE_CHANGE_EMITTED = 'logger-app/sharedActions/LOG_FILE_CHANGE_EMITTED';
+export const LOG_PATH_CHANGE_EMITTED = 'logger-app/sharedActions/LOG_PATH_CHANGE_EMITTED';
 export const TAIL_ERROR_EMITTED = 'logger-app/sharedActions/TAIL_ERROR_EMITTED';
 
 // API events
@@ -63,6 +65,26 @@ export function logNameChangeEmitted(logId, newName, oldName) {
     logId,
     newName,
     oldName
+  };
+}
+
+export function logFileChangeEmitted(logId, logName, newFile, oldFile) {
+  return {
+    type: LOG_FILE_CHANGE_EMITTED,
+    logId,
+    logName,
+    newFile,
+    oldFile
+  };
+}
+
+export function logPathChangeEmitted(logId, logName, newPath, oldPath) {
+  return {
+    type: LOG_PATH_CHANGE_EMITTED,
+    logId,
+    logName,
+    newPath,
+    oldPath
   };
 }
 

@@ -8,7 +8,9 @@ import {
   newLogEmitted,
   logDeleteEmitted,
   tailErrorEmitted,
-  logNameChangeEmitted
+  logNameChangeEmitted,
+  logFileChangeEmitted,
+  logPathChangeEmitted
 } from '../../redux/modules/sharedActions';
 
 @connect(null, {
@@ -19,7 +21,9 @@ import {
   newLogEmitted,
   logDeleteEmitted,
   tailErrorEmitted,
-  logNameChangeEmitted
+  logNameChangeEmitted,
+  logFileChangeEmitted,
+  logPathChangeEmitted
 })
 export default class SocketEventHandler extends Component {
   static propTypes = {
@@ -30,7 +34,9 @@ export default class SocketEventHandler extends Component {
     newLogEmitted: PropTypes.func.isRequired,
     logDeleteEmitted: PropTypes.func.isRequired,
     tailErrorEmitted: PropTypes.func.isRequired,
-    logNameChangeEmitted: PropTypes.func.isRequired
+    logNameChangeEmitted: PropTypes.func.isRequired,
+    logFileChangeEmitted: PropTypes.func.isRequired,
+    logPathChangeEmitted: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -43,6 +49,8 @@ export default class SocketEventHandler extends Component {
     socket.on('log:newLog', this.newLogEmitted);
     socket.on('log:logDelete', this.logDeleteEmitted);
     socket.on('log:nameChange', this.logNameChangeEmitted);
+    socket.on('log:fileChange', this.logFileChangeEmitted);
+    socket.on('log:pathChange', this.logPathChangeEmitted);
   }
 
   componentWillUnmount() {
@@ -55,6 +63,8 @@ export default class SocketEventHandler extends Component {
     socket.removeListener('log:newLog', this.newLogEmitted);
     socket.removeListener('log:logDelete', this.logDeleteEmitted);
     socket.removeListener('log:nameChange', this.logNameChangeEmitted);
+    socket.removeListener('log:fileChange', this.logFileChangeEmitted);
+    socket.removeListener('log:pathChange', this.logPathChangeEmitted);
   }
 
   setTailError = (data) => this.props.tailErrorEmitted(data.logId, data.errorReason, data.errorCode);
@@ -65,6 +75,8 @@ export default class SocketEventHandler extends Component {
   newLogEmitted = (data) => this.props.newLogEmitted(`${data.newLogId}`, data.logName, `${data.groupId}`, data.logFile, data.logPath, data.groupName);
   logDeleteEmitted = (data) => this.props.logDeleteEmitted(data.groupId, data.logId, data.logName, data.groupName);
   logNameChangeEmitted = (data) => this.props.logNameChangeEmitted(data.logId, data.newName, data.oldName);
+  logFileChangeEmitted = (data) => this.props.logFileChangeEmitted(data.logId, data.logName, data.newFile, data.oldFile);
+  logPathChangeEmitted = (data) => this.props.logPathChangeEmitted(data.logId, data.logName, data.newPath, data.oldPath);
 
   render() {
     return null;
