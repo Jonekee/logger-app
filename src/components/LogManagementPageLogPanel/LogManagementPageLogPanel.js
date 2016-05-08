@@ -32,6 +32,7 @@ export default class LogManagementPageLogPanel extends Component {
       || this.props.logId !== nextProps.logId
       || this.props.log.name !== nextProps.log.name
       || this.props.log.editPanelOpen !== nextProps.log.editPanelOpen
+      || this.props.log.editSaving !== nextProps.log.editSaving
       || this.props.log.editedName !== nextProps.log.editedName
       || this.props.log.editedGroup !== nextProps.log.editedGroup
       || this.props.log.editedFile !== nextProps.log.editedFile

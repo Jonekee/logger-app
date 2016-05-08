@@ -151,6 +151,22 @@ const logReducer = (state, action) => {
         ...state,
         editedPath: action.editedPath
       };
+    case SAVE_LOG_CHANGES:
+      return {
+        ...state,
+        editSaving: true
+      };
+    case SAVE_LOG_CHANGES_SUCCESS:
+      return {
+        ...state,
+        editPanelOpen: false,
+        editSaving: false
+      };
+    case SAVE_LOG_CHANGES_FAIL:
+      return {
+        ...state,
+        editSaving: false
+      };
     case TOGGLE_DELETE_LOG_OPEN:
       return {
         ...state,
@@ -255,6 +271,9 @@ export default function logs(state = initialState, action = {}) {
     case SET_EDITED_GROUP:
     case SET_EDITED_FILE:
     case SET_EDITED_PATH:
+    case SAVE_LOG_CHANGES:
+    case SAVE_LOG_CHANGES_SUCCESS:
+    case SAVE_LOG_CHANGES_FAIL:
     case TOGGLE_DELETE_LOG_OPEN:
     case DELETE_LOG:
     case DELETE_LOG_FAIL:
