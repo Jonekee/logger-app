@@ -15,6 +15,7 @@ import {
   SAVE_GROUP_NAME_FAIL,
   DELETE_GROUP_FAIL,
   CREATE_NEW_LOG_FAIL,
+  SAVE_LOG_CHANGES_FAIL,
   DELETE_LOG_FAIL,
   // App Management
   APP_MANAGMENT_SAVE_SUCCESS,
@@ -203,6 +204,18 @@ export default function notifications(state = initialState, action = {}) {
             id: state.nextId,
             type: 'INFO',
             'message': `Log path for "${action.logName}" has changed from "${action.oldPath}" to "${action.newPath}"`
+          }
+        ]
+      };
+    case SAVE_LOG_CHANGES_FAIL:
+      return {
+        nextId: state.nextId + 1,
+        list: [
+          ...state.list,
+          {
+            id: state.nextId,
+            type: 'ERROR',
+            'message': `Failed to edit log "${action.logName}". ${action.error.errorReason}`
           }
         ]
       };

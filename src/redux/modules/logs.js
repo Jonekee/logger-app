@@ -22,7 +22,6 @@ const SET_EDITED_FILE = 'logger-app/logs/SET_EDITED_FILE';
 const SET_EDITED_PATH = 'logger-app/logs/SET_EDITED_PATH';
 const SAVE_LOG_CHANGES = 'logger-app/logs/SAVE_LOG_CHANGES';
 const SAVE_LOG_CHANGES_SUCCESS = 'logger-app/logs/SAVE_LOG_CHANGES_SUCCESS';
-const SAVE_LOG_CHANGES_FAIL = 'logger-app/logs/SAVE_LOG_CHANGES_FAIL';
 
 // Delete Group
 const TOGGLE_DELETE_LOG_OPEN = 'logger-app/logs/TOGGLE_DELETE_LOG_OPEN';
@@ -38,6 +37,7 @@ import {
   LOG_PATH_CHANGE_EMITTED,
   LOG_DELETE_EMITTED,
   TAIL_ERROR_EMITTED,
+  SAVE_LOG_CHANGES_FAIL,
   DELETE_LOG_FAIL
 } from './sharedActions.js';
 
@@ -406,7 +406,7 @@ export function setEditedFile(logId, editedFile) {
   };
 }
 
-export function saveLogChanges(logId, oldGroupId, editedName, editedGroupId, editedFile, editedPath) {
+export function saveLogChanges(logId, logName, oldGroupId, editedName, editedGroupId, editedFile, editedPath) {
   return {
     types: [SAVE_LOG_CHANGES, SAVE_LOG_CHANGES_SUCCESS, SAVE_LOG_CHANGES_FAIL],
     promise: (client) => client.post('/system/saveLogChanges', {
@@ -419,7 +419,8 @@ export function saveLogChanges(logId, oldGroupId, editedName, editedGroupId, edi
         editedPath
       }
     }),
-    logId
+    logId,
+    logName
   };
 }
 
