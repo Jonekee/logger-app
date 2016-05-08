@@ -9,6 +9,7 @@ import {
   logDeleteEmitted,
   tailErrorEmitted,
   logNameChangeEmitted,
+  logGroupChangeEmitted,
   logFileChangeEmitted,
   logPathChangeEmitted
 } from '../../redux/modules/sharedActions';
@@ -22,6 +23,7 @@ import {
   logDeleteEmitted,
   tailErrorEmitted,
   logNameChangeEmitted,
+  logGroupChangeEmitted,
   logFileChangeEmitted,
   logPathChangeEmitted
 })
@@ -35,6 +37,7 @@ export default class SocketEventHandler extends Component {
     logDeleteEmitted: PropTypes.func.isRequired,
     tailErrorEmitted: PropTypes.func.isRequired,
     logNameChangeEmitted: PropTypes.func.isRequired,
+    logGroupChangeEmitted: PropTypes.func.isRequired,
     logFileChangeEmitted: PropTypes.func.isRequired,
     logPathChangeEmitted: PropTypes.func.isRequired
   };
@@ -49,6 +52,7 @@ export default class SocketEventHandler extends Component {
     socket.on('log:newLog', this.newLogEmitted);
     socket.on('log:logDelete', this.logDeleteEmitted);
     socket.on('log:nameChange', this.logNameChangeEmitted);
+    socket.on('log:groupChange', this.logGroupChangeEmitted);
     socket.on('log:fileChange', this.logFileChangeEmitted);
     socket.on('log:pathChange', this.logPathChangeEmitted);
   }
@@ -63,6 +67,7 @@ export default class SocketEventHandler extends Component {
     socket.removeListener('log:newLog', this.newLogEmitted);
     socket.removeListener('log:logDelete', this.logDeleteEmitted);
     socket.removeListener('log:nameChange', this.logNameChangeEmitted);
+    socket.removeListener('log:groupChange', this.logGroupChangeEmitted);
     socket.removeListener('log:fileChange', this.logFileChangeEmitted);
     socket.removeListener('log:pathChange', this.logPathChangeEmitted);
   }
@@ -75,6 +80,7 @@ export default class SocketEventHandler extends Component {
   newLogEmitted = (data) => this.props.newLogEmitted(`${data.newLogId}`, data.logName, `${data.groupId}`, data.logFile, data.logPath, data.groupName);
   logDeleteEmitted = (data) => this.props.logDeleteEmitted(data.groupId, data.logId, data.logName, data.groupName);
   logNameChangeEmitted = (data) => this.props.logNameChangeEmitted(data.logId, data.newName, data.oldName);
+  logGroupChangeEmitted = (data) => this.props.logGroupChangeEmitted(data.logId, data.logName, data.newGroupName, data.oldGroupName);
   logFileChangeEmitted = (data) => this.props.logFileChangeEmitted(data.logId, data.logName, data.newFile, data.oldFile);
   logPathChangeEmitted = (data) => this.props.logPathChangeEmitted(data.logId, data.logName, data.newPath, data.oldPath);
 
