@@ -7,3 +7,4 @@ node_modules/
 *.iml
 *.ai
 npm-debug.log
+system.json
