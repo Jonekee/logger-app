@@ -69,8 +69,9 @@ Syntax highlighting (with management through UI)
    4. ~~Log path: 1000~~
 10. ~~Test what happens when a log file's permissions are changed or it is moved while being watched~~
 11. Alphabetical ordering of groups not working on Safari in prod mode
-12. Add system.json to `.npmignore`
-13. Make Group Management page the IndexRedirect for settings
+12. ~~Add system.json to `.npmignore`~~
+13. ~~Make Group Management page the IndexRedirect for settings~~
+14. Protect against error with router params disappearing before page transitions
 
 
 ### Extras
