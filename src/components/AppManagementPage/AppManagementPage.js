@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { ControlButton, Icon, DropDown, LoadingSpinner } from '../../components';
 import { editWebPort, editApiPort, editLogLevel, resetChanges, saveChanges } from '../../redux/modules/appManagement';
+import { releaseStage } from '../../config';
 
 const logLevelOptions = [
   {
@@ -141,10 +142,15 @@ export default class AppManagementPage extends Component {
               <label>Version</label>
               <p>v1.0.1</p>
             </li>
-            <li>
-              <label>Users Enabled</label>
-              <p>No</p>
-            </li>
+            {releaseStage > 0
+              ? (
+                <li>
+                  <label>Users Enabled</label>
+                  <p>No</p>
+                </li>
+              )
+              : null
+            }
             <li>
               <label>Config File</label>
               <p>/some/place/or/whatever/config.json</p>
