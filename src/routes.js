@@ -78,7 +78,7 @@ export default (store) => {
 
         { /* Admin control pages */ }
         <Route path="settings" component={Admin}>
-          <IndexRedirect to="app"/>
+          <IndexRedirect to="groups"/>
           <Route path="app" component={AppManagement}/>
           <Route path="groups" component={GroupManagement}/>
           <Route path="logs" component={LogManagement}/>
