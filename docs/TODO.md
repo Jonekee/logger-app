@@ -46,8 +46,8 @@ Syntax highlighting (with management through UI)
    4. ~~Edit Path~~
 
 
-2. ~~Add saving panel to log management panel~~
-3. ~~Channel all async events through a new notifications redux state~~
+1. ~~Add saving panel to log management panel~~
+2. ~~Channel all async events through a new notifications redux state~~
    1. ~~Successes:~~
         1. ~~Edit log name~~
         2. ~~Edited log group~~
@@ -56,18 +56,21 @@ Syntax highlighting (with management through UI)
 
    2. ~~Fails:~~
       1. ~~Edit log error~~
-4. ~~Notifcations causing unmounted setState error~~
-5. ~~Kill listeners for a Log when it is deleted (test current behaviour)~~
-6. ~~Base active Tailer sessions on ID not file~~
-7. ~~Base socket rooms on log ID~~
-8. ~~Try moving or changing permissions on the config file while server is running, may need to protect against this~~
-9. ~~Make file name and path a reasonable length and protect against overflow~~
-10. ~~Correct user input max lengths~~
-    1. ~~Group name: 15~~
-    2. ~~Log name: 15~~
-    3. ~~Log file: 1000~~
-    4. ~~Log path: 1000~~
-11. ~~Test what happens when a log file's permissions are changed or it is moved while being watched~~
+3. ~~Notifcations causing unmounted setState error~~
+4. ~~Kill listeners for a Log when it is deleted (test current behaviour)~~
+5. ~~Base active Tailer sessions on ID not file~~
+6. ~~Base socket rooms on log ID~~
+7. ~~Try moving or changing permissions on the config file while server is running, may need to protect against this~~
+8. ~~Make file name and path a reasonable length and protect against overflow~~
+9. ~~Correct user input max lengths~~
+   1. ~~Group name: 15~~
+   2. ~~Log name: 15~~
+   3. ~~Log file: 1000~~
+   4. ~~Log path: 1000~~
+10. ~~Test what happens when a log file's permissions are changed or it is moved while being watched~~
+11. Alphabetical ordering of groups not working on Safari in prod mode
+12. Add system.json to `.npmignore`
+13. Make Group Management page the IndexRedirect for settings
 
 
 ### Extras
@@ -106,11 +109,16 @@ Syntax highlighting (with management through UI)
 - Make Dashboard group headers links
 - Highlight current page in NavPanel
 - Make notification count down reverese when hovering
+- Large search strings in dashboard/group pages causes text overflow
 
 ### Medium
 
+- Make "Logger" in the nav bar match the new website
 - Get consistency across use of `.isRequired` on props
 - Investigate max file and path lengths
+- Investigate how often the Tailer receives multilpe lines at once in a high throughput log
+  - If this is quite often it may be worth sending these lines in batches to reduce socket events
+
 
 ### Large
 
