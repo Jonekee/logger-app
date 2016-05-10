@@ -84,7 +84,7 @@ export default class NavPanel extends Component {
         }
       });
 
-      groupLogs.sort((first, second) => (first.logName > second.logName));
+      groupLogs.sort((first, second) => first.logName.localeCompare(second.logName));
 
       navGroups.push({
         groupId,
@@ -95,10 +95,10 @@ export default class NavPanel extends Component {
     });
 
     // Sort groups based on name
-    navGroups.sort((first, second) => (first.groupName > second.groupName));
+    navGroups.sort((first, second) => first.groupName.localeCompare(second.groupName));
 
     // Sort active logs and push to start of list
-    activeLogs.sort((first, second) => (first.logName > second.logName));
+    activeLogs.sort((first, second) => first.logName.localeCompare(second.logName));
     navGroups.unshift({
       groupName: 'Active Group',
       groupNavOpen: activeGroupOpen,

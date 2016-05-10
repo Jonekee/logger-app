@@ -50,14 +50,14 @@ export default class LogManagementPage extends Component {
         });
       } else {
         // Sort log IDs alphabetically by log name
-        groups[groupId].logs = groups[groupId].logs.sort((first, second) => (logs[first].name > logs[second].name));
+        groups[groupId].logs = groups[groupId].logs.sort((first, second) => logs[first].name.localeCompare(logs[second].name));
       }
     });
 
     if (!logManagementState.sortByGroup) {
-      fullLogList.sort((first, second) => (first.name > second.name));
+      fullLogList.sort((first, second) => first.name.localeCompare(second.name));
     } else {
-      groupIdsAlphabetically = Object.keys(groups).sort((first, second) => (groups[first].name > groups[second].name));
+      groupIdsAlphabetically = Object.keys(groups).sort((first, second) => groups[first].name.localeCompare(groups[second].name));
     }
 
     return (

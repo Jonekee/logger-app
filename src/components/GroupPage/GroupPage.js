@@ -47,7 +47,7 @@ export default class GroupPage extends Component {
       logHasNew: logs[logId].hasNew
     }));
 
-    listLogs.sort((first, second) => (first.logName > second.logName));
+    listLogs.sort((first, second) => first.logName.localeCompare(second.logName));
 
     const groupList = {
       listFilter: group.listFilter,

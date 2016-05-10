@@ -68,7 +68,7 @@ export default class GroupManagementPage extends Component {
 
     const groupIdsAlphabetically = Object.keys(groups)
       .map(groupId => ({ groupId, name: groups[groupId].name }))
-      .sort((first, second) => (first.name > second.name))
+      .sort((first, second) => first.name.localeCompare(second.name))
       .map(obj => obj.groupId);
 
     return (

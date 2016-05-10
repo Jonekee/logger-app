@@ -44,7 +44,7 @@ export default class ActiveGroupPage extends Component {
       });
     }
 
-    activeLogs.sort((first, second) => (first.logName > second.logName));
+    activeLogs.sort((first, second) => first.logName.localeCompare(second.logName));
 
     const groupList = {
       listFilter: activeGroupListFilter,
