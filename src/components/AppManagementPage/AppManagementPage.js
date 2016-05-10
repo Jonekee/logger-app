@@ -140,7 +140,7 @@ export default class AppManagementPage extends Component {
           <ul className={styles.infoList}>
             <li>
               <label>Version</label>
-              <p>v1.0.2</p>
+              <p>v1.0.3</p>
             </li>
             {releaseStage > 0
               ? (
