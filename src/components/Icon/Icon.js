@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react';
 
 export default class Icon extends Component {
   static propTypes = {
-    iconName: PropTypes.string.isRequired
+    iconName: PropTypes.string.isRequired,
+    viewBox: PropTypes.string
   };
 
   shouldComponentUpdate(nextProps) {
@@ -15,9 +16,11 @@ export default class Icon extends Component {
   }
 
   render() {
-    const iconId = '#icon-' + this.props.iconName;
+    const { iconName, viewBox } = this.props;
+
+    const iconId = '#icon-' + iconName;
     return (
-      <svg viewBox="0 0 1024 1024">
+      <svg viewBox={viewBox || '0 0 1024 1024'}>
         <use xlinkHref={iconId}></use>
       </svg>
     );
