@@ -9,6 +9,17 @@ aside {
   flex-direction: column;
   align-items: stretch;
 
+  .logo {
+    a {
+      padding: 8px 5px 2px;
+    }
+
+    svg {
+      height: 22px;
+      width: auto;
+    }
+  }
+
   nav {
     flex: 1;
     margin-top: 35px;

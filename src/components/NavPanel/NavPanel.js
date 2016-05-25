@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 import { Icon, NavPanelGroup } from '../../components';
-import './NavPanel.scss';
+import styles from './NavPanel.scss';
 import {connect} from 'react-redux';
 import { toggleActiveNavGroupOpen } from '../../redux/modules/appInterface';
 import { toggleNavGroupOpen } from '../../redux/modules/groups';
@@ -107,9 +107,9 @@ export default class NavPanel extends Component {
 
     return (
       <aside>
-        <div>
+        <div className={styles.logo}>
           <Link to="/dashboard">
-            <h1>Logger</h1>
+            <Icon iconName="logger-logo" viewBox="0 0 123.1 34"/>
           </Link>
         </div>
         <nav>
